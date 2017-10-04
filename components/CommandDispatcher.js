@@ -77,10 +77,10 @@ export class CommandDispatcher {
       UIManager.BarcodePicker.Commands.setViewfinderDimension, [x, y, width, height]);
   }
 
-  setTorchMarginsAndSize(leftMargin, topMargin, width, height) {
+  setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height) {
     UIManager.dispatchViewManagerCommand(
       this.pickerViewHandle,
-      UIManager.BarcodePicker.Commands.setTorchMarginsAndSize, [leftMargin, topMargin, width, height]);
+      UIManager.BarcodePicker.Commands.setTorchButtonMarginsAndSize, [leftMargin, topMargin, width, height]);
   }
 
   setCameraSwitchMarginsAndSize(leftMargin, topMargin, width, height) {

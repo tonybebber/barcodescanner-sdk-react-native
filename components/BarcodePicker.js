@@ -114,8 +114,8 @@ export class BarcodePicker extends React.Component {
 		this.dispatcher.setViewfinderDimension(x, y, width, height);
 	}
 
-	setTorchMarginsAndSize(leftMargin, topMargin, width, height) {
-		this.dispatcher.setTorchMarginsAndSize(leftMargin, topMargin, width, height);
+	setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height) {
+		this.dispatcher.setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height);
 	}
 
 	setCameraSwitchMarginsAndSize(leftMargin, topMargin, width, height) {
