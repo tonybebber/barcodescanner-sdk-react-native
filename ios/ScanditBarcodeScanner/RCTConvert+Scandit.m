@@ -14,29 +14,29 @@
 
 RCT_ENUM_CONVERTER(SBSCameraSwitchVisibility,
                    (@{
-                      @"CAMERA_SWITCH_NEVER": @(SBSCameraSwitchVisibilityNever),
-                      @"CAMERA_SWITCH_ALWAYS": @(SBSCameraSwitchVisibilityAlways),
-                      @"CAMERA_SWITCH_ON_TABLET": @(SBSCameraSwitchVisibilityOnTablet),
+                      @"never": @(SBSCameraSwitchVisibilityNever),
+                      @"always": @(SBSCameraSwitchVisibilityAlways),
+                      @"onTablet": @(SBSCameraSwitchVisibilityOnTablet),
                       }),
                    SBSCameraSwitchVisibilityNever,
                    integerValue)
 
 RCT_ENUM_CONVERTER(SBSMatrixScanHighlightingState,
                    (@{
-                      @"MATRIX_SCAN_STATE_LOCALIZED": @(SBSMatrixScanHighlightingStateLocalized),
-                      @"MATRIX_SCAN_STATE_RECOGNIZED": @(SBSMatrixScanHighlightingStateRecognized),
-                      @"MATRIX_SCAN_STATE_REJECTED": @(SBSMatrixScanHighlightingStateRejected),
+                      @"localized": @(SBSMatrixScanHighlightingStateLocalized),
+                      @"recognized": @(SBSMatrixScanHighlightingStateRecognized),
+                      @"rejected": @(SBSMatrixScanHighlightingStateRejected),
                       }),
                    SBSMatrixScanHighlightingStateLocalized,
                    integerValue)
 
 RCT_ENUM_CONVERTER(SBSGuiStyle,
                    (@{
-                      @"GUI_STYLE_DEFAULT": @(SBSGuiStyleDefault),
-                      @"GUI_STYLE_LASER": @(SBSGuiStyleLaser),
-                      @"GUI_STYLE_NONE": @(SBSGuiStyleNone),
-                      @"GUI_STYLE_MATRIX_SCAN": @(SBSGuiStyleMatrixScan),
-                      @"GUI_STYLE_LOCATIONS_ONLY": @(SBSGuiStyleLocationsOnly),
+                      @"default": @(SBSGuiStyleDefault),
+                      @"laser": @(SBSGuiStyleLaser),
+                      @"none": @(SBSGuiStyleNone),
+                      @"matrixScan": @(SBSGuiStyleMatrixScan),
+                      @"locationsOnly": @(SBSGuiStyleLocationsOnly),
                       }),
                    SBSMatrixScanHighlightingStateLocalized,
                    integerValue)
