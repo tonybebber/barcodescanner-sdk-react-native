@@ -167,7 +167,7 @@ RCT_EXPORT_METHOD(setBeepEnabled:(nonnull NSNumber *)reactTag
      }];
 }
 
-RCT_EXPORT_METHOD(setTorchMarginsAndSize:(nonnull NSNumber *)reactTag
+RCT_EXPORT_METHOD(setTorchButtonMarginsAndSize:(nonnull NSNumber *)reactTag
                   leftMargin:(float)leftMargin
                   topMargin:(float)topMargin
                   width:(float)width
