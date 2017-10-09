@@ -178,17 +178,17 @@ public class Scandit {
             */
             GS1_TYPE_A,
             /**
-             * @brief Code is a GS1 Composite Code Type B (CC-B).
-             *
-             * This flag can be set by MicroPDF417 codes.
-             */
-             GS1_TYPE_B,
-             /**
-             * @brief Code is a GS1 Composite Code Type C (CC-C).
-             *
-             * This flag can be set by PDF417 codes.
-             */
-             GS1_TYPE_C,
+            * @brief Code is a GS1 Composite Code Type B (CC-B).
+            *
+            * This flag can be set by MicroPDF417 codes.
+            */
+            GS1_TYPE_B,
+            /**
+            * @brief Code is a GS1 Composite Code Type C (CC-C).
+            *
+            * This flag can be set by PDF417 codes.
+            */
+            GS1_TYPE_C,
         }
 	}
 
@@ -270,13 +270,6 @@ public class Scandit {
 	    public void startScanning();
 
 			/**
-			* Set the camera switch visibility
-			*
-			* @param visibility the camera switch visibility, see {@link Scandit.BarcodePicker.Constants BarcodePicker.Constants}
-			*/
-			public void setCameraSwitchVisibility(int visibility);
-
-			/**
 			* Set the barcode picker GUI style
 			*
 			* @param guiStyle the gui style to set, see {@link Scandit.BarcodePicker.Constants BarcodePicker.Constants}
@@ -322,37 +315,6 @@ public class Scandit {
 			 */
 			public void setVibrateEnabled(boolean enabled);
 			///@}
-
-			/** @name Torch Configuration
-			 *  Enable and customize appearance of the torch icon.
-			 */
-			///@{
-
-			/**
-			 * Enables or disables the torch toggle button for all devices/cameras that support a torch.
-			 *
-			 * By default it is enabled. The torch icon is never shown when the camera does not have a
-			 * torch (most tablets, front cameras, etc).
-			 *
-			 *
-			 *
-			 * @param enabled whether the torch button should be shown.
-			 */
-			public void setTorchEnabled(boolean enabled);
-
-			/**
-			 * @brief Sets the position at which the button to enable the torch is drawn.
-			 *
-			 * By default the margins are 15 and width and height are 40.
-			 *
-			 *
-			 *
-			 * @param leftMargin Left margin in points.
-			 * @param topMargin Top margin in points.
-			 * @param width Width in points.
-			 * @param height Height in points.
-			 */
-			public void setTorchButtonMarginsAndSize(int leftMargin, int topMargin, int width, int height);
 
 			/** @name Viewfinder Configuration
 			 *  Customize the viewfinder where the barcode location is highlighted.
@@ -414,39 +376,12 @@ public class Scandit {
 			 * @param value the value for the property.
 			 */
 			public void setOverlayProperty(String key, Object value);
-
-	        /**
-	         * Sets whether the button to switch between different recognition modes should be visible.
-	         * If The scanner only supports one recognition mode the button is never shown.
-	         *
-	         *
-	         *
-	         * @param visible whether the switch should be visible.
-	         */
-	        public void setTextRecognitionSwitchVisible(boolean visible);
 			///@}
 
 			/**
 			* @brief Object containing all constants necessary for setting up the picker.
 			*/
 			public class Constants {
-
-				/**
-				 * Used with {@link BarcodePicker.setCameraSwitchVisibility() Scandit.BarcodePicker.setCameraSwitchVisibility()} method.
-				 * The camera switch button is always hidden.
-				 */
-				public int CAMERA_SWITCH_NEVER;
-				/**
-				 * Used with {@link BarcodePicker.setCameraSwitchVisibility() Scandit.BarcodePicker.setCameraSwitchVisibility()} method.
-				 * The camera switch button is shown on tablet devices with front and back cameras.
-				 */
-				public int CAMERA_SWITCH_ON_TABLET;
-
-				/**
-				 * Used with {@link BarcodePicker.setCameraSwitchVisibility() Scandit.BarcodePicker.setCameraSwitchVisibility()} method.
-				 * The camera switch button is shown on all devices that have front and back cameras.
-				 */
-				public int CAMERA_SWITCH_ALWAYS;
 
 				/**
 				 * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
