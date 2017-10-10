@@ -9,6 +9,9 @@ Overview         			{#react-native-guides}
 |---------------------------------------------|-----------------------------------------------------|-------------------------------------------------|
 | {@link Scandit.ScanSettings ScanSettings}   |     {@link Scandit.ScanSession ScanSession}         |                                                 |
 
+## Known issues
+
+Currently orientation change is not supported on Android. This will be fixed in version 5.6
 
 ## Getting Started
 
