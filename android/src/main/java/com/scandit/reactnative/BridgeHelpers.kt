@@ -46,7 +46,9 @@ fun barcodeToMap(barcode: Barcode?, index: Int = -1): WritableMap {
         rawData.pushInt(byte.toInt())
     }
     map.putArray("rawData", rawData)
-    map.putString("data", barcode?.data)
+    var data = barcode?.data ?: ""
+    data = data.replace(0.toChar().toString(), "")
+    map.putString("data", data)
     map.putString("symbology", Barcode.symbologyToString(barcode?.symbology ?: Barcode.SYMBOLOGY_UNKNOWN))
     map.putInt("compositeFlag", barcode?.compositeFlag ?: Barcode.SC_COMPOSITE_FLAG_UNKNOWN)
     map.putBoolean("isGs1DataCarrier", barcode?.isGs1DataCarrier ?: false)
