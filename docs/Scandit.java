@@ -55,10 +55,9 @@ public class Scandit {
     		 */
 			CODE11,
     		/**
-    		 * @brief Code 128 1D barcode symbology, including GS1-Code128. Only available in the
-    		 *    Professional and Enterprise Packages.
+    		 * @brief Code 25 barcode symbology. Only available in the Professional and Enterprise Packages.
     		 */
-			CODE128,
+			CODE25,
     		/**
     		 * @brief Code39 barcode symbology. Only available in the Professional and Enterprise Packages.
     		 */
@@ -67,6 +66,11 @@ public class Scandit {
     		 * @brief Code 93 barcode symbology. Only available in the Professional and Enterprise Packages.
     		 */
 			CODE93,
+    		/**
+    		 * @brief Code 128 1D barcode symbology, including GS1-Code128. Only available in the
+    		 *    Professional and Enterprise Packages.
+    		 */
+			CODE128,
     		/**
     		 * @brief Interleaved-Two-of-Five (ITF) 1D barcode symbology. Only available in the Professional and
     		 * Enterprise Packages.
