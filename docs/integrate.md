@@ -5,12 +5,17 @@ To integrate the Scandit Barcode Scanner into your React Native app, follow the 
 
 ## Create a new project
 
+Make sure `react-native-cli` is installed
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
+    npm install -g react-native-cli
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 If you do not have a React Native project yet, you should create a new one.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
     react-native init helloworld
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 
 ## Add the plugin to your project
 
@@ -22,8 +27,7 @@ Use the React Native CLI to add the plugin to your already existing project.
     react-native link react-native-scandit
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-## Add Android dependencies
+### Add Android dependencies
 
 - Download the Barcode Scanner SDK for Android. It's available from your Scandit Barcode Scanner SDK account at http://account.scandit.com in the Downloads section.
 - Inside the archive you will find a file named ScanditBarcodeScanner.aar .
@@ -40,20 +44,15 @@ Copy it to <directory_of_your_project>/android/libs, then in your main build.gra
   }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-## Add iOS dependencies
+### Add iOS dependencies
 
 - Download the Barcode Scanner SDK for iOS from your Scandit Barcode Scanner SDK account at http://account.scandit.com, Downloads section.
 - In your existing ReactNative project, create a ScanditSDK folder inside the iOS folder and move ScanditBarcodeScanner.framework from Barcode Scanner for iOS package into new ScanditSDK folder.
-- Open project in Xcode and add the required frameworks, see list in http://docs.scandit.com/stable/ios/ios-integrate.html.
+- Open the Xcode project and add the required frameworks, see list in http://docs.scandit.com/stable/ios/ios-integrate.html.
 - In Xcode, drag and drop ScanditBarcodeScanner.framework inside the Framework folder (in the dialog, choose **not** to copy items).
-- Then add the ScanditBarcodeScanner.framework into the "Linked Frameworks and Libraries" section.
 - From the Finder, go to ScanditBarcodeScanner.framework/Resources and drag and drop ScanditBarcodeScanner.bundle inside the Framework folder in Xcode (again choose **not** to copy items).
 - In Xcode, "Linked Frameworks and Libraries" section, delete the greyed out libRCTScanditBarcodeScanner.a and link it again via the plus button. The icon should be displayed as below:
 ![framework](img/ios/libs.png)
-- Go to "Build Phases", then to "Copy Bundle Resources", and add ScanditBarcodeScanner.bundle.
-![buildphases](img/ios/buildphases.png)
-- Go to "Build Settings", search "Framework Search Path" and add the following search path "$(PROJECT_DIR)/ScanditSDK".
-![buildsettings](img/ios/buildsettings.png)
 
 ## Instantiate and configure the barcode picker
 
@@ -91,7 +90,6 @@ render() {
 
 ~~~~~~~~~~~~~~~~
 
-
 ## Add callback to handle the scanning event
 
 You now need to define the function that is referenced in the BarcodePicker props.
@@ -103,7 +101,6 @@ onScan(session) {
 }
 
 ~~~~~~~~~~~~~~~~
-
 
 ## Start the scanner
 
