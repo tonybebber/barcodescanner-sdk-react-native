@@ -55,7 +55,7 @@ Copy it to <directory_of_your_project>/android/libs, then in your main build.gra
 
 ![framework](img/ios/libs.png)
 
-- In the Info.plist file add a new row where the key is "NSCameraUsageDescription" and the value is the message that will be shown to the user when camera acces is requested.
+- In the Info.plist file add a new row where the key is "NSCameraUsageDescription" and the value is the message that will be shown to the user when camera access is requested.
 
 ## Instantiate and configure the barcode picker
 
