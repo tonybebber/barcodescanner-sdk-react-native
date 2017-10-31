@@ -86,22 +86,6 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         )
     }
 
-    override fun getExportedViewConstants(): MutableMap<String, Int> {
-        val map = MapBuilder.newHashMap<String, Int>()
-        map.put(KEY_CAMERA_SWITCH_ALWAYS, ScanOverlay.CAMERA_SWITCH_ALWAYS)
-        map.put(KEY_CAMERA_SWITCH_NEVER, ScanOverlay.CAMERA_SWITCH_NEVER)
-        map.put(KEY_CAMERA_SWITCH_ON_TABLET, ScanOverlay.CAMERA_SWITCH_ON_TABLET)
-        map.put(KEY_MATRIX_SCAN_STATE_LOCALIZED, ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_LOCALIZED)
-        map.put(KEY_MATRIX_SCAN_STATE_RECOGNIZED, ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_RECOGNIZED)
-        map.put(KEY_MATRIX_SCAN_STATE_REJECTED, ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_REJECTED)
-        map.put(KEY_GUI_STYLE_DEFAULT, ScanOverlay.GUI_STYLE_DEFAULT)
-        map.put(KEY_GUI_STYLE_LASER, ScanOverlay.GUI_STYLE_LASER)
-        map.put(KEY_GUI_STYLE_NONE, ScanOverlay.GUI_STYLE_NONE)
-        map.put(KEY_GUI_STYLE_MATRIX_SCAN, ScanOverlay.GUI_STYLE_MATRIX_SCAN)
-        map.put(KEY_GUI_STYLE_LOCATIONS_ONLY, ScanOverlay.GUI_STYLE_LOCATIONS_ONLY)
-        return map
-    }
-
     override fun didScan(scanSession: ScanSession?) {
         val context = picker?.context as ReactContext?
         context?.getJSModule(RCTEventEmitter::class.java)?.receiveEvent(picker?.id ?: 0,
@@ -148,7 +132,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
     }
 
     private fun setGuiStyle(args: ReadableArray?) {
-        picker?.overlayView?.setGuiStyle(args?.getInt(0) ?: ScanOverlay.GUI_STYLE_DEFAULT)
+        picker?.overlayView?.setGuiStyle(convertGuiStyle(args?.getString(0)))
     }
 
     private fun setViewfinderDimension(args: ReadableArray?) {
@@ -177,7 +161,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
     }
 
     private fun setCameraSwitchVisibility(args: ReadableArray?) {
-        picker?.overlayView?.setCameraSwitchVisibility(args?.getInt(0) ?: ScanOverlay.CAMERA_SWITCH_NEVER)
+        picker?.overlayView?.setCameraSwitchVisibility(convertCameraSwitchVisibility(args?.getString(0)))
     }
 
     private fun setCameraSwitchMarginsSize(args: ReadableArray?) {
@@ -198,7 +182,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
 
     private fun setMatrixScanHighlightingColor(args: ReadableArray?) {
         picker?.overlayView?.setMatrixScanHighlightingColor(
-                args?.getInt(0) ?: 0, args?.getInt(1) ?: 0
+                convertMatrixScanState(args?.getString(0)), args?.getInt(1) ?: 0
         )
     }
 
