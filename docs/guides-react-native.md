@@ -7,7 +7,7 @@ Overview         			{#react-native-guides}
 
 | {@link Scandit.BarcodePicker BarcodePicker} | {@link Scandit.SymbologySettings SymbologySettings} | {@link Scandit.Barcode Barcode}                 |
 |---------------------------------------------|-----------------------------------------------------|-------------------------------------------------|
-| {@link Scandit.ScanSettings ScanSettings}   |     {@link Scandit.ScanSession ScanSession}         |                                                 |
+| {@link Scandit.ScanSettings ScanSettings}   |     {@link Scandit.ScanSession ScanSession}         | {@link Scandit.ScanOverlay ScanOverlay}         |
 
 ## Known issues
 
