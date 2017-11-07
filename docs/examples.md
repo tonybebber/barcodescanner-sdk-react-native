@@ -5,11 +5,29 @@ For barcode scanner usage examples, you can either use the sample app included i
 
 ## Build the sample apps
 
-You will need to add the dependencies as described in {@link react-native-integrate here}. You will also need to replace the license key in the samples with your license key.
+Make sure `react-native-cli` is installed
 
-### Simple sample
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
+> npm install -g react-native-cli
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+## Install the plugin
+
+Use the React Native CLI to download the plugin module for the sample.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
+> cd <directory of the sample>
+> npm install
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Add Android dependencies
+
+- Download the Barcode Scanner SDK for Android. It's available from your Scandit Barcode Scanner SDK account at http://account.scandit.com in the Downloads section.
+- Inside the archive you will find a file named ScanditBarcodeScanner.aar . Copy it to <"directory of the sample">/android/libs
+
+### Run simple sample on android
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
 > cd <path-to-repository>/samples/SimpleSample
-> npm install
+> react-native run-android
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
