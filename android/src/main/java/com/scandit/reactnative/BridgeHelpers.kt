@@ -61,7 +61,7 @@ fun convertGuiStyle(jsValue: String?): Int = when (jsValue) {
     "laser" -> ScanOverlay.GUI_STYLE_LASER
     "none" -> ScanOverlay.GUI_STYLE_NONE
     "matrix" -> ScanOverlay.GUI_STYLE_MATRIX_SCAN
-    "locations_only" -> ScanOverlay.GUI_STYLE_LOCATIONS_ONLY
+    "locationsOnly" -> ScanOverlay.GUI_STYLE_LOCATIONS_ONLY
     else -> throw IllegalArgumentException("GUI style has to be one of: default, laser, none, matrix, " +
             "locations_only")
 }
@@ -74,9 +74,9 @@ fun convertCameraSwitchVisibility(jsValue: String?): Int = when (jsValue) {
 }
 
 fun convertMatrixScanState(jsValue: String?): Int = when (jsValue) {
-    "state_localized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_LOCALIZED
-    "state_recognized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_RECOGNIZED
-    "state_rejected" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_REJECTED
+    "stateLocalized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_LOCALIZED
+    "stateRecognized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_RECOGNIZED
+    "stateRejected" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_REJECTED
     else -> throw IllegalArgumentException("Matrix scan state has to be one of: state_localized, state_recognized, " +
             "state_rejected")
 }
