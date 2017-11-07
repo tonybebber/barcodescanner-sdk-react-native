@@ -11,6 +11,7 @@ import { CommandDispatcher } from './CommandDispatcher';
 import { ScanSession } from './ScanSession';
 import { SerializationHelper } from './SerializationHelper';
 import { Barcode } from './Barcode';
+import { ScanOverlay } from './ScanOverlay';
 
 var iface = {
   name: 'BarcodePicker',

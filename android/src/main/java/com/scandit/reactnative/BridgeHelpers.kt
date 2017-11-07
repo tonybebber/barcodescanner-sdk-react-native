@@ -1,6 +1,7 @@
 package com.scandit.reactnative
 
 import com.facebook.react.bridge.*
+import com.scandit.barcodepicker.ScanOverlay
 import com.scandit.barcodepicker.ScanSession
 import com.scandit.barcodepicker.ScanSettings
 import com.scandit.recognition.Barcode
@@ -53,6 +54,31 @@ fun barcodeToMap(barcode: Barcode?, index: Int = -1): WritableMap {
     map.putMap("location", quadrilateralToMap(barcode?.location))
 
     return map
+}
+
+fun convertGuiStyle(jsValue: String?): Int = when (jsValue) {
+    "default" -> ScanOverlay.GUI_STYLE_DEFAULT
+    "laser" -> ScanOverlay.GUI_STYLE_LASER
+    "none" -> ScanOverlay.GUI_STYLE_NONE
+    "matrix" -> ScanOverlay.GUI_STYLE_MATRIX_SCAN
+    "locationsOnly" -> ScanOverlay.GUI_STYLE_LOCATIONS_ONLY
+    else -> throw IllegalArgumentException("GUI style has to be one of: default, laser, none, matrix, " +
+            "locations_only")
+}
+
+fun convertCameraSwitchVisibility(jsValue: String?): Int = when (jsValue) {
+    "always" -> ScanOverlay.CAMERA_SWITCH_ALWAYS
+    "tablet" -> ScanOverlay.CAMERA_SWITCH_ON_TABLET
+    "never" -> ScanOverlay.CAMERA_SWITCH_NEVER
+    else -> throw IllegalArgumentException("Camera switch visibility has to be one of: always, tablet, never")
+}
+
+fun convertMatrixScanState(jsValue: String?): Int = when (jsValue) {
+    "stateLocalized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_LOCALIZED
+    "stateRecognized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_RECOGNIZED
+    "stateRejected" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_REJECTED
+    else -> throw IllegalArgumentException("Matrix scan state has to be one of: state_localized, state_recognized, " +
+            "state_rejected")
 }
 
 fun quadrilateralToMap(quadrilateral: Quadrilateral?): WritableMap {
