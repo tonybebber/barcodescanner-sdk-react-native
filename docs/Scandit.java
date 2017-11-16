@@ -288,6 +288,11 @@ public class Scandit {
     public function onScan;
     
     /**
+    * @brief Prop used to set the matrix scan callback.
+    */
+    public function onRecognizeNewCodes;
+    
+    /**
     *  @brief Prop used to set a callback called after new settings have been applied.
     */
     public function onSettingsApplied;
@@ -493,7 +498,7 @@ public class Scandit {
       /**
       * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
       * The MatrixScan UI is shown.
-      * In order to use this UI, it is required to set ScanSettings.matrixScanEnabled to true.
+      * In order to use this UI, it is required to set {@link ScanSettings.matrixScanEnabled} to true.
       * Only available on Android version 11 and up.
       */
       GUI_STYLE_MATRIX_SCAN
@@ -788,6 +793,18 @@ public class Scandit {
     * When setting the hot spot to values outside the allowed range, the hot spot value is ignored.
     */
     public Point scanningHotSpot;
+    
+    /**
+    * @brief Whether MatrixScan should be enabled.
+    *
+    * MatrixScan allows you to show the locations of all localized codes. 
+    * In order to get MatrixScan, it is recommended to implement the didRecognizeNewCodes 
+    * callback and to use newlyTrackedCodes. To use the default MatrixScan UI, 
+    * it is necessary to set {@link BarcodePicker.setGuiStyle() setGuiStyle()} to 
+    * {@link ScanOverlay.GuiStyle.GUI_STYLE_MATRIX_SCAN}.
+    * Implementing a custom MatrixScan UI is not possible.
+    */
+    public boolean matrixScanEnabled;
   }
   
   /**

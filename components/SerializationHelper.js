@@ -1,4 +1,5 @@
 import { ScanSession } from './ScanSession';
+import { MatrixScanSession } from './MatrixScanSession';
 
 export class SerializationHelper {
 
@@ -10,6 +11,10 @@ export class SerializationHelper {
   static deserializeScanSession(map) {
     return new ScanSession(map.allRecognizedCodes, map.newlyRecognizedCodes,
       map.newlyLocalizedCodes);
+  }
+  
+  static deserializeMatrixScanSession(map) {
+    return new MatrixScanSession(map.newlyTrackedCodes);
   }
 
 }

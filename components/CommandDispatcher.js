@@ -40,6 +40,13 @@ export class CommandDispatcher {
       UIManager.BarcodePicker.Commands.finishOnScanCallback,
       session);
   }
+  
+  finishOnRecognizeNewCodes(session) {
+    UIManager.dispatchViewManagerCommand(
+      this.pickerViewHandle,
+      UIManager.BarcodePicker.Commands.finishOnRecognizeNewCodes,
+      session);
+  }
 
   setBeepEnabled(isEnabled) {
     UIManager.dispatchViewManagerCommand(

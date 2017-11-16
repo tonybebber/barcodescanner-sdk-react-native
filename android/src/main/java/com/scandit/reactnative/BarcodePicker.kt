@@ -12,12 +12,21 @@ import com.scandit.barcodepicker.BarcodePicker
 import com.scandit.barcodepicker.ocr.RecognizedText
 import com.scandit.barcodepicker.ocr.TextRecognitionListener
 import java.util.concurrent.CountDownLatch
+import com.scandit.recognition.TrackedBarcode
+import java.util.HashSet
+import java.util.ArrayList
 
-class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRecognitionListener {
+
+
+class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRecognitionListener, ProcessFrameListener {
 
     private var picker: BarcodePicker? = null
-    private var latch: CountDownLatch = CountDownLatch(1)
+    private var didScanLatch: CountDownLatch = CountDownLatch(1)
+    private var didProcessLatch: CountDownLatch = CountDownLatch(1)
+    private var lastFrameRecognizedIds = HashSet<Long>()
+    private var isMatrixScanEnabled = false
     private val codesToReject = ArrayList<Int>()
+    private val idsToReject = ArrayList<String>()
 
     override fun getName(): String = "BarcodePicker"
 
@@ -42,6 +51,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         map.put("setGuiStyle", COMMAND_SET_GUI_STYLE)
       //map.put("setTextRecognitionSwitchVisible", COMMAND_SET_TEXT_RECOGNITION_SWITCH_ENABLED)
         map.put("finishOnScanCallback", COMMAND_FINISH_ON_SCAN_CALLBACK)
+        map.put("finishOnRecognizeNewCodes", COMMAND_FINISH_ON_RECOGNIZE_NEW_CODES_CALLBACK)
         return map
     }
 
@@ -66,6 +76,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
             COMMAND_SET_GUI_STYLE -> setGuiStyle(args)
             COMMAND_SET_TEXT_RECOGNITION_SWITCH_ENABLED -> setTextRecognitionSwitchVisible(args)
             COMMAND_FINISH_ON_SCAN_CALLBACK -> finishOnScanCallback(args)
+            COMMAND_FINISH_ON_RECOGNIZE_NEW_CODES_CALLBACK -> finishDidProcessCallback(args)
         }
     }
 
@@ -73,6 +84,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         picker = BarcodePicker(reactContext, ScanSettings.create())
         picker?.setOnScanListener(this)
         picker?.setTextRecognitionListener(this)
+        picker?.setProcessFrameListener(this)
         picker?.overlayView?.setTorchEnabled(false)
         picker?.overlayView?.setCameraSwitchVisibility(ScanOverlay.CAMERA_SWITCH_NEVER)
         return picker as BarcodePicker
@@ -81,18 +93,55 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
     override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any> {
         return MapBuilder.of(
                 "onScan", MapBuilder.of("registrationName", "onScan"),
+                "onRecognizeNewCodes", MapBuilder.of("registrationName", "onRecognizeNewCodes"),
                 "onSettingsApplied", MapBuilder.of("registrationName", "onSettingsApplied"),
                 "onTextRecognized", MapBuilder.of("registrationName", "onTextRecognized")
         )
     }
 
+    override fun didProcess(buffer: ByteArray?, width: Int, height: Int, scanSession: ScanSession?) {
+        if (scanSession ==  null || scanSession.trackedCodes.isEmpty()) {
+            return
+        }
+        val context = picker?.context as ReactContext?
+
+        val trackedCodes = scanSession.trackedCodes
+        val newlyTrackedCodes = ArrayList<TrackedBarcode>()
+        val recognizedCodeIds = HashSet<Long>()
+
+        for (entry in trackedCodes.entries) {
+            if (entry.value.isRecognized) {
+                recognizedCodeIds.add(entry.key)
+                if (lastFrameRecognizedIds.add(entry.key)) {
+                    newlyTrackedCodes.add(entry.value)
+                }
+            }
+        }
+        lastFrameRecognizedIds = recognizedCodeIds
+
+        if (newlyTrackedCodes.isEmpty()) {
+            return
+        }
+
+        context?.getJSModule(RCTEventEmitter::class.java)?.receiveEvent(picker?.id ?: 0,
+                "onRecognizeNewCodes", (newlyTrackedCodesToMap(newlyTrackedCodes)))
+        didProcessLatch.await()
+        for (id in idsToReject) {
+            scanSession.rejectTrackedCode(scanSession.trackedCodes[id.toLong()])
+        }
+        idsToReject.clear()
+    }
+
     override fun didScan(scanSession: ScanSession?) {
+        if (isMatrixScanEnabled || scanSession ==  null) {
+            return
+        }
         val context = picker?.context as ReactContext?
         context?.getJSModule(RCTEventEmitter::class.java)?.receiveEvent(picker?.id ?: 0,
                 "onScan", sessionToMap(scanSession))
-        latch.await()
+        didScanLatch.await()
         for (index in codesToReject) {
-            scanSession?.rejectCode(scanSession.newlyRecognizedCodes[index])
+            scanSession.rejectCode(scanSession.newlyRecognizedCodes[index])
         }
         codesToReject.clear()
     }
@@ -107,7 +156,9 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
 
     @ReactProp(name = "scanSettings")
     fun setPropScanSettings(view: BarcodePicker, settingsJson: ReadableMap) {
-        view.applyScanSettings(settingsFromMap(settingsJson))
+        val settings = settingsFromMap(settingsJson)
+        isMatrixScanEnabled = settings.isMatrixScanEnabled
+        view.applyScanSettings(settings)
     }
 
     private fun finishOnScanCallback(args: ReadableArray?) {
@@ -120,12 +171,28 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         while (index < array?.size() ?: 0) {
             codesToReject.add(array?.getInt(index++) ?: continue)
         }
-        latch.countDown()
-        latch = CountDownLatch(1)
+        didScanLatch.countDown()
+        didScanLatch = CountDownLatch(1)
+    }
+
+    private fun finishDidProcessCallback(args: ReadableArray?) {
+        if (args?.getBoolean(0) == true)
+            picker?.stopScanning()
+        if (args?.getBoolean(1) == true)
+            picker?.pauseScanning()
+        var index = 0
+        val array = args?.getArray(2)
+        while (index < array?.size() ?: 0) {
+            idsToReject.add(array?.getString(index++) ?: continue)
+        }
+        didProcessLatch.countDown()
+        didProcessLatch = CountDownLatch(1)
     }
 
     private fun setScanSettings(args: ReadableArray?) {
-        picker?.applyScanSettings(settingsFromMap(args?.getMap(0) ?: return), {
+        val settings = settingsFromMap(args?.getMap(0) ?: return)
+        isMatrixScanEnabled = settings.isMatrixScanEnabled
+        picker?.applyScanSettings(settings, {
             val context = picker?.context as ReactContext?
             context?.getJSModule(RCTEventEmitter::class.java)?.receiveEvent(picker?.id ?: 0, "onSettingsApplied", Arguments.createMap())
         })
