@@ -3,6 +3,12 @@ Integrate the Scandit Barcode Scanner plugin into your app     {#react-native-in
 
 To integrate the Scandit Barcode Scanner into your React Native app, follow the simple steps below.
 
+## Setup React Native
+
+Instructions are at https://facebook.github.io/react-native/releases/next/docs/getting-started.html
+<p>
+Make sure to follow the 'Building Projects with Native Code' guide!
+
 ## Create a new project
 
 Make sure `react-native-cli` is installed
