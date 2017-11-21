@@ -4,12 +4,38 @@
 public class Scandit {
   
   /**
+  * @brief A convenience class for rectangles.
+  */
+  public class Rect {
+    
+    /**
+    * @param x The x coordinate.
+    * @param y The y coordinate.
+    * @param width The rectangle's width.
+    * @param height The rectangle's height.
+    */
+    public Rect(Number x, Number y, Number width, Number height);
+    
+  }
+  
+  /**
+  * @brief A convenience class for points with an x and y coordinate.
+  */
+  public class Point {
+    
+    /**
+    * @param x The x coordinate.
+    * @param y The y coordinate.
+    */
+    public Point(Number x, Number y);
+    
+  }
+  
+  /**
   * @brief Represents a recognized/localized barcode/2D code.
   *
   * The Barcode class represents a  barcode, or 2D code that has been localized or recognized
   * by the barcode recognition engine.
-  *
-  *
   */
   public class Barcode {
     
@@ -23,7 +49,7 @@ public class Scandit {
     /**
     * @brief The data contained in the barcode/2D code, for example the 13 digit number of an EAN13 code.
     *
-    *  The data is stored as an array of integers, where each item in the array corresponds to the char code. Use this property instead of data if your application expects to scan codes containing binary data that can not be represented as UTF-8 strings.
+    * The data is stored as an array of integers, where each item in the array corresponds to the char code. Use this property instead of data if your application expects to scan codes containing binary data that can not be represented as UTF-8 strings.
     */
     public int[] rawData;
     
@@ -724,6 +750,44 @@ public class Scandit {
     *
     */
     public boolean codeRejectionEnabled;
+    
+    /**
+    * @brief Sets the active scan area for portrait mode scanning.
+    *
+    * By default, the barcode recognition engine searches the whole image for barcodes. Use this method to define the area in which barcodes are to be searched.
+    * <p>
+    * Rectangle coordinates run from 0 to 1. The coordinates are relative to the camera preview.
+    * Invoking this method with invalid rectangles, e.g. rectangles whose top, left, right, or bottom attributes are outside the allowed range of 0.0-1.0, or rectangles with negative width/height will have no effect.
+    */
+    public Rect activeScanningAreaPortrait;
+    
+    /**
+    * @brief Sets the active scan area for landscape mode scanning.
+    *
+    * By default, the barcode recognition engine searches the whole image for barcodes. Use this method to define the area in which barcodes are to be searched.
+    * <p>
+    * Rectangle coordinates run from 0 to 1. The coordinates are relative to the camera preview.
+    * Invoking this method with invalid rectangles, e.g. rectangles whose top, left, right, or bottom attributes are outside the allowed range of 0.0-1.0, or rectangles with negative width/height will have no effect.
+    */
+    public Rect activeScanningAreaLandscape;
+    
+    /**
+    * @brief The location in the image where barcodes are decoded with the highest priority.
+    *
+    * This variable shows a slightly different behavior depending on whether the full screen scanning is active or not. In Full screen scanning mode:
+    * <p>
+    * Sets the location in the image which is decoded with the highest priority when multiple barcodes are present in the image.
+    * <p>
+    * In restrictActiveScanningArea mode (activated with setting either {@link ScanSettings.activeScanningAreaPortrait activeScanningAreaPortrait} or {@link ScanSettings.activeScanningAreaLandscape activeScanningAreaLandscape}):
+    * <p>
+    * Changes the location of the spot where the barcode decoder actively scans for barcodes.
+    * <p>
+    * X and Y can be between 0 and 1, where 0/0 corresponds to the top left corner and 1/1 to the bottom right corner of the screen.
+    * <p>
+    * The default hotspot is centered on the image (0.5, 0.5).
+    * When setting the hot spot to values outside the allowed range, the hot spot value is ignored.
+    */
+    public Point scanningHotSpot;
   }
   
   /**
