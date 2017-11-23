@@ -6,10 +6,11 @@ import com.scandit.barcodepicker.ScanSession
 import com.scandit.barcodepicker.ScanSettings
 import com.scandit.recognition.Barcode
 import com.scandit.recognition.Quadrilateral
+import com.scandit.recognition.TrackedBarcode
 import org.json.JSONArray
 import org.json.JSONObject
 
-fun sessionToMap(scanSession: ScanSession?): WritableMap  {
+fun sessionToMap(scanSession: ScanSession?): WritableMap {
     val event = Arguments.createMap()
 
     val allRecognizedCodes = Arguments.createArray()
@@ -35,13 +36,42 @@ fun sessionToMap(scanSession: ScanSession?): WritableMap  {
     return event
 }
 
+fun newlyTrackedCodesToMap(codes: List<TrackedBarcode>): WritableMap {
+    val event = Arguments.createMap()
+
+    val newlyTrackedCodes = Arguments.createArray()
+    codes.forEach { barcode ->
+        newlyTrackedCodes.pushMap(barcodeToMap(barcode, barcode.id))
+    }
+    event.putArray("newlyTrackedCodes", newlyTrackedCodes)
+
+    return event
+}
+
 fun barcodeToMap(barcode: Barcode?, index: Int = -1): WritableMap {
-    val map = Arguments.createMap()
-    val rawData = Arguments.createArray()
+    val map = barcodeToMap(barcode)
 
     if (index != -1) {
         map.putInt("id", index)
     }
+
+    return map
+}
+
+fun barcodeToMap(barcode: Barcode?, id: Long? = null): WritableMap {
+    val map = barcodeToMap(barcode)
+
+    if (id != null) {
+        map.putString("id", id.toString())
+    }
+
+    return map
+}
+
+fun barcodeToMap(barcode: Barcode?): WritableMap {
+    val map = Arguments.createMap()
+    val rawData = Arguments.createArray()
+
     barcode?.rawData?.forEach { byte ->
         rawData.pushInt(byte.toInt())
     }
@@ -147,4 +177,10 @@ fun ReadableMap.toJson(): JSONObject {
     return jsonObject
 }
 
-fun settingsFromMap(map: ReadableMap): ScanSettings = ScanSettings.createWithJson(map.toJson())
+fun settingsFromMap(map: ReadableMap): ScanSettings {
+    val settings = ScanSettings.createWithJson(map.toJson())
+    if (settings.isMatrixScanEnabled) {
+        settings.codeDuplicateFilter = 0
+    }
+    return settings
+}
