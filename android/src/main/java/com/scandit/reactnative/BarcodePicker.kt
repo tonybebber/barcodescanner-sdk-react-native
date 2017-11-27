@@ -38,18 +38,18 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         map.put("pauseScanning", COMMAND_PAUSE_SCANNING)
         map.put("applySettings", COMMAND_APPLY_SETTINGS)
         map.put("setViewfinderDimension", COMMAND_VIEWFINDER_DIMENSION)
-      //map.put("setTorchEnabled", COMMAND_TORCH_ENABLED)
+        map.put("setTorchEnabled", COMMAND_TORCH_ENABLED)
         map.put("setVibrateEnabled", COMMAND_VIBRATE_ENABLED)
         map.put("setBeepEnabled", COMMAND_BEEP_ENABLED)
-      //map.put("setTorchButtonMarginsAndSize", COMMAND_TORCH_BUTTON_MARGINS_AND_SIZE)
-      //map.put("setCameraSwitchVisibility", COMMAND_CAMERA_SWITCH_VISIBILITY)
-      //map.put("setCameraSwitchMarginsAndSize", COMMAND_CAMERA_SWITCH_MARGINS_AND_SIZE)
+        map.put("setTorchButtonMarginsAndSize", COMMAND_TORCH_BUTTON_MARGINS_AND_SIZE)
+        map.put("setCameraSwitchVisibility", COMMAND_CAMERA_SWITCH_VISIBILITY)
+        map.put("setCameraSwitchMarginsAndSize", COMMAND_CAMERA_SWITCH_MARGINS_AND_SIZE)
         map.put("setViewfinderColor", COMMAND_VIEWFINDER_COLOR)
         map.put("setViewfinderDecodedColor", COMMAND_VIEWFINDER_DECODED_COLOR)
         map.put("setMatrixScanHighlightingColor", COMMAND_MATRIX_HIGHLIGHT_COLOR)
         map.put("setOverlayProperty", COMMAND_SET_OVERLAY_PROPERTY)
         map.put("setGuiStyle", COMMAND_SET_GUI_STYLE)
-      //map.put("setTextRecognitionSwitchVisible", COMMAND_SET_TEXT_RECOGNITION_SWITCH_ENABLED)
+        map.put("setTextRecognitionSwitchVisible", COMMAND_SET_TEXT_RECOGNITION_SWITCH_ENABLED)
         map.put("finishOnScanCallback", COMMAND_FINISH_ON_SCAN_CALLBACK)
         map.put("finishOnRecognizeNewCodes", COMMAND_FINISH_ON_RECOGNIZE_NEW_CODES_CALLBACK)
         return map
@@ -85,8 +85,6 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         picker?.setOnScanListener(this)
         picker?.setTextRecognitionListener(this)
         picker?.setProcessFrameListener(this)
-        picker?.overlayView?.setTorchEnabled(false)
-        picker?.overlayView?.setCameraSwitchVisibility(ScanOverlay.CAMERA_SWITCH_NEVER)
         return picker as BarcodePicker
     }
 
