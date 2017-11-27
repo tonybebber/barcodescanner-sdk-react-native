@@ -110,7 +110,7 @@ export class BarcodePicker extends React.Component {
 	setVibrateEnabled(isEnabled) {
 		this.dispatcher.setVibrateEnabled(isEnabled);
 	}
-	/*
+	
 	setTorchEnabled(isEnabled) {
 		this.dispatcher.setTorchEnabled(isEnabled);
 	}
@@ -122,11 +122,11 @@ export class BarcodePicker extends React.Component {
 	setTextRecognitionSwitchVisible(isVisible) {
 		this.dispatcher.setTextRecognitionSwitchVisible(isVisible);
 	}
-	*/
+	
 	setViewfinderDimension(x, y, width, height) {
 		this.dispatcher.setViewfinderDimension(x, y, width, height);
 	}
-	/*
+	
 	setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height) {
 		this.dispatcher.setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height);
 	}
@@ -134,7 +134,7 @@ export class BarcodePicker extends React.Component {
 	setCameraSwitchMarginsAndSize(leftMargin, topMargin, width, height) {
 		this.dispatcher.setCameraSwitchMarginsAndSize(leftMargin, topMargin, width, height);
 	}
-	*/
+	
 	setViewfinderColor(color) {
 		this.dispatcher.setViewfinderColor(processColor(color));
 	}

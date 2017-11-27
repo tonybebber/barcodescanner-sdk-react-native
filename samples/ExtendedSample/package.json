@@ -9,7 +9,7 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.4",
-		"react-native-scandit": "https://github.com/Scandit/barcodescanner-sdk-react-native.git#feature/SDK-5599-extended-sample",
+		"react-native-scandit": "https://github.com/Scandit/barcodescanner-sdk-react-native.git",
 		"react-native-simple-events": "^1.0.1",
 		"react-navigation": "react-community/react-navigation#master"
 	},
