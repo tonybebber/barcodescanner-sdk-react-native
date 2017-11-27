@@ -1,0 +1,20 @@
+{
+	"name": "ExtendedSample",
+	"version": "5.6.0SNAPSHOT",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"react": "16.0.0-alpha.12",
+		"react-native": "0.48.4",
+		"react-native-scandit": "https://github.com/Scandit/barcodescanner-sdk-react-native.git#feature/SDK-5599-extended-sample",
+		"react-native-simple-events": "^1.0.1",
+		"react-navigation": "react-community/react-navigation#master"
+	},
+	"devDependencies": {
+		"babel-preset-react-native": "4.0.0",
+		"react-test-renderer": "16.0.0-alpha.12"
+	}
+}
