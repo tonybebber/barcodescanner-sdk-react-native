@@ -16,7 +16,9 @@ import {
   ScanSession,
   Barcode,
   SymbologySettings,
-  ScanSettings
+  ScanSettings,
+  Rect,
+  ScanOverlay
 } from 'react-native-scandit';
 
 import { 
@@ -29,6 +31,11 @@ export default class ScanScreen extends Component {
   
   constructor(props) {
     super(props);
+    this.state = {
+      buttonDisabled: true,
+      data: '',
+      symbology: 'Scan a code'
+    }
   }
   
   static navigationOptions = {
@@ -42,48 +49,85 @@ export default class ScanScreen extends Component {
   async fetchSettings() {
     try {
       var storedSettings = await AsyncStorage.getItem('@MySuperStore:settings');
-      this.settings = JSON.parse(storedSettings);
+      this.scanSpecs = JSON.parse(storedSettings);
     } catch (error) {
       console.error(error);
     }
-    if (this.settings == null) {
+    if (!this.scanSpecs) {
       this.initAndStoreSettings();
     }
-    if (this.scanner != null) {
-      this.scanner.applySettings(this.settings);
+    if (this.scanner) {
+      this.scanner.applySettings(this.scanSpecs.scanSettings);
+      this.scanner.setGuiStyle(this.scanSpecs.overlaySettings.guiStyle);
+      this.scanner.setViewfinderDimension(
+        this.scanSpecs.overlaySettings.viewfinderSize.width,
+        this.scanSpecs.overlaySettings.viewfinderSize.height, 
+        this.scanSpecs.overlaySettings.viewfinderSize.landscapeWidth,
+        this.scanSpecs.overlaySettings.viewfinderSize.landscapeHeight);
+      this.scanner.setBeepEnabled(this.scanSpecs.overlaySettings.beep);
+      this.scanner.setVibrateEnabled(this.scanSpecs.overlaySettings.vibrate);
+      this.scanner.setTorchEnabled(this.scanSpecs.overlaySettings.torchVisible);
+      this.scanner.setTorchButtonMarginsAndSize(this.scanSpecs.overlaySettings.torchOffset.left, 
+        this.scanSpecs.overlaySettings.torchOffset.top, 40, 40);
+      this.scanner.setCameraSwitchVisibility(this.scanSpecs.overlaySettings.cameraSwitchVisibility);
+      this.scanner.setCameraSwitchMarginsAndSize(this.scanSpecs.overlaySettings.cameraSwitchOffset.right, 
+        this.scanSpecs.overlaySettings.cameraSwitchOffset.top, 40, 40);
     }
   }
   
   async initAndStoreSettings() {
-    this.settings = new ScanSettings();
-    this.settings.setSymbologyEnabled(Barcode.Symbology.EAN13, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.EAN8, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.UPCE, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.TWO_DIGIT_ADD_ON, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.FIVE_DIGIT_ADD_ON, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.CODE11, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.CODE25, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.CODE39, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.CODE93, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.CODE128, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.ITF, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.MSI_PLESSEY, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.GS1_DATABAR, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.GS1_DATABAR_LIMITED, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.GS1_DATABAR_EXPANDED, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.CODABAR, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.QR, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.DATA_MATRIX, true);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.PDF417, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.MICRO_PDF417, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.AZTEC, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.MAXICODE, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.RM4SCC, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.KIX, false);
-    this.settings.setSymbologyEnabled(Barcode.Symbology.DOTCODE, false);
+    this.scanSpecs = {};
+    this.scanSpecs.overlaySettings = {};
+    this.scanSpecs.scanSettings = new ScanSettings();
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.EAN13, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.EAN8, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.UPCE, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.TWO_DIGIT_ADD_ON, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.FIVE_DIGIT_ADD_ON, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.CODE11, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.CODE25, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.CODE39, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.CODE93, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.CODE128, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.ITF, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.MSI_PLESSEY, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.GS1_DATABAR, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.GS1_DATABAR_LIMITED, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.GS1_DATABAR_EXPANDED, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.CODABAR, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.QR, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.DATA_MATRIX, true);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.PDF417, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.MICRO_PDF417, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.AZTEC, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.MAXICODE, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.RM4SCC, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.KIX, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.DOTCODE, false);
+    this.scanSpecs.scanSettings.activeScanningAreaLandscape = new Rect(0.5, 0.5, 0.5, 0.5);
+    this.scanSpecs.scanSettings.activeScanningAreaPortrait = new Rect(0.5, 0.5, 0.5, 0.5);
+    this.scanSpecs.scanSettings.highDensityModeEnabled = false;
+    this.scanSpecs.overlaySettings.guiStyle = ScanOverlay.GuiStyle.DEFAULT;
+    this.scanSpecs.overlaySettings.viewfinderSize = {
+      width: 0.9,
+      height: 0.4,
+      landscapeWidth: 0.6,
+      landscapeHeight: 0.4
+    }
+    this.scanSpecs.overlaySettings.torchOffset = {
+      left: 15,
+      top: 15
+    }
+    this.scanSpecs.overlaySettings.cameraSwitchOffset = {
+      right: 15,
+      top: 15
+    }
+    this.scanSpecs.overlaySettings.beep = true;
+    this.scanSpecs.overlaySettings.vibrate = true;
+    this.scanSpecs.overlaySettings.torchVisible = true;
+    this.scanSpecs.overlaySettings.cameraSwitchVisibility = ScanOverlay.CameraSwitchVisibility.NEVER;
     try {
-      console.log(this.settings);
-      await AsyncStorage.setItem('@MySuperStore:settings', JSON.stringify(this.settings));
+      await AsyncStorage.setItem('@MySuperStore:settings', JSON.stringify(this.scanSpecs));
     } catch (error) {
       console.error(error);
     }
@@ -105,26 +149,45 @@ export default class ScanScreen extends Component {
   render() {
     return (
       <View 
-        style={{flex: 1}}>
+        style={{ flex: 1 }}>
         <BarcodePicker
-          onScan={(session) => { this.onScan(session) }}
-          scanSettings= { this.settings }
-          ref={(scan) => { this.scanner = scan }}
-          style={{flex: 1}}/>
+          style={{ flex: 1 }}
+          onScan={ (session) => { this.onScan(session) }}
+          scanSettings= { new ScanSettings() }
+          ref={(scan) => { this.scanner = scan }}/>
         <Text
           style={{
             flex: 1,
             textAlign: 'center',
             textAlignVertical: 'center'
           }}>
-          Scan a Code
+          { this.state.symbology + ' ' + this.state.data }
         </Text>
+        <View
+          style={{
+            margin: 10 }}>
+          <Button
+            onPress={ () => { this.resumeScanning() }}
+            title='Continue scanning'
+            color='blue'
+            disabled={ this.state.buttonDisabled }/>
+        </View>
       </View>
     );
   }
+  
+  resumeScanning() {
+    this.setState({ buttonDisabled: true });
+    this.scanner.resumeScanning();
+  }
 
   onScan(session) {
-    alert(session.newlyRecognizedCodes[0].data + " " + session.newlyRecognizedCodes[0].symbology);
+    session.pauseScanning();
+    this.setState({
+      buttonDisabled: false,
+      symbology: session.newlyRecognizedCodes[0].symbology,
+      data: session.newlyRecognizedCodes[0].data
+    });
   }
 
 }

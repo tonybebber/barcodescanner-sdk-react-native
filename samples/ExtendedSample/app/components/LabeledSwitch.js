@@ -12,15 +12,21 @@ export default class LabeledSwitch extends Component {
     return (
       <View 
         style={{flexDirection: 'row', 
-        justifyContent: 'space-between',
-        marginTop: 5,
-        marginRight: 10,
-        marginLeft: 10,
-        marginBottom: 5}}>
-        <Text>{this.props.label}</Text>
+          justifyContent: 'space-between',
+          borderBottomColor: 'black',
+          borderBottomWidth: 1,
+          marginTop: 5,
+          marginRight: 10,
+          marginLeft: 10,
+          marginBottom: 5}}>
+        <Text>
+          { this.props.label }
+        </Text>
         <Switch
-          value={this.props.value}
-          onValueChange={this.props.listener}/>
+          thumbTintColor='blue'
+          onTintColor='cornflowerblue'
+          value={ this.props.value }
+          onValueChange={ this.props.listener }/>
       </View>
     );
   }

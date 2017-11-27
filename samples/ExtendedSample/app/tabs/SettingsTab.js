@@ -9,13 +9,16 @@ import {
   ActivityIndicator,
   AsyncStorage,
   ScrollView,
-  Switch
+  Switch,
+  Slider,
+  Picker
 } from 'react-native';
 
 import {
   Barcode,
   SymbologySettings,
-  ScanSettings
+  ScanSettings,
+  ScanOverlay
 } from 'react-native-scandit';
 
 import { 
@@ -24,6 +27,7 @@ import {
 
 import Events from 'react-native-simple-events';
 import LabeledSwitch from '../components/LabeledSwitch'
+import LabeledSlider from '../components/LabeledSlider'
 
 export default class SettingsTab extends Component {
   
@@ -37,10 +41,6 @@ export default class SettingsTab extends Component {
       jumpToIndex(scene.index);
     }
   };
-  
-  componentDidMount() {
-    console.log('SettingsTab mounted');
-  }
   
   componentWillMount() {
     this.fetchSettings();
@@ -84,204 +84,434 @@ export default class SettingsTab extends Component {
           </Text>
           <LabeledSwitch
             label='EAN-13 & UPC-A'
-            value={this.state.symbologies[Barcode.Symbology.EAN13].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.EAN13].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.EAN13].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.EAN13].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='EAN-8'
-            value={this.state.symbologies[Barcode.Symbology.EAN8].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.EAN8].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.EAN8].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.EAN8].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='UPC-E'
-            value={this.state.symbologies[Barcode.Symbology.UPCE].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.UPCE].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.UPCE].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.UPCE].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='2-Digit Add-On'
-            value={this.state.symbologies[Barcode.Symbology.TWO_DIGIT_ADD_ON].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.TWO_DIGIT_ADD_ON].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.TWO_DIGIT_ADD_ON].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.TWO_DIGIT_ADD_ON].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='5-Digit Add-On'
-            value={this.state.symbologies[Barcode.Symbology.FIVE_DIGIT_ADD_ON].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.FIVE_DIGIT_ADD_ON].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.FIVE_DIGIT_ADD_ON].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.FIVE_DIGIT_ADD_ON].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Code 11'
-            value={this.state.symbologies[Barcode.Symbology.CODE11].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.CODE11].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.CODE11].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.CODE11].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Code 25'
-            value={this.state.symbologies[Barcode.Symbology.CODE25].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.CODE25].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.CODE25].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.CODE25].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Code 39'
-            value={this.state.symbologies[Barcode.Symbology.CODE39].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.CODE39].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.CODE39].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.CODE39].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Code 93'
-            value={this.state.symbologies[Barcode.Symbology.CODE93].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.CODE93].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.CODE93].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.CODE93].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Code 128'
-            value={this.state.symbologies[Barcode.Symbology.CODE128].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.CODE128].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.CODE128].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.CODE128].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Interleaved-Two-Five (ITF)'
-            value={this.state.symbologies[Barcode.Symbology.ITF].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.ITF].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.ITF].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.ITF].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='MSI Plessey'
-            value={this.state.symbologies[Barcode.Symbology.MSI_PLESSEY].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.MSI_PLESSEY].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.MSI_PLESSEY].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.MSI_PLESSEY].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='GS1 DataBar'
-            value={this.state.symbologies[Barcode.Symbology.GS1_DATABAR].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.GS1_DATABAR].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.GS1_DATABAR].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.GS1_DATABAR].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='GS1 DataBar Limited'
-            value={this.state.symbologies[Barcode.Symbology.GS1_DATABAR_LIMITED].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.GS1_DATABAR_LIMITED].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.GS1_DATABAR_LIMITED].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.GS1_DATABAR_LIMITED].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='GS1 DataBar Expanded'
-            value={this.state.symbologies[Barcode.Symbology.GS1_DATABAR_EXPANDED].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.GS1_DATABAR_EXPANDED].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.GS1_DATABAR_EXPANDED].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.GS1_DATABAR_EXPANDED].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Codabar'
-            value={this.state.symbologies[Barcode.Symbology.CODABAR].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.CODABAR].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.CODABAR].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.CODABAR].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='QR'
-            value={this.state.symbologies[Barcode.Symbology.QR].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.QR].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.QR].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.QR].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Data Matrix'
-            value={this.state.symbologies[Barcode.Symbology.DATA_MATRIX].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.DATA_MATRIX].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='PDF417'
-            value={this.state.symbologies[Barcode.Symbology.PDF417].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.PDF417].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.PDF417].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.PDF417].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='MicroPDF417'
-            value={this.state.symbologies[Barcode.Symbology.MICRO_PDF417].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.MICRO_PDF417].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.MICRO_PDF417].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.MICRO_PDF417].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='Aztec'
-            value={this.state.symbologies[Barcode.Symbology.AZTEC].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.AZTEC].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.AZTEC].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.AZTEC].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='MaxiCode'
-            value={this.state.symbologies[Barcode.Symbology.MAXICODE].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.MAXICODE].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.MAXICODE].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.MAXICODE].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='RM4SCC'
-            value={this.state.symbologies[Barcode.Symbology.RM4SCC].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.RM4SCC].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.RM4SCC].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.RM4SCC].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='KIX'
-            value={this.state.symbologies[Barcode.Symbology.KIX].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.KIX].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.KIX].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.KIX].enabled = value;
               this.setState(this.state);
             }}
           />
           <LabeledSwitch
             label='DotCode'
-            value={this.state.symbologies[Barcode.Symbology.DOTCODE].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.DOTCODE].enabled}
             listener={(value) => {
-              this.state.symbologies[Barcode.Symbology.DOTCODE].enabled = value;
+              this.state.scanSettings.symbologies[Barcode.Symbology.DOTCODE].enabled = value;
               this.setState(this.state);
             }}
           />
+          <Text style={{fontWeight: 'bold',
+            margin: 10}}>
+            Scanning Area
+          </Text>
+          <LabeledSwitch
+            label='Restrict Scanning Area'
+            value={ this.state.scanSettings.restrictedAreaScanningEnabled }
+            listener={(value) => {
+              this.state.scanSettings.restrictedAreaScanningEnabled = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Hot Spot Width'
+            disabled={ !this.state.scanSettings.restrictedAreaScanningEnabled }
+            initialValue={ this.state.scanSettings.activeScanningAreaPortrait.width }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.1 }
+            maxValue={ 1.0 }
+            listener={(value) => {
+              this.state.scanSettings.activeScanningAreaPortrait.width = value;
+              this.state.scanSettings.activeScanningAreaLandscape.width = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Hot Spot Height'
+            disabled={ !this.state.scanSettings.restrictedAreaScanningEnabled }
+            initialValue={ this.state.scanSettings.activeScanningAreaPortrait.height }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.05 }
+            maxValue={ 0.95 }
+            listener={(value) => {
+              this.state.scanSettings.activeScanningAreaPortrait.height = value;
+              this.state.scanSettings.activeScanningAreaLandscape.height = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Hot Spot Y'
+            disabled={ !this.state.scanSettings.restrictedAreaScanningEnabled }
+            initialValue={ this.state.scanSettings.activeScanningAreaPortrait.y }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.1 }
+            maxValue={ 0.9 }
+            listener={(value) => {
+              this.state.scanSettings.activeScanningAreaPortrait.y = value;
+              this.state.scanSettings.activeScanningAreaLandscape.y = value;
+              this.setState(this.state);
+          }}/>
+          <Text style={{ fontWeight: 'bold',
+            margin: 10}}>
+            HD Mode
+          </Text>
+          <LabeledSwitch
+            label='Enable HD'
+            value={this.state.scanSettings.highDensityModeEnabled}
+            listener={(value) => {
+              this.state.scanSettings.highDensityModeEnabled = value;
+              this.setState(this.state);
+            }}
+          />
+          <Text style={{ fontWeight: 'bold',
+            margin: 10}}>
+            Viewfinder
+          </Text>
+          <Text style={{ margin: 10}}>
+            GUI Style
+          </Text>
+          <Picker
+            style={{
+              margin: 10
+            }}
+            selectedValue={ this.state.overlaySettings.guiStyle }
+            onValueChange={(itemValue, itemIndex) => {
+              this.state.overlaySettings.guiStyle = itemValue;
+              this.setState(this.state);
+            }}>
+            <Picker.Item label='Frame' value={ ScanOverlay.GuiStyle.DEFAULT }/>
+            <Picker.Item label='Laser' value={ ScanOverlay.GuiStyle.LASER }/>
+            <Picker.Item label='None' value={ ScanOverlay.GuiStyle.NONE }/>
+          </Picker>
+          <LabeledSlider
+            label='Width (Portrait)'
+            disabled={ this.state.overlaySettings.guiStyle == ScanOverlay.GuiStyle.NONE }
+            initialValue={ this.state.overlaySettings.viewfinderSize.width }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.1 }
+            maxValue={ 0.95 }
+            listener={(value) => {
+              this.state.overlaySettings.viewfinderSize.width = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Height (Portrait)'
+            disabled={ this.state.overlaySettings.guiStyle != ScanOverlay.GuiStyle.DEFAULT }
+            initialValue={ this.state.overlaySettings.viewfinderSize.height }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.05 }
+            maxValue={ 0.8 }
+            listener={(value) => {
+              this.state.overlaySettings.viewfinderSize.height = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Width (Landscape)'
+            disabled={ this.state.overlaySettings.guiStyle == ScanOverlay.GuiStyle.NONE }
+            initialValue={ this.state.overlaySettings.viewfinderSize.landscapeWidth }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.1 }
+            maxValue={ 0.95 }
+            listener={(value) => {
+              this.state.overlaySettings.viewfinderSize.landscapeWidth = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Height (Landscape)'
+            disabled={ this.state.overlaySettings.guiStyle != ScanOverlay.GuiStyle.DEFAULT }
+            initialValue={ this.state.overlaySettings.viewfinderSize.landscapeHeight }
+            step={ 0.01 }
+            decimals={ 2 }
+            minValue={ 0.05 }
+            maxValue={ 0.8 }
+            listener={(value) => {
+              this.state.overlaySettings.viewfinderSize.landscapeHeight = value;
+              this.setState(this.state);
+          }}/>
+          <Text style={{ fontWeight: 'bold',
+            margin: 10}}>
+            Feedback
+          </Text>
+          <LabeledSwitch
+            label='Beep'
+            value={this.state.overlaySettings.beep}
+            listener={(value) => {
+              this.state.overlaySettings.beep = value;
+              this.setState(this.state);
+            }}
+          />
+          <LabeledSwitch
+            label='Vibrate'
+            value={this.state.overlaySettings.vibrate}
+            listener={(value) => {
+              this.state.overlaySettings.vibrate = value;
+              this.setState(this.state);
+            }}
+          />
+          <Text style={{ fontWeight: 'bold',
+            margin: 10}}>
+            Torch Button
+          </Text>
+          <LabeledSwitch
+            label='Visible'
+            value={this.state.overlaySettings.torchVisible}
+            listener={(value) => {
+              this.state.overlaySettings.torchVisible = value;
+              this.setState(this.state);
+            }}
+          />
+          <LabeledSlider
+            label='Torch Button Left Offset'
+            disabled={ !this.state.overlaySettings.torchVisible }
+            initialValue={ this.state.overlaySettings.torchOffset.left }
+            step={ 1 }
+            decimals={ 0 }
+            minValue={ 0 }
+            maxValue={ 50 }
+            listener={(value) => {
+              this.state.overlaySettings.torchOffset.left = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Torch Button Top Offset'
+            disabled={ !this.state.overlaySettings.torchVisible }
+            initialValue={ this.state.overlaySettings.torchOffset.top }
+            step={ 1 }
+            decimals={ 0 }
+            minValue={ 0 }
+            maxValue={ 50 }
+            listener={(value) => {
+              this.state.overlaySettings.torchOffset.top = value;
+              this.setState(this.state);
+          }}/>
+          <Text style={{ fontWeight: 'bold',
+            margin: 10}}>
+            Camera Switch Button
+          </Text>
+          <Text style={{ margin: 10}}>
+            Visibility
+          </Text>
+          <Picker
+            style={{
+              margin: 10
+            }}
+            selectedValue={ this.state.overlaySettings.cameraSwitchVisibility }
+            onValueChange={(itemValue, itemIndex) => {
+              this.state.overlaySettings.cameraSwitchVisibility = itemValue;
+              this.setState(this.state);
+            }}>
+            <Picker.Item label='Always' value={ ScanOverlay.CameraSwitchVisibility.ALWAYS }/>
+            <Picker.Item label='On Tablet' value={ ScanOverlay.CameraSwitchVisibility.ON_TABLET }/>
+            <Picker.Item label='Never' value={ ScanOverlay.CameraSwitchVisibility.NEVER }/>
+          </Picker>
+          <LabeledSlider
+            label='Camera Switch Right Offset'
+            disabled={ this.state.overlaySettings.cameraSwitchVisibility == ScanOverlay.CameraSwitchVisibility.NEVER }
+            initialValue={ this.state.overlaySettings.cameraSwitchOffset.right }
+            step={ 1 }
+            decimals={ 0 }
+            minValue={ 0 }
+            maxValue={ 50 }
+            listener={(value) => {
+              this.state.overlaySettings.cameraSwitchOffset.right = value;
+              this.setState(this.state);
+          }}/>
+          <LabeledSlider
+            label='Camera Switch Top Offset'
+            disabled={ this.state.overlaySettings.cameraSwitchVisibility == ScanOverlay.CameraSwitchVisibility.NEVER }
+            initialValue={ this.state.overlaySettings.cameraSwitchOffset.top }
+            step={ 1 }
+            decimals={ 0 }
+            minValue={ 0 }
+            maxValue={ 50 }
+            listener={(value) => {
+              this.state.overlaySettings.cameraSwitchOffset.top = value;
+              this.setState(this.state);
+          }}/>
         </ScrollView>
     );
   }
