@@ -7,6 +7,7 @@
 //
 
 #import "SCNBarcodePicker.h"
+#import <React/RCTLog.h>
 
 @import ScanditBarcodeScanner;
 
@@ -87,8 +88,7 @@ static inline NSDictionary *dictionaryFromTrackedCodes(NSDictionary<NSNumber *, 
 
 @implementation SCNBarcodePicker
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
         _matrixScanEnabled = NO;
@@ -102,16 +102,27 @@ static inline NSDictionary *dictionaryFromTrackedCodes(NSDictionary<NSNumber *, 
     return self;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.picker.view.frame = self.bounds;
 }
 
 - (void)setScanSettings:(NSDictionary *)dictionary {
     _scanSettings = dictionary;
-    SBSScanSettings *scanSettings = [SBSScanSettings settingsWithDictionary:dictionary error:nil];
-    [self.picker applyScanSettings:scanSettings completionHandler:nil];
+    NSError *error = nil;
+    SBSScanSettings *scanSettings = [SBSScanSettings settingsWithDictionary:dictionary error:&error];
+    if (error != nil) {
+        RCTLogError(@"Invalid scan settings: %@", error.localizedDescription);
+    } else {
+        __weak typeof(self)weakSelf = self;
+        self.matrixScanEnabled = scanSettings.matrixScanEnabled;
+        [self.picker applyScanSettings:scanSettings completionHandler:^{
+            __strong typeof(weakSelf)strongSelf = weakSelf;
+            if (strongSelf.onSettingsApplied != nil) {
+                strongSelf.onSettingsApplied(@{});
+            }
+        }];
+    }
 }
 
 - (void)finishOnScanCallbackShouldStop:(BOOL)shouldStop
@@ -187,21 +198,22 @@ static inline NSDictionary *dictionaryFromTrackedCodes(NSDictionary<NSNumber *, 
     self.lastFrameRecognizedIds = recognizedCodeIds;
 
     if (newlyTrackedCodes.count > 0) {
-        self.onRecognizeNewCodes(dictionaryFromTrackedCodes(newlyTrackedCodes));
-    }
+        NSDictionary *newCodes = dictionaryFromTrackedCodes(newlyTrackedCodes);
+        self.onRecognizeNewCodes(newCodes);
 
-    // Suspend the session thread, until finishOnRecognizeNewCodesShouldStop:shouldPause:idsToVisuallyReject: is called from JS
-    dispatch_semaphore_wait(self.didProcessFrameSemaphore, DISPATCH_TIME_FOREVER);
-    if (self.shouldStop) {
-        [session stopScanning];
-    } else if (self.shouldPause) {
-        [session pauseScanning];
-    } else {
-        for (NSNumber *identifier in self.idsToVisuallyReject) {
-            SBSTrackedCode *code = session.trackedCodes[identifier];
-            [session rejectTrackedCode:code];
+        // Suspend the session thread, until finishOnRecognizeNewCodesShouldStop:shouldPause:idsToVisuallyReject: is called from JS
+        dispatch_semaphore_wait(self.didProcessFrameSemaphore, DISPATCH_TIME_FOREVER);
+        if (self.shouldStop) {
+            [session stopScanning];
+        } else if (self.shouldPause) {
+            [session pauseScanning];
+        } else {
+            for (NSNumber *identifier in self.idsToVisuallyReject) {
+                SBSTrackedCode *code = session.trackedCodes[identifier];
+                [session rejectTrackedCode:code];
+            }
+            self.idsToVisuallyReject = nil;
         }
-        self.idsToVisuallyReject = nil;
     }
 }
 

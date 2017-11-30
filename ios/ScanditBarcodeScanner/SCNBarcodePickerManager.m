@@ -83,27 +83,15 @@ RCT_EXPORT_METHOD(resumeScanning:(nonnull NSNumber *)reactTag) {
 }
 
 RCT_EXPORT_METHOD(applySettings:(nonnull NSNumber *)reactTag
-                  settings:(NSDictionary *)settings) {
+                  settings:(NSDictionary *)scanSettings) {
     [self.bridge.uiManager addUIBlock:
      ^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
          id view = viewRegistry[reactTag];
          if (![view isKindOfClass:[SCNBarcodePicker class]]) {
              RCTLogError(@"Invalid view returned from registry, expecting SCNBarcodePicker, got: %@", view);
          } else {
-             NSError *error = nil;
-             SBSScanSettings *scanSettings = [SBSScanSettings settingsWithDictionary:settings error:&error];
-             if (error != nil) {
-                 RCTLogError(@"Invalid scan settings: %@", error.localizedDescription);
-             } else {
-                 SCNBarcodePicker *pickerView = (SCNBarcodePicker *)view;
-                 [pickerView.picker applyScanSettings:scanSettings
-                                    completionHandler:
-                  ^{
-                      if (pickerView.onSettingsApplied != nil) {
-                          pickerView.onSettingsApplied(@{});
-                      }
-                  }];
-             }
+             SCNBarcodePicker *pickerView = (SCNBarcodePicker *)view;
+             pickerView.scanSettings = scanSettings;
          }
      }];
 }
