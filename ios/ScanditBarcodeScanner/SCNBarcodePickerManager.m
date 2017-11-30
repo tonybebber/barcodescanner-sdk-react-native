@@ -30,6 +30,7 @@ RCT_EXPORT_MODULE(BarcodePicker)
 
 RCT_EXPORT_VIEW_PROPERTY(scanSettings, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onScan, RCTBubblingEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onRecognizeNewCodes, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onTextRecognized, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onSettingsApplied, RCTBubblingEventBlock)
 
@@ -90,8 +91,7 @@ RCT_EXPORT_METHOD(applySettings:(nonnull NSNumber *)reactTag
              RCTLogError(@"Invalid view returned from registry, expecting SCNBarcodePicker, got: %@", view);
          } else {
              NSError *error = nil;
-             SBSScanSettings *scanSettings = [SBSScanSettings settingsWithDictionary:settings
-                                                                               error:&error];
+             SBSScanSettings *scanSettings = [SBSScanSettings settingsWithDictionary:settings error:&error];
              if (error != nil) {
                  RCTLogError(@"Invalid scan settings: %@", error.localizedDescription);
              } else {
@@ -323,6 +323,24 @@ RCT_EXPORT_METHOD(finishOnScanCallback:(nonnull NSNumber *)reactTag
              [barcodePicker finishOnScanCallbackShouldStop:shouldStop
                                                shouldPause:shouldPause
                                              codesToReject:codesToReject];
+         }
+     }];
+}
+
+RCT_EXPORT_METHOD(finishOnRecognizeNewCodes:(nonnull NSNumber *)reactTag
+                  shouldStop:(BOOL)shouldStop
+                  shouldPause:(BOOL)shouldPause
+                  idsToVisuallyReject:(NSArray<NSNumber *> *)idsToVisuallyReject) {
+    [self.bridge.uiManager addUIBlock:
+     ^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+         id view = viewRegistry[reactTag];
+         if (![view isKindOfClass:[SCNBarcodePicker class]]) {
+             RCTLogError(@"Invalid view returned from registry, expecting SCNBarcodePicker, got: %@", view);
+         } else {
+             SCNBarcodePicker *barcodePicker = (SCNBarcodePicker *)view;
+             [barcodePicker finishOnRecognizeNewCodesShouldStop:shouldStop
+                                                    shouldPause:shouldPause
+                                            idsToVisuallyReject:idsToVisuallyReject];
          }
      }];
 }
