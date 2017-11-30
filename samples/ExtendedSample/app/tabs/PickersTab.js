@@ -14,14 +14,6 @@ export default class PickersTab extends Component {
     }
   };
   
-  componentDidMount() {
-    console.log('PickersTab mounted');
-  }
-  
-  componentWillMount() {
-    console.log('PickersTab will mount');
-  }
-  
   render() {
     return (
       <View>

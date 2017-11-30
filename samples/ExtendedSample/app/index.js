@@ -31,7 +31,14 @@ export const ExtendedSample = TabNavigator({
     animationEnabled: true,
     lazy: true,
     tabBarOptions: {
-      activeTintColor: '#e91e63'
-    }
+      activeTintColor: 'blue',
+      inactiveTintColor: 'black',
+      style: {
+        backgroundColor: 'white'
+      },
+      indicatorStyle: {
+        backgroundColor: 'white'
+      }
+    },
   }
 );
