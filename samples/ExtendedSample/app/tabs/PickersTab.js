@@ -9,8 +9,8 @@ export default class PickersTab extends Component {
   
   static navigationOptions = {
     title: 'Pickers',
-    tabBarOnPress: (scene, jumpToIndex) => {
-      jumpToIndex(scene.index);
+    tabBarOnPress: (event) => {
+      event.jumpToIndex(event.scene.index);
     }
   };
   
