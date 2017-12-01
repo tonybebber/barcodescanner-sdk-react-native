@@ -37,8 +37,8 @@ export default class SettingsTab extends Component {
   
   static navigationOptions = {
     title: 'Settings',
-    tabBarOnPress: (scene, jumpToIndex) => {
-      jumpToIndex(scene.index);
+    tabBarOnPress: (event) => {
+      event.jumpToIndex(event.scene.index);
     }
   };
   
@@ -304,6 +304,9 @@ export default class SettingsTab extends Component {
             listener={(value) => {
               this.state.scanSettings.activeScanningAreaPortrait.width = value;
               this.state.scanSettings.activeScanningAreaLandscape.width = value;
+              value = Number((0.5 - (value / 2)).toFixed(2));
+              this.state.scanSettings.activeScanningAreaPortrait.x = value;
+              this.state.scanSettings.activeScanningAreaLandscape.x = value;
               this.setState(this.state);
           }}/>
           <LabeledSlider
@@ -317,17 +320,23 @@ export default class SettingsTab extends Component {
             listener={(value) => {
               this.state.scanSettings.activeScanningAreaPortrait.height = value;
               this.state.scanSettings.activeScanningAreaLandscape.height = value;
+              value = Number((0.5 - (value / 2)).toFixed(2));
+              this.state.scanSettings.activeScanningAreaPortrait.y = value;
+              this.state.scanSettings.activeScanningAreaLandscape.y = value;
               this.setState(this.state);
           }}/>
           <LabeledSlider
             label='Hot Spot Y'
             disabled={ !this.state.scanSettings.restrictedAreaScanningEnabled }
-            initialValue={ this.state.scanSettings.activeScanningAreaPortrait.y }
+            initialValue={ this.state.scanSettings.activeScanningAreaCenterY }
             step={ 0.01 }
             decimals={ 2 }
             minValue={ 0.1 }
             maxValue={ 0.9 }
             listener={(value) => {
+              var height = this.state.scanSettings.activeScanningAreaPortrait.height;
+              this.state.scanSettings.activeScanningAreaCenterY = value;
+              value = Number((value - (height / 2)).toFixed(2));
               this.state.scanSettings.activeScanningAreaPortrait.y = value;
               this.state.scanSettings.activeScanningAreaLandscape.y = value;
               this.setState(this.state);

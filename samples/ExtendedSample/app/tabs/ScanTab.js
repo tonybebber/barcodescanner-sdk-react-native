@@ -40,9 +40,9 @@ export default class ScanScreen extends Component {
   
   static navigationOptions = {
     title: 'Scan',
-    tabBarOnPress: (scene, jumpToIndex) => {
+    tabBarOnPress: (event) => {
       Events.trigger('fetch', null);
-      jumpToIndex(scene.index);
+      event.jumpToIndex(event.scene.index);
     }
   }
   
@@ -104,8 +104,9 @@ export default class ScanScreen extends Component {
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.RM4SCC, false);
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.KIX, false);
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.DOTCODE, false);
-    this.scanSpecs.scanSettings.activeScanningAreaLandscape = new Rect(0.5, 0.5, 0.5, 0.5);
-    this.scanSpecs.scanSettings.activeScanningAreaPortrait = new Rect(0.5, 0.5, 0.5, 0.5);
+    this.scanSpecs.scanSettings.activeScanningAreaCenterY = 0.5;
+    this.scanSpecs.scanSettings.activeScanningAreaLandscape = new Rect(0.25, 0.25, 0.5, 0.5);
+    this.scanSpecs.scanSettings.activeScanningAreaPortrait = new Rect(0.25, 0.25, 0.5, 0.5);
     this.scanSpecs.scanSettings.highDensityModeEnabled = false;
     this.scanSpecs.overlaySettings.guiStyle = ScanOverlay.GuiStyle.DEFAULT;
     this.scanSpecs.overlaySettings.viewfinderSize = {
