@@ -177,10 +177,4 @@ fun ReadableMap.toJson(): JSONObject {
     return jsonObject
 }
 
-fun settingsFromMap(map: ReadableMap): ScanSettings {
-    val settings = ScanSettings.createWithJson(map.toJson())
-    if (settings.isMatrixScanEnabled) {
-        settings.codeDuplicateFilter = 0
-    }
-    return settings
-}
+fun settingsFromMap(map: ReadableMap): ScanSettings = ScanSettings.createWithJson(map.toJson())

@@ -25,6 +25,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
     private var didProcessLatch: CountDownLatch = CountDownLatch(1)
     private var lastFrameRecognizedIds = HashSet<Long>()
     private var isMatrixScanEnabled = false
+    private var nextPickerState = NextPickerState.CONTINUE
     private val codesToReject = ArrayList<Int>()
     private val idsToReject = ArrayList<String>()
 
@@ -110,13 +111,12 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         for (entry in trackedCodes.entries) {
             if (entry.value.isRecognized) {
                 recognizedCodeIds.add(entry.key)
-                if (lastFrameRecognizedIds.add(entry.key)) {
+                if (!lastFrameRecognizedIds.contains(entry.key)) {
                     newlyTrackedCodes.add(entry.value)
                 }
             }
         }
         lastFrameRecognizedIds = recognizedCodeIds
-
         if (newlyTrackedCodes.isEmpty()) {
             return
         }
@@ -128,6 +128,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
             scanSession.rejectTrackedCode(scanSession.trackedCodes[id.toLong()])
         }
         idsToReject.clear()
+        handleNextPickerState(scanSession)
     }
 
     override fun didScan(scanSession: ScanSession?) {
@@ -142,6 +143,7 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
             scanSession.rejectCode(scanSession.newlyRecognizedCodes[index])
         }
         codesToReject.clear()
+        handleNextPickerState(scanSession)
     }
 
     override fun didRecognizeText(text: RecognizedText?): Int {
@@ -159,11 +161,20 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
         view.applyScanSettings(settings)
     }
 
+    private fun handleNextPickerState(scanSession: ScanSession) {
+        when (nextPickerState) {
+            NextPickerState.STOP -> scanSession.stopScanning()
+            NextPickerState.PAUSE -> scanSession.pauseScanning()
+            else -> return
+        }
+        nextPickerState = NextPickerState.CONTINUE
+    }
+
     private fun finishOnScanCallback(args: ReadableArray?) {
         if (args?.getBoolean(0) == true)
-            picker?.stopScanning()
+            nextPickerState = NextPickerState.STOP
         if (args?.getBoolean(1) == true)
-            picker?.pauseScanning()
+            nextPickerState = NextPickerState.PAUSE
         var index = 0
         val array = args?.getArray(2)
         while (index < array?.size() ?: 0) {
@@ -175,9 +186,9 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
 
     private fun finishDidProcessCallback(args: ReadableArray?) {
         if (args?.getBoolean(0) == true)
-            picker?.stopScanning()
+            nextPickerState = NextPickerState.STOP
         if (args?.getBoolean(1) == true)
-            picker?.pauseScanning()
+            nextPickerState = NextPickerState.PAUSE
         var index = 0
         val array = args?.getArray(2)
         while (index < array?.size() ?: 0) {
@@ -263,5 +274,9 @@ class BarcodePicker : SimpleViewManager<BarcodePicker>(), OnScanListener, TextRe
             else -> null
         }
         picker?.overlayView?.setProperty(args?.getString(0), propValue)
+    }
+
+    private enum class NextPickerState {
+        CONTINUE, PAUSE, STOP
     }
 }
