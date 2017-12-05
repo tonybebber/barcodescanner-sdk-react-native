@@ -33,8 +33,7 @@ export default class ScanScreen extends Component {
     super(props);
     this.state = {
       buttonDisabled: true,
-      data: '',
-      symbology: 'Scan a code'
+      text: 'Scan a code'
     }
   }
   
@@ -104,6 +103,8 @@ export default class ScanScreen extends Component {
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.RM4SCC, false);
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.KIX, false);
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.DOTCODE, false);
+    this.scanSpecs.scanSettings.symbologies[Barcode.Symbology.QR].colorInvertedEnabled = false;
+    this.scanSpecs.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].colorInvertedEnabled = false;
     this.scanSpecs.scanSettings.activeScanningAreaCenterY = 0.5;
     this.scanSpecs.scanSettings.activeScanningAreaLandscape = new Rect(0.25, 0.25, 0.5, 0.5);
     this.scanSpecs.scanSettings.activeScanningAreaPortrait = new Rect(0.25, 0.25, 0.5, 0.5);
@@ -162,7 +163,7 @@ export default class ScanScreen extends Component {
             textAlign: 'center',
             textAlignVertical: 'center'
           }}>
-          { this.state.symbology + ' ' + this.state.data }
+          { this.state.text }
         </Text>
         <View
           style={{
@@ -183,12 +184,12 @@ export default class ScanScreen extends Component {
   }
 
   onScan(session) {
+    this.state.text = '';
+    this.state.buttonDisabled = false;
     session.pauseScanning();
-    this.setState({
-      buttonDisabled: false,
-      symbology: session.newlyRecognizedCodes[0].symbology,
-      data: session.newlyRecognizedCodes[0].data
-    });
+    session.newlyRecognizedCodes.forEach((barcode) =>
+      this.state.text += '\n(' + barcode.symbology + ') ' + barcode.data);
+    this.setState(this.state);
   }
 
 }

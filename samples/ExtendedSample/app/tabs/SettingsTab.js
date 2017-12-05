@@ -57,6 +57,12 @@ export default class SettingsTab extends Component {
   
   async saveSettings() {
     try {
+      if (this.state.scanSettings.symbologies[Barcode.Symbology.TWO_DIGIT_ADD_ON].enabled ||
+        this.state.scanSettings.symbologies[Barcode.Symbology.FIVE_DIGIT_ADD_ON].enabled) {
+          this.state.scanSettings.maxNumberOfCodesPerFrame = 2;
+        } else {
+          this.state.scanSettings.maxNumberOfCodesPerFrame = 1;
+        }
       await AsyncStorage.mergeItem('@MySuperStore:settings', JSON.stringify(this.state));
     } catch (error) {
       console.error(error);
@@ -219,10 +225,28 @@ export default class SettingsTab extends Component {
             }}
           />
           <LabeledSwitch
+            label='Color Inverted QR'
+            disabled={!this.state.scanSettings.symbologies[Barcode.Symbology.QR].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.QR].colorInvertedEnabled}
+            listener={(value) => {
+              this.state.scanSettings.symbologies[Barcode.Symbology.QR].colorInvertedEnabled = value;
+              this.setState(this.state);
+            }}
+          />
+          <LabeledSwitch
             label='Data Matrix'
             value={this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled}
             listener={(value) => {
               this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled = value;
+              this.setState(this.state);
+            }}
+          />
+          <LabeledSwitch
+            label='Color Inverted Data Matrix'
+            disabled={!this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled}
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].colorInvertedEnabled}
+            listener={(value) => {
+              this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].colorInvertedEnabled = value;
               this.setState(this.state);
             }}
           />

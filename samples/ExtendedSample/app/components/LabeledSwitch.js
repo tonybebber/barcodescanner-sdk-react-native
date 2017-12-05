@@ -23,6 +23,7 @@ export default class LabeledSwitch extends Component {
           { this.props.label }
         </Text>
         <Switch
+          disabled= { this.props.disabled }
           thumbTintColor='blue'
           onTintColor='cornflowerblue'
           value={ this.props.value }
