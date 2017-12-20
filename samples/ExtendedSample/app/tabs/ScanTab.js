@@ -106,8 +106,7 @@ export default class ScanScreen extends Component {
     this.scanSpecs.scanSettings.symbologies[Barcode.Symbology.QR].colorInvertedEnabled = false;
     this.scanSpecs.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].colorInvertedEnabled = false;
     this.scanSpecs.scanSettings.activeScanningAreaCenterY = 0.5;
-    this.scanSpecs.scanSettings.activeScanningAreaLandscape = new Rect(0.25, 0.25, 0.5, 0.5);
-    this.scanSpecs.scanSettings.activeScanningAreaPortrait = new Rect(0.25, 0.25, 0.5, 0.5);
+    this.scanSpecs.scanSettings.activeScanningArea = new Rect(0.25, 0.25, 0.5, 0.5);
     this.scanSpecs.scanSettings.highDensityModeEnabled = false;
     this.scanSpecs.overlaySettings.guiStyle = ScanOverlay.GuiStyle.DEFAULT;
     this.scanSpecs.overlaySettings.viewfinderSize = {
