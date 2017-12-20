@@ -63,7 +63,7 @@ export default class SettingsTab extends Component {
         } else {
           this.state.scanSettings.maxNumberOfCodesPerFrame = 1;
         }
-      await AsyncStorage.mergeItem('@MySuperStore:settings', JSON.stringify(this.state));
+      await AsyncStorage.setItem('@MySuperStore:settings', JSON.stringify(this.state));
     } catch (error) {
       console.error(error);
     }
@@ -314,39 +314,42 @@ export default class SettingsTab extends Component {
             label='Restrict Scanning Area'
             value={ this.state.scanSettings.restrictedAreaScanningEnabled }
             listener={(value) => {
+              if (value) {
+                this.state.scanSettings.activeScanningAreaLandscape = this.state.scanSettings.activeScanningArea;
+                this.state.scanSettings.activeScanningAreaPortrait = this.state.scanSettings.activeScanningArea;
+              } else {
+                delete this.state.scanSettings.activeScanningAreaLandscape;
+                delete this.state.scanSettings.activeScanningAreaPortrait;
+              }
               this.state.scanSettings.restrictedAreaScanningEnabled = value;
               this.setState(this.state);
           }}/>
           <LabeledSlider
             label='Hot Spot Width'
             disabled={ !this.state.scanSettings.restrictedAreaScanningEnabled }
-            initialValue={ this.state.scanSettings.activeScanningAreaPortrait.width }
+            initialValue={ this.state.scanSettings.activeScanningArea.width }
             step={ 0.01 }
             decimals={ 2 }
             minValue={ 0.1 }
             maxValue={ 1.0 }
             listener={(value) => {
-              this.state.scanSettings.activeScanningAreaPortrait.width = value;
-              this.state.scanSettings.activeScanningAreaLandscape.width = value;
+              this.state.scanSettings.activeScanningArea.width = value;
               value = Number((0.5 - (value / 2)).toFixed(2));
-              this.state.scanSettings.activeScanningAreaPortrait.x = value;
-              this.state.scanSettings.activeScanningAreaLandscape.x = value;
+              this.state.scanSettings.activeScanningArea.x = value;
               this.setState(this.state);
           }}/>
           <LabeledSlider
             label='Hot Spot Height'
             disabled={ !this.state.scanSettings.restrictedAreaScanningEnabled }
-            initialValue={ this.state.scanSettings.activeScanningAreaPortrait.height }
+            initialValue={ this.state.scanSettings.activeScanningArea.height }
             step={ 0.01 }
             decimals={ 2 }
             minValue={ 0.05 }
             maxValue={ 0.95 }
             listener={(value) => {
-              this.state.scanSettings.activeScanningAreaPortrait.height = value;
-              this.state.scanSettings.activeScanningAreaLandscape.height = value;
+              this.state.scanSettings.activeScanningArea.height = value;
               value = Number((0.5 - (value / 2)).toFixed(2));
-              this.state.scanSettings.activeScanningAreaPortrait.y = value;
-              this.state.scanSettings.activeScanningAreaLandscape.y = value;
+              this.state.scanSettings.activeScanningArea.y = value;
               this.setState(this.state);
           }}/>
           <LabeledSlider
@@ -358,11 +361,10 @@ export default class SettingsTab extends Component {
             minValue={ 0.1 }
             maxValue={ 0.9 }
             listener={(value) => {
-              var height = this.state.scanSettings.activeScanningAreaPortrait.height;
+              var height = this.state.scanSettings.activeScanningArea.height;
               this.state.scanSettings.activeScanningAreaCenterY = value;
               value = Number((value - (height / 2)).toFixed(2));
-              this.state.scanSettings.activeScanningAreaPortrait.y = value;
-              this.state.scanSettings.activeScanningAreaLandscape.y = value;
+              this.state.scanSettings.activeScanningArea.y = value;
               this.setState(this.state);
           }}/>
           <Text style={{ fontWeight: 'bold',
