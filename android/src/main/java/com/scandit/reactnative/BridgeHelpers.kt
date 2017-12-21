@@ -98,7 +98,7 @@ fun convertGuiStyle(jsValue: String?): Int = when (jsValue) {
 
 fun convertCameraSwitchVisibility(jsValue: String?): Int = when (jsValue) {
     "always" -> ScanOverlay.CAMERA_SWITCH_ALWAYS
-    "tablet" -> ScanOverlay.CAMERA_SWITCH_ON_TABLET
+    "onTablet" -> ScanOverlay.CAMERA_SWITCH_ON_TABLET
     "never" -> ScanOverlay.CAMERA_SWITCH_NEVER
     else -> throw IllegalArgumentException("Camera switch visibility has to be one of: always, tablet, never")
 }
