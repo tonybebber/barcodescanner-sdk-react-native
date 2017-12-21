@@ -4,7 +4,7 @@ export class ScanOverlay {
 
 ScanOverlay.CameraSwitchVisibility = {
   NEVER: 'never',
-  ON_TABLET: 'tablet',
+  ON_TABLET: 'onTablet',
   ALWAYS: 'always'
 }
 
