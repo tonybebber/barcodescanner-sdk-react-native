@@ -26,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6376F6FE201A28F9004AF241 /* SBSOverlayController+Properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SBSOverlayController+Properties.h"; sourceTree = "<group>"; };
 		A20A03481F45A01E00F5AED3 /* RCTConvert+Scandit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Scandit.h"; sourceTree = "<group>"; };
 		A20A03491F45A01E00F5AED3 /* RCTConvert+Scandit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+Scandit.m"; sourceTree = "<group>"; };
 		A25273E11F41ABB1005877F4 /* SCNBarcodePickerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCNBarcodePickerManager.m; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 				A25273E11F41ABB1005877F4 /* SCNBarcodePickerManager.m */,
 				A20A03481F45A01E00F5AED3 /* RCTConvert+Scandit.h */,
 				A20A03491F45A01E00F5AED3 /* RCTConvert+Scandit.m */,
+				6376F6FE201A28F9004AF241 /* SBSOverlayController+Properties.h */,
 			);
 			path = ScanditBarcodeScanner;
 			sourceTree = "<group>";
@@ -242,7 +244,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = CCJEHQ4M9R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../ios/ScanditSDK";
-				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/ScanditBarcodeScanner/include\"";
+				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -254,7 +256,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = CCJEHQ4M9R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../ios/ScanditSDK";
-				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/ScanditBarcodeScanner/include\"";
+				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
