@@ -8,6 +8,7 @@
 
 #import "SCNBarcodePickerManager.h"
 #import "SCNBarcodePicker.h"
+#import "SBSOverlayController+Properties.h"
 #import <React/RCTUIManager.h>
 
 @import ScanditBarcodeScanner;
@@ -291,8 +292,8 @@ RCT_EXPORT_METHOD(setOverlayProperty:(nonnull NSNumber *)reactTag
          id view = viewRegistry[reactTag];
          if (![view isKindOfClass:[SCNBarcodePicker class]]) {
              RCTLogError(@"Invalid view returned from registry, expecting SCNBarcodePicker, got: %@", view);
-         } else {
-             // TODO: NOT IMPLEMENTED YET
+         } else if ([value isKindOfClass:[NSNumber class]]) {
+             [((SCNBarcodePicker *)view).picker.overlayController setProperty:key toValue:[value boolValue]];
          }
      }];
 }
