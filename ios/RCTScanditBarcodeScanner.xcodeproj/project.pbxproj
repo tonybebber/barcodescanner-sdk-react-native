@@ -242,6 +242,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = CCJEHQ4M9R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../ios/ScanditSDK";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/ScanditBarcodeScanner/include\"";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -253,6 +254,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = CCJEHQ4M9R;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../../../ios/ScanditSDK";
+				HEADER_SEARCH_PATHS = "\"$(PROJECT_DIR)/ScanditBarcodeScanner/include\"";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
