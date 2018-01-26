@@ -21,7 +21,7 @@ import {
   ScanOverlay
 } from 'react-native-scandit';
 
-import { 
+import {
   TabNavigator
 } from 'react-navigation';
 
@@ -30,22 +30,22 @@ import LabeledSwitch from '../components/LabeledSwitch'
 import LabeledSlider from '../components/LabeledSlider'
 
 export default class SettingsTab extends Component {
-  
+
   constructor() {
     super();
   }
-  
+
   static navigationOptions = {
     title: 'Settings',
     tabBarOnPress: (event) => {
       event.jumpToIndex(event.scene.index);
     }
   };
-  
+
   componentWillMount() {
     this.fetchSettings();
   }
-  
+
   async fetchSettings() {
     try {
       var storedSettings = await AsyncStorage.getItem('@MySuperStore:settings');
@@ -54,7 +54,7 @@ export default class SettingsTab extends Component {
       console.error(error);
     }
   }
-  
+
   async saveSettings() {
     try {
       if (this.state.scanSettings.symbologies[Barcode.Symbology.TWO_DIGIT_ADD_ON].enabled ||
@@ -68,12 +68,12 @@ export default class SettingsTab extends Component {
       console.error(error);
     }
   }
-  
+
   setState(state) {
     super.setState(state);
     this.saveSettings();
   }
-  
+
   render() {
     if (!this.state) {
       return (
@@ -303,6 +303,14 @@ export default class SettingsTab extends Component {
             value={this.state.scanSettings.symbologies[Barcode.Symbology.DOTCODE].enabled}
             listener={(value) => {
               this.state.scanSettings.symbologies[Barcode.Symbology.DOTCODE].enabled = value;
+              this.setState(this.state);
+            }}
+          />
+          <LabeledSwitch
+            label='Micro QR'
+            value={this.state.scanSettings.symbologies[Barcode.Symbology.MICROQR].enabled}
+            listener={(value) => {
+              this.state.scanSettings.symbologies[Barcode.Symbology.MICROQR].enabled = value;
               this.setState(this.state);
             }}
           />
