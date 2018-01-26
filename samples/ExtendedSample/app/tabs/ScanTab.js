@@ -21,14 +21,14 @@ import {
   ScanOverlay
 } from 'react-native-scandit';
 
-import { 
+import {
   TabNavigator
 } from 'react-navigation';
 
 import Events from 'react-native-simple-events';
 
 export default class ScanScreen extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,7 +36,7 @@ export default class ScanScreen extends Component {
       text: 'Scan a code'
     }
   }
-  
+
   static navigationOptions = {
     title: 'Scan',
     tabBarOnPress: (event) => {
@@ -44,7 +44,7 @@ export default class ScanScreen extends Component {
       event.jumpToIndex(event.scene.index);
     }
   }
-  
+
   async fetchSettings() {
     try {
       var storedSettings = await AsyncStorage.getItem('@MySuperStore:settings');
@@ -60,20 +60,20 @@ export default class ScanScreen extends Component {
       this.scanner.setGuiStyle(this.scanSpecs.overlaySettings.guiStyle);
       this.scanner.setViewfinderDimension(
         this.scanSpecs.overlaySettings.viewfinderSize.width,
-        this.scanSpecs.overlaySettings.viewfinderSize.height, 
+        this.scanSpecs.overlaySettings.viewfinderSize.height,
         this.scanSpecs.overlaySettings.viewfinderSize.landscapeWidth,
         this.scanSpecs.overlaySettings.viewfinderSize.landscapeHeight);
       this.scanner.setBeepEnabled(this.scanSpecs.overlaySettings.beep);
       this.scanner.setVibrateEnabled(this.scanSpecs.overlaySettings.vibrate);
       this.scanner.setTorchEnabled(this.scanSpecs.overlaySettings.torchVisible);
-      this.scanner.setTorchButtonMarginsAndSize(this.scanSpecs.overlaySettings.torchOffset.left, 
+      this.scanner.setTorchButtonMarginsAndSize(this.scanSpecs.overlaySettings.torchOffset.left,
         this.scanSpecs.overlaySettings.torchOffset.top, 40, 40);
       this.scanner.setCameraSwitchVisibility(this.scanSpecs.overlaySettings.cameraSwitchVisibility);
-      this.scanner.setCameraSwitchMarginsAndSize(this.scanSpecs.overlaySettings.cameraSwitchOffset.right, 
+      this.scanner.setCameraSwitchMarginsAndSize(this.scanSpecs.overlaySettings.cameraSwitchOffset.right,
         this.scanSpecs.overlaySettings.cameraSwitchOffset.top, 40, 40);
     }
   }
-  
+
   async initAndStoreSettings() {
     this.scanSpecs = {};
     this.scanSpecs.overlaySettings = {};
@@ -103,6 +103,7 @@ export default class ScanScreen extends Component {
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.RM4SCC, false);
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.KIX, false);
     this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.DOTCODE, false);
+    this.scanSpecs.scanSettings.setSymbologyEnabled(Barcode.Symbology.MICROQR, false);
     this.scanSpecs.scanSettings.symbologies[Barcode.Symbology.QR].colorInvertedEnabled = false;
     this.scanSpecs.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].colorInvertedEnabled = false;
     this.scanSpecs.scanSettings.activeScanningAreaCenterY = 0.5;
@@ -137,19 +138,19 @@ export default class ScanScreen extends Component {
   componentDidMount() {
     this.scanner.startScanning();
   }
-  
+
   componentWillMount() {
     Events.on('fetch', 'scanTab', () => { this.fetchSettings() });
     this.fetchSettings();
   }
-  
+
   componentWillUnmount() {
     Events.rm('fetch', 'scanTab');
   }
 
   render() {
     return (
-      <View 
+      <View
         style={{ flex: 1 }}>
         <BarcodePicker
           style={{ flex: 1 }}
@@ -176,7 +177,7 @@ export default class ScanScreen extends Component {
       </View>
     );
   }
-  
+
   resumeScanning() {
     this.setState({ buttonDisabled: true });
     this.scanner.resumeScanning();
