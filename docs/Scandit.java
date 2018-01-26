@@ -2,12 +2,12 @@
 * Module for all functionality of the barcode recognition plugin
 */
 public class Scandit {
-  
+
   /**
   * @brief A convenience class for rectangles.
   */
   public class Rect {
-    
+
     /**
     * @param x The x coordinate.
     * @param y The y coordinate.
@@ -15,22 +15,22 @@ public class Scandit {
     * @param height The rectangle's height.
     */
     public Rect(Number x, Number y, Number width, Number height);
-    
+
   }
-  
+
   /**
   * @brief A convenience class for points with an x and y coordinate.
   */
   public class Point {
-    
+
     /**
     * @param x The x coordinate.
     * @param y The y coordinate.
     */
     public Point(Number x, Number y);
-    
+
   }
-  
+
   /**
   * @brief Represents a recognized/localized barcode/2D code.
   *
@@ -38,158 +38,163 @@ public class Scandit {
   * by the barcode recognition engine.
   */
   public class Barcode {
-    
+
     /**
     *  @brief The data contained in the barcode/2D code, for example the 13 digit number of an EAN13 code.
     *
     * For some types of barcodes/2D codes (for example DATAMATRIX, AZTEC, PDF417), the data string may contain non-printable characters and nul-bytes in the middle of the string. Use rawData if your application scans these types of codes and you are expecting binary/non-printable data.
     */
     public String data;
-    
+
     /**
     * @brief The data contained in the barcode/2D code, for example the 13 digit number of an EAN13 code.
     *
     * The data is stored as an array of integers, where each item in the array corresponds to the char code. Use this property instead of data if your application expects to scan codes containing binary data that can not be represented as UTF-8 strings.
     */
     public int[] rawData;
-    
+
     /**
     * @brief the symbology of a recognized barcode.
     */
     public Symbology symbology;
-    
+
     /**
     * @brief The composite flag of the barcode
     *
     * For codes that have been localized but not recognized, CompositeFlag.UNKNOWN is returned.
     */
     public CompositeFlag compositeFlag;
-    
+
     // Hack to force doxygen to generate a documentation page for this class.
     public void noop();
-    
+
     /**
     * @brief An enumeration of all supported barcode symbologies
     */
     public enum Symbology  {
-      
+
       /**
       * @brief Sentinel value to represent an unknown symbology
       */
       UNKNOWN,
-      
+
       /**
       * @brief EAN13 1D barcode symbology.
       */
       EAN13,
-      
+
       /**
       * @brief EAN8 1D barcode symbology.
       */
       EAN8,
-      
+
       /**
       * @brief UPC12/UPCA 1D barcode symbology.
       */
       UPCA,
-      
+
       /**
       * @brief UPCE 1D barcode symbology.
       */
       UPCE,
-      
+
       /**
       * @brief Code 11 barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       CODE11,
-      
+
       /**
       * @brief Code 25 barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       CODE25,
-      
+
       /**
       * @brief Code39 barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       CODE39,
-      
+
       /**
       * @brief Code 93 barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       CODE93,
-      
+
       /**
       * @brief Code 128 1D barcode symbology, including GS1-Code128. Only available in the
       *    Professional and Enterprise Packages.
       */
       CODE128,
-      
+
       /**
       * @brief Interleaved-Two-of-Five (ITF) 1D barcode symbology. Only available in the Professional and
       * Enterprise Packages.
       */
       ITF,
-      
+
       /**
       * @brief QR Code 2D barcode symbology.
       */
       QR,
-      
+
       /**
       * @brief Datamatrix 2D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       DATA_MATRIX,
-      
+
       /**
       * @brief PDF417 barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       PDF417,
-      
+
       /**
         *  @brief MicroPDF417 barcode symbology. Only available in the Professional and Enterprise Packages.
         */
       MICRO_PDF417,
-      
+
       /**
       * @brief MSI Plessey 1D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       MSI_PLESSEY,
-      
+
       /**
       * @brief Databar 1D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       GS1_DATABAR,
-      
+
       /**
       * @brief Databar Limited 1D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       GS1_DATABAR_LIMITED,
-      
+
       /**
       * @brief Databar Expanded 1D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       GS1_DATABAR_EXPANDED,
-      
+
       /**
       * @brief Codabar 1D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       CODABAR,
-      
+
       /**
       * @brief Aztec 2D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       AZTEC,
-      
+
       /**
       * @brief DotCode 2D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       DOTCODE,
-      
+
+      /**
+      * @brief Micro QR 2D barcode symbology. Only available in the Professional and Enterprise Packages.
+      */
+      MICROQR,
+
       /**
       * @brief Maxicode 2D barcode symbology. Only available in the Professional and Enterprise Packages.
       */
       MAXICODE,
-      
+
       /**
       * @brief Five-digit add-on for UPC and EAN codes.
       *
@@ -200,7 +205,7 @@ public class Scandit {
       * Only available in the Professional and Enterprise Packages.
       */
       FIVE_DIGIT_ADD_ON,
-      
+
       /**
       * @brief Two-digit add-on for UPC and EAN codes.
       *
@@ -211,23 +216,23 @@ public class Scandit {
       * Only available in the Professional and Enterprise Packages.
       */
       TWO_DIGIT_ADD_ON,
-      
+
       /**
       * @brief Royal Dutch TPG Post KIX. Only available in Professional and Enterprise Packages.
       */
       KIX,
-      
+
       /**
       * @brief Royal Mail 4 State Customer Code (RM4SCC). Only available in Professional and Enterprise Packages.
       */
       RM4SCC
     }
-    
+
     /**
     * @brief Composite flags for barcodes/2D codes.
     */
     public enum CompositeFlag {
-      
+
       /**
       * @brief Code is not part of a composite code.
       */
@@ -265,7 +270,7 @@ public class Scandit {
       GS1_TYPE_C,
     }
   }
-  
+
   /**
   * @brief The main class for scanning barcodes with the Scandit Barcode Scanner.
   *<p>
@@ -276,32 +281,32 @@ public class Scandit {
   *
   */
   public class BarcodePicker {
-    
+
     /**
     *  @brief Prop used to pass the initial scan settings to the picker.
     */
     public ScanSettings scanSettings;
-    
+
     /**
     *  @brief Prop used to set the scan callback.
     */
     public function onScan;
-    
+
     /**
     * @brief Prop used to set the matrix scan callback.
     */
     public function onRecognizeNewCodes;
-    
+
     /**
     *  @brief Prop used to set a callback called after new settings have been applied.
     */
     public function onSettingsApplied;
-    
+
     /**
     *  @brief Prop used to set the text recognition callback.
     */
     public function onTextRecognized;
-    
+
     /**
     * @brief Reconfigure the barcode picker with new settings
     *
@@ -311,7 +316,7 @@ public class Scandit {
     * @param settings the settings to apply.
     */
     public void applySettings(ScanSettings settings);
-    
+
     /**
     * @brief Asynchronously pause the scanning process while keeping the camera preview running.
     *
@@ -322,7 +327,7 @@ public class Scandit {
     *
     */
     public void pauseScanning();
-    
+
     /**
     * @brief Asynchronously resume a previously paused scanning process
     *
@@ -332,19 +337,19 @@ public class Scandit {
     *
     */
     public void resumeScanning();
-    
+
     /**
     * @brief Asynchronously stop the scanning process and camera preview
     *
     */
     public void stopScanning();
-    
+
     /**
     * @brief Asynchronously start the camera preview and scanning process
     *
     */
     public void startScanning();
-    
+
     /**
     * Set the barcode picker GUI style
     *
@@ -352,7 +357,7 @@ public class Scandit {
     *
     */
     public void setGuiStyle(int guiStyle);
-    
+
     /**
     * Set the matrix scanning highlighting color
     *
@@ -361,12 +366,12 @@ public class Scandit {
     *
     */
     public void setMatrixScanHighlightingColor(int state, Object color);
-    
+
     /** @name Sound Configuration
     *  Customize the scan sound.
     */
     ///@{
-    
+
     /**
     * Enables (or disables) the sound when a barcode is recognized. If the phone's ring mode
     * is set to muted or vibrate, no beep will be played regardless of the value.
@@ -376,7 +381,7 @@ public class Scandit {
     * @param enabled whether the beep is enabled.
     */
     public void setBeepEnabled(boolean enabled);
-    
+
     /**
     * Enables or disables the vibration when a code was recognized. If the phone's ring mode
     * is set to muted, no beep will be played regardless of the value.
@@ -389,12 +394,12 @@ public class Scandit {
     */
     public void setVibrateEnabled(boolean enabled);
     ///@}
-    
+
     /** @name Viewfinder Configuration
     *  Customize the viewfinder where the barcode location is highlighted.
     */
     ///@{
-    
+
     /**
     * Sets the size of the viewfinder relative to the size of the BarcodePicker's size.
     *
@@ -410,7 +415,7 @@ public class Scandit {
     */
     public void setViewfinderDimension(
     number width, number height, number landscapeWidth, number landscapeHeight);
-    
+
     /**
     * Sets the color of the viewfinder before a bar code has been recognized
     * <p>
@@ -421,7 +426,7 @@ public class Scandit {
     * @param color the color to set, this parameter can be a hex string or a color literal such as 'red' or 'yellow'
     */
     public void setViewfinderColor(Object color);
-    
+
     /**
     * Sets the color of the viewfinder once the bar code has been recognized.
     * <p>
@@ -433,7 +438,7 @@ public class Scandit {
     */
     public void setViewfinderDecodedColor(Object color);
     ///@}
-    
+
     /** @name Non-Official Methods
     */
     ///@{
@@ -450,29 +455,29 @@ public class Scandit {
     public void setOverlayProperty(String key, Object value);
     ///@}
   }
-  
+
   /**
   * @brief Abstract scan UI class.
   *
   * The ScanOverlay implements the scan UI displayed on top of the video feed. It is responsible for highlighting barcodes and draw the viewfinder rectangle or laser UI.
   */
   public class ScanOverlay {
-    
+
     // Hack to force doxygen to generate a documentation page for this class.
     public void noop();
-    
+
     /**
     * @brief Scan UI style.
     */
     public enum GuiStyle {
-      
+
       /**
       * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
       * A rectangular viewfinder with rounded corners is shown in the specified size. Recognized
       * codes are marked with four corners.
       */
       GUI_STYLE_DEFAULT,
-      
+
       /**
       * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
       * A laser line is shown with the specified width while the height is not changeable. This mode
@@ -480,21 +485,21 @@ public class Scandit {
       * indicates that the code should be placed at the location of the laser line.
       */
       GUI_STYLE_LASER,
-      
+
       /**
       * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
       * No UI is shown to indicate where the barcode should be placed. Be aware that the Scandit
       * logo continues to be displayed as showing it is part of the license agreement.
       */
       GUI_STYLE_NONE,
-      
+
       /**
       * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
       * Like {@link ScanOverlay.GuiStyle.GUI_STYLE_NONE Scandit.ScanOverlay.GuiStyle.GUI_STYLE_NONE}, but
       * barcode locations are highlighted in the UI.
       */
       GUI_STYLE_LOCATIONS_ONLY,
-      
+
       /**
       * Used with {@link BarcodePicker.setGuiStyle() Scandit.BarcodePicker.setGuiStyle()} method.
       * The MatrixScan UI is shown.
@@ -503,42 +508,42 @@ public class Scandit {
       */
       GUI_STYLE_MATRIX_SCAN
     }
-    
+
     /**
     * @brief Camera Switch Button Visibility.
     */
     public enum CameraSwitchVisibility {
-      
+
       /**
       * @brief The camera switch button is always hidden.
       */
       NEVER,
-      
+
       /**
       * @brief The camera switch button is shown on tablet devices with front and back cameras.
       */
       ON_TABLET,
-      
+
       /**
       * @brief The camera switch button is shown on all devices that have front and back cameras.
       */
       ALWAYS
     }
-    
+
     public enum MatrixScanState {
-      
+
       /**
       * Used with {@link BarcodePicker.setMatrixScanHighlightingColor() Scandit.BarcodePicker.setMatrixScanHighlightingColor()} method.
       * State for tracked barcodes that have been localized, but not recognized yet.
       */
       MATRIX_SCAN_STATE_LOCALIZED,
-      
+
       /**
       * Used with {@link BarcodePicker.setMatrixScanHighlightingColor() Scandit.BarcodePicker.setMatrixScanHighlightingColor()} method.
       * State for tracked barcodes that have been recognized.
       */
       MATRIX_SCAN_STATE_RECOGNIZED,
-      
+
       /**
       * Used with {@link BarcodePicker.setMatrixScanHighlightingColor() Scandit.BarcodePicker.setMatrixScanHighlightingColor()} method.
       * State for tracked barcodes that have been rejected with {@link ScanSession.rejectCode() Scandit.ScanSession.rejectCode()}.
@@ -546,19 +551,19 @@ public class Scandit {
       MATRIX_SCAN_STATE_REJECTED
     }
   }
-  
+
   /**
   * @brief Settings to configure the decoding process
   */
   public class ScanSettings {
-    
+
     /**
     * Possible recognition modes.
     *
     *
     */
     public enum RecognitionMode {
-      
+
       /**
       * Text recognition
       */
@@ -568,14 +573,14 @@ public class Scandit {
       */
       CODE
     }
-    
+
     /**
     * Possible working ranges for the barcode picker
     *
     *
     */
     public enum WorkingRange {
-      
+
       /**
       * The camera tries to focus on barcodes which are close to the camera. To scan far-
       * away codes (30-40cm+), user must tap the screen. This is the default working range
@@ -590,12 +595,12 @@ public class Scandit {
       */
       LONG
     }
-    
+
     /**
     * Camera facing direction.
     */
     public enum CameraFacing {
-      
+
       /**
       * Facing away from the user.
       */
@@ -605,12 +610,12 @@ public class Scandit {
       */
       FRONT
     }
-    
+
     /** @name Working Range/Focus Control
     *
     */
     ///@{
-    
+
     /**
     * The working range tells the engine at which distance barcodes are to be
     * expected. When set to WorkingRange.WORKING_RANGE_STANDARD (the default), the focus is optimized
@@ -624,13 +629,13 @@ public class Scandit {
     * The working range hint is ignored on cameras with fixed-focus.
     */
     public int workingRange;
-    
+
     ///@}
-    
+
     /** @name Scan Session Configuration
     * @{
     */
-    
+
     /**
     * The duration (in milliseconds) for which barcodes are kept in the
     * session.
@@ -643,7 +648,7 @@ public class Scandit {
     * The default value is -1
     */
     public int codeCachingDuration;
-    
+
     /**
     * The duration of the duplicate filter in milliseconds.
     * When set to values larger than zero, barcodes with the same symbology
@@ -655,11 +660,11 @@ public class Scandit {
     * By default, the duplicate filter is set to 500ms
     */
     public int codeDuplicateFilter;
-    
+
     /**
     * @}
     */
-    
+
     /**
     * The recognition mode to use for the barcode picker.
     * <p>
@@ -667,7 +672,7 @@ public class Scandit {
     * By default, barcode recognition is on RecognitionMode.CODE
     */
     public RecognitionMode recognitionMode;
-    
+
     /**
     * High density mode enables phones to work at higher camera resolution,
     * provided they support it. When enabled, phones that are able to run the
@@ -679,18 +684,18 @@ public class Scandit {
     * By default, high density mode is disabled.
     */
     public boolean highDensityModeEnabled;
-    
+
     /**
     * Sets the device name to identify the current device when looking at analytics tools. Sends a request to
     * the server to set this as soon as a connection is available.
     */
     public String deviceName;
-    
+
     /**
     * Hash containing the symbology settings for each available symbology.
     */
     public HashMap<Barcode.Symbology, SymbologySettings> symbologies;
-    
+
     /**
     * @brief Retrieve symbology specific-settings
     *
@@ -700,7 +705,7 @@ public class Scandit {
     *
     */
     public SymbologySettings getSymbologySettings(Scandit.Barcode.Symbology symbology);
-    
+
     /**
     * @brief Enable/disable decoding of a certain symbology.
     *
@@ -720,7 +725,7 @@ public class Scandit {
     *
     */
     public void setSymbologyEnabled(int symbology, boolean enabled);
-    
+
     /**
     * The picker first gives preference to cameras of the specified direction. When
     * the device has no such camera, cameras of the opposite face are tried as
@@ -731,18 +736,18 @@ public class Scandit {
     *
     */
     public CameraFacing cameraFacingPreference;
-    
+
     /**
     * The percentage of the max zoom (between 0 and 1).
     */
     public number relativeZoom;
-    
+
     /**
     * Maximum number of codes to be decoded every frame.
     * The value is set to 1 if a negative value is supplied.
     */
     public int maxNumberOfCodesPerFrame;
-    
+
     /**
     * @brief Whether code rejection is enabled
     *
@@ -755,7 +760,7 @@ public class Scandit {
     *
     */
     public boolean codeRejectionEnabled;
-    
+
     /**
     * @brief Sets the active scan area for portrait mode scanning.
     *
@@ -765,7 +770,7 @@ public class Scandit {
     * Invoking this method with invalid rectangles, e.g. rectangles whose top, left, right, or bottom attributes are outside the allowed range of 0.0-1.0, or rectangles with negative width/height will have no effect.
     */
     public Rect activeScanningAreaPortrait;
-    
+
     /**
     * @brief Sets the active scan area for landscape mode scanning.
     *
@@ -775,7 +780,7 @@ public class Scandit {
     * Invoking this method with invalid rectangles, e.g. rectangles whose top, left, right, or bottom attributes are outside the allowed range of 0.0-1.0, or rectangles with negative width/height will have no effect.
     */
     public Rect activeScanningAreaLandscape;
-    
+
     /**
     * @brief The location in the image where barcodes are decoded with the highest priority.
     *
@@ -793,108 +798,108 @@ public class Scandit {
     * When setting the hot spot to values outside the allowed range, the hot spot value is ignored.
     */
     public Point scanningHotSpot;
-    
+
     /**
     * @brief Whether MatrixScan should be enabled.
     *
-    * MatrixScan allows you to show the locations of all localized codes. 
-    * In order to get MatrixScan, it is recommended to implement the didRecognizeNewCodes 
-    * callback and to use newlyTrackedCodes. To use the default MatrixScan UI, 
-    * it is necessary to set {@link BarcodePicker.setGuiStyle() setGuiStyle()} to 
+    * MatrixScan allows you to show the locations of all localized codes.
+    * In order to get MatrixScan, it is recommended to implement the didRecognizeNewCodes
+    * callback and to use newlyTrackedCodes. To use the default MatrixScan UI,
+    * it is necessary to set {@link BarcodePicker.setGuiStyle() setGuiStyle()} to
     * {@link ScanOverlay.GuiStyle.GUI_STYLE_MATRIX_SCAN}.
     * Implementing a custom MatrixScan UI is not possible.
     */
     public boolean matrixScanEnabled;
   }
-  
+
   /**
   * @brief Holds settings specific to a particular symbology (1d, 2d)
   */
   public class SymbologySettings {
-    
+
     // Hack to force doxygen to generate a documentation page for this class.
     public void noop();
-    
+
     /**
     * Checksums for the symbology.
     */
     public enum Checksum {
-      
+
       /**
       * Modulo 10 checksum.
       */
       MOD_10,
-      
+
       /**
       * Modulo 11 checksum.
       */
       MOD_11,
-      
+
       /**
       * Modulo 47 checksum.
       */
       MOD_47,
-      
+
       /**
       * Modulo 43 checksum.
       */
       MOD_43,
-      
+
       /**
       * Modulo 103 checksum.
       */
       MOD_103,
-      
+
       /**
       * Two modulo 10 checksums.
       */
       MOD_1010,
-      
+
       /**
       * A modulo 11 and a modulo 10 checksum.
       */
       MOD_1110,
     }
-    
+
     /**
     * Extensions for the symbology.
     */
     public enum Extension {
-      
+
       /**
       * Interprets the Code39 code data using two symbols per output character to encode all ASCII characters.
       */
       FULL_ASCII,
-      
+
       /**
       * Removes the leading zero digit from the result.
       */
       REMOVE_LEADING_ZERO,
-      
+
       /**
-      * Enables scanning codes that have quiet zones (white area before and after the code) that are significantly 
-      * smaller than allowed by the symbology specification. Use this extension if you are having difficulties to 
-      * scan codes due to quiet zone violations. However, enabling it may come at the cost of more false positives 
+      * Enables scanning codes that have quiet zones (white area before and after the code) that are significantly
+      * smaller than allowed by the symbology specification. Use this extension if you are having difficulties to
+      * scan codes due to quiet zone violations. However, enabling it may come at the cost of more false positives
       * under certain circumstances.
       */
       RELAXED_SHARP_QUIET_ZONE_CHECK,
-      
+
       /**
       * Transforms the UPCE result into its UPCA representation.
       */
       RETURN_AS_UPCA,
-      
+
       /**
       * Removes the leading zero digit from the result if the UPCA representation extension 'return_as_upca' is enabled.
       */
       REMOVE_LEADING_UPCA_ZERO,
-      
+
       /**
       * Removes the leading FNC1 character that indicates a GS1 code.
       */
       STRIP_LEADING_FNC1
     }
-    
+
     /**
     * Enables/disables decoding of dark codes on bright background only. If color-
     * inverted (bright on dark) codes for this symbology are required, enable them through the
@@ -906,7 +911,7 @@ public class Scandit {
     *
     */
     public boolean enabled;
-    
+
     /**
     * Enables/disables decoding of bright codes on dark background only. By default
     * color-inverted decoding of all symbologies is disabled.
@@ -916,7 +921,7 @@ public class Scandit {
     *
     */
     public boolean colorInvertedEnabled;
-    
+
     /**
     * An array of all active custom extensions for the symbology.
     *
@@ -926,7 +931,7 @@ public class Scandit {
     *
     */
     public Extension[] extensions;
-    
+
     /**
     * Array of additional checksums for this symbology. When a barcode has been
     * decoded, the checksums contained are evaluated in addition to any mandatory checksum defined by
@@ -936,7 +941,7 @@ public class Scandit {
     *
     */
     public Checksum[] checksums;
-    
+
     /**
     * Array containing the length of barcodes to be decoded for this symbology. Change
     * this property to enable decoding of long codes which can not be decoded with the default
@@ -954,7 +959,7 @@ public class Scandit {
     */
     public int[] activeSymbolCounts;
   }
-  
+
   /**
   * The scan session holds all barcodes that were decoded in the current
   * session. These codes are available as {@link allRecognizedCodes}.
@@ -985,14 +990,14 @@ public class Scandit {
   *
   */
   public class ScanSession {
-    
+
     /**
     * List of barcodes that have been successfully recognized in the last frame.
     *
     *
     */
     public Barcode[] newlyRecognizedCodes;
-    
+
     /**
     * List of barcodes that have been localized in the last frame. This list does not include
     * barcodes that have been successfully recognized.
@@ -1000,7 +1005,7 @@ public class Scandit {
     *
     */
     public Barcode[] newlyLocalizedCodes;
-    
+
     /**
     * @brief Returns the list of barcodes (data, symbology) that have been recognized
     *     in this session.
@@ -1015,7 +1020,7 @@ public class Scandit {
     *
     */
     public Barcode[] allRecognizedCodes;
-    
+
     /**
     * @brief Immediately Pauses barcode recognition, but keeps camera preview open.
     *
@@ -1032,7 +1037,7 @@ public class Scandit {
     *
     */
     public void pauseScanning();
-    
+
     /**
     * Immediately stops the scanning and clears the scan session
     * <p>
@@ -1044,7 +1049,7 @@ public class Scandit {
     *
     */
     public void stopScanning();
-    
+
     /**
     * @brief Prevent beeping/vibrate and highlighting for a particular code.
     *
