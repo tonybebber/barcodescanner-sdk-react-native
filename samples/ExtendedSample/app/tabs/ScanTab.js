@@ -26,6 +26,7 @@ import {
 } from 'react-navigation';
 
 import Events from 'react-native-simple-events';
+import StatusBar from '../components/StatusBar'
 
 export default class ScanScreen extends Component {
 
@@ -171,6 +172,7 @@ export default class ScanScreen extends Component {
     return (
       <View
         style={{ flex: 1 }}>
+        <StatusBar style={{ backgroundColor: 'white' }}/>
         <BarcodePicker
           style={{ flex: 1 }}
           onScan={ (session) => { this.onScan(session) }}

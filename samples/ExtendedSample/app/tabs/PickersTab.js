@@ -28,8 +28,8 @@ import {
 } from 'react-native-scandit';
 
 import Events from 'react-native-simple-events';
-
-import CustomClickableElement from '../components/CustomClickableElement'
+import CustomClickableElement from '../components/CustomClickableElement';
+import StatusBar from '../components/StatusBar';
 
 export default class PickersTab extends Component {
 
@@ -199,96 +199,45 @@ export default class PickersTab extends Component {
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={() => {this.hidePicker()}} underlayColor="white">
-        <View style={{width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'}}>
-          <ScrollView style={{width: '100%',
+      <View style={{flex:1}}>
+        <StatusBar style={{ backgroundColor: 'white' }}/>
+        <TouchableWithoutFeedback onPress={() => {this.hidePicker()}} underlayColor="white">
+          <View style={{width: '100%',
           height: '100%',
-          backgroundColor: 'white'}}>
-            <Text style={{fontWeight: 'bold',
-              margin: 10}}>
-              Pickers
-            </Text>
-            <CustomClickableElement
-              onPress={() => {this.showScaledPicker()}}
-              mainLabel="Scaled Picker"
-            />
-            <CustomClickableElement
-              onPress={() => {this.showCroppedPicker()}}
-              mainLabel="Cropped Picker"
-            />
-            <CustomClickableElement
-              onPress={() => {this.showFullscreenPicker()}}
-              mainLabel="Fullscreen Picker"
-            />
-          </ScrollView>
-            {this.state.isScaledPickerVisible && (
-              <View style={{width: '100%',
-              height: '100%',
-              position: 'absolute',
-              alignItems: 'center',
-              justifyContent: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
-                <View style={{width: '75%',
-                height: '75%',
-                alignItems: 'center',
-                justifyContent: 'center'}}>
-                  <BarcodePicker
-                    style={{ width: '100%', height: '100%' }}
-                    onScan={ (session) => { this.onScan(session) }}
-                    scanSettings= { new ScanSettings() }
-                    ref={(scan) => {
-                      this.scanner = scan
-                      if (this.scanner) {
-                        this.applySettings()
-                        this.scanner.startScanning()
-                      }
-                    }}/>
-                </View>
-              </View>
-            )}
-            {this.state.isCroppedPickerVisible && (
-              <View style={{width: '100%',
-              height: '100%',
-              position: 'absolute',
-              alignItems: 'center',
-              justifyContent: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
-                <View style={{width: '100%',
-                height: '25%',
-                alignItems: 'center',
-                justifyContent: 'center'}}>
-                  <BarcodePicker
-                    style={{ width: '100%', height: '100%' }}
-                    onScan={ (session) => { this.onScan(session) }}
-                    scanSettings= { new ScanSettings() }
-                    ref={(scan) => {
-                      this.scanner = scan
-                      if (this.scanner) {
-                        this.applySettings()
-                        this.scanner.startScanning()
-                      }
-                    }}/>
-                </View>
-              </View>
-            )}
-            {this.state.isFullscreenPickerVisible && (
-              <View style={{width: '100%',
-              height: '100%',
-              position: 'absolute',
-              alignItems: 'center',
-              justifyContent: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+          alignItems: 'center',
+          justifyContent: 'center'}}>
+            <ScrollView style={{width: '100%',
+            height: '100%',
+            backgroundColor: 'white'}}>
+              <Text style={{fontWeight: 'bold',
+                margin: 10}}>
+                Pickers
+              </Text>
+              <CustomClickableElement
+                onPress={() => {this.showScaledPicker()}}
+                mainLabel="Scaled Picker"
+              />
+              <CustomClickableElement
+                onPress={() => {this.showCroppedPicker()}}
+                mainLabel="Cropped Picker"
+              />
+              <CustomClickableElement
+                onPress={() => {this.showFullscreenPicker()}}
+                mainLabel="Fullscreen Picker"
+              />
+            </ScrollView>
+              {this.state.isScaledPickerVisible && (
                 <View style={{width: '100%',
                 height: '100%',
+                position: 'absolute',
                 alignItems: 'center',
-                justifyContent: 'center'}}>
-                  <TouchableWithoutFeedback onPress={() => {this.hidePicker()}} >
+                justifyContent: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                  <View style={{width: '75%',
+                  height: '75%',
+                  alignItems: 'center',
+                  justifyContent: 'center'}}>
                     <BarcodePicker
                       style={{ width: '100%', height: '100%' }}
                       onScan={ (session) => { this.onScan(session) }}
@@ -300,12 +249,66 @@ export default class PickersTab extends Component {
                           this.scanner.startScanning()
                         }
                       }}/>
-                  </TouchableWithoutFeedback>
+                  </View>
                 </View>
-              </View>
-            )}
-        </View>
-      </TouchableWithoutFeedback>
+              )}
+              {this.state.isCroppedPickerVisible && (
+                <View style={{width: '100%',
+                height: '100%',
+                position: 'absolute',
+                alignItems: 'center',
+                justifyContent: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                  <View style={{width: '100%',
+                  height: '25%',
+                  alignItems: 'center',
+                  justifyContent: 'center'}}>
+                    <BarcodePicker
+                      style={{ width: '100%', height: '100%' }}
+                      onScan={ (session) => { this.onScan(session) }}
+                      scanSettings= { new ScanSettings() }
+                      ref={(scan) => {
+                        this.scanner = scan
+                        if (this.scanner) {
+                          this.applySettings()
+                          this.scanner.startScanning()
+                        }
+                      }}/>
+                  </View>
+                </View>
+              )}
+              {this.state.isFullscreenPickerVisible && (
+                <View style={{width: '100%',
+                height: '100%',
+                position: 'absolute',
+                alignItems: 'center',
+                justifyContent: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                  <View style={{width: '100%',
+                  height: '100%',
+                  alignItems: 'center',
+                  justifyContent: 'center'}}>
+                    <TouchableWithoutFeedback onPress={() => {this.hidePicker()}} >
+                      <BarcodePicker
+                        style={{ width: '100%', height: '100%' }}
+                        onScan={ (session) => { this.onScan(session) }}
+                        scanSettings= { new ScanSettings() }
+                        ref={(scan) => {
+                          this.scanner = scan
+                          if (this.scanner) {
+                            this.applySettings()
+                            this.scanner.startScanning()
+                          }
+                        }}/>
+                    </TouchableWithoutFeedback>
+                  </View>
+                </View>
+              )}
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
     );
   }
 
