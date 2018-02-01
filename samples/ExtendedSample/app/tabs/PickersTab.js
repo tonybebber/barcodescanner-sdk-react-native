@@ -13,7 +13,8 @@ import {
   Slider,
   Picker,
   Alert,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  Image
 } from 'react-native';
 
 import {
@@ -35,6 +36,12 @@ export default class PickersTab extends Component {
 
   static navigationOptions = {
     title: 'Pickers',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('../assets/scan_icon.png')}
+        style={{resizeMode:'contain', height:26, width:26, tintColor: tintColor}}
+      />
+    ),
     tabBarOnPress: (event) => {
       Events.trigger('fetchForPickersTab', null);
       Events.trigger('pickersTabOpened', null);

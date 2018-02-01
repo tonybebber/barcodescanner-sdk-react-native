@@ -11,7 +11,8 @@ import {
   ScrollView,
   Switch,
   Slider,
-  Picker
+  Picker,
+  Image
 } from 'react-native';
 
 import {
@@ -38,6 +39,12 @@ export default class SettingsTab extends Component {
 
   static navigationOptions = {
     title: 'Settings',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('../assets/settings_icon.png')}
+        style={{resizeMode:'contain', height:26, width:26, tintColor: tintColor}}
+      />
+    ),
     tabBarOnPress: (event) => {
       Events.trigger('settingsTabOpened', null);
       event.jumpToIndex(event.scene.index);

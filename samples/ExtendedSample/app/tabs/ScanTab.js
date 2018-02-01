@@ -7,7 +7,8 @@ import {
   findNodeHandle,
   View,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 
 import {
@@ -40,6 +41,12 @@ export default class ScanScreen extends Component {
 
   static navigationOptions = {
     title: 'Scan',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('../assets/scan_icon.png')}
+        style={{resizeMode:'contain', height:26, width:26, tintColor: tintColor}}
+      />
+    ),
     tabBarOnPress: (event) => {
       Events.trigger('fetch', null);
       Events.trigger('scanTabOpened', null);
