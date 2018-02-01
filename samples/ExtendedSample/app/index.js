@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { 
+import {
   TabNavigator
 } from 'react-navigation';
 
@@ -23,12 +23,12 @@ export const ExtendedSample = TabNavigator({
   },
   Pickers: {
     screen: PickersTab
-  }}, 
+  }},
   {
     tabBarPosition: 'bottom',
     swipeEnabled: false,
     backBehavior: 'none',
-    animationEnabled: true,
+    animationEnabled: false,
     lazy: true,
     tabBarOptions: {
       activeTintColor: 'blue',

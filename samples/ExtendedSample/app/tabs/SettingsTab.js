@@ -38,6 +38,7 @@ export default class SettingsTab extends Component {
   static navigationOptions = {
     title: 'Settings',
     tabBarOnPress: (event) => {
+      Events.trigger('settingsTabOpened', null);
       event.jumpToIndex(event.scene.index);
     }
   };
