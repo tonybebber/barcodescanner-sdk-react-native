@@ -154,6 +154,7 @@ export default class ScanScreen extends Component {
     Events.on('fetch', 'scanTab', () => { this.fetchSettings() });
     Events.on('pickersTabOpened', 'scanTab', () => { this.stopScanning() });
     Events.on('settingsTabOpened', 'scanTab', () => { this.stopScanning() })
+    Events.on('scanTabOpened', 'scanTab', () => { this.startScanning() })
     this.fetchSettings();
   }
 
@@ -163,6 +164,7 @@ export default class ScanScreen extends Component {
     Events.rm('fetch', 'scanTab');
     Events.rm('pickersTabOpened', 'scanTab');
     Events.rm('settingsTabOpened', 'scanTab');
+    Events.rm('scanTabOpened', 'scanTab');
   }
 
   _onFocus = () => {
