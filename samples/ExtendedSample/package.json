@@ -7,8 +7,8 @@
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.48.4",
+		"react": "16.2.0",
+		"react-native": "0.52",
 		"react-native-scandit": "git+https://github.com/Scandit/barcodescanner-sdk-react-native.git",
 		"react-native-simple-events": "1.0.1",
 		"react-navigation": "github:react-community/react-navigation#master",
