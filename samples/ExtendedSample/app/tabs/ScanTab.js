@@ -7,7 +7,8 @@ import {
   findNodeHandle,
   View,
   Button,
-  AsyncStorage
+  AsyncStorage,
+  Image
 } from 'react-native';
 
 import {
@@ -26,6 +27,7 @@ import {
 } from 'react-navigation';
 
 import Events from 'react-native-simple-events';
+import StatusBar from '../components/StatusBar'
 
 export default class ScanScreen extends Component {
 
@@ -39,8 +41,15 @@ export default class ScanScreen extends Component {
 
   static navigationOptions = {
     title: 'Scan',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('../assets/scan_icon.png')}
+        style={{resizeMode:'contain', height:26, width:26, tintColor: tintColor}}
+      />
+    ),
     tabBarOnPress: (event) => {
       Events.trigger('fetch', null);
+      Events.trigger('scanTabOpened', null);
       event.jumpToIndex(event.scene.index);
     }
   }
@@ -136,22 +145,43 @@ export default class ScanScreen extends Component {
   }
 
   componentDidMount() {
+    this.props.navigation.addListener('didFocus', this._onFocus);
+    this.props.navigation.addListener('didBlur', this._onBlur);
     this.scanner.startScanning();
   }
 
   componentWillMount() {
     Events.on('fetch', 'scanTab', () => { this.fetchSettings() });
+    Events.on('pickersTabOpened', 'scanTab', () => { this.stopScanning() });
+    Events.on('settingsTabOpened', 'scanTab', () => { this.stopScanning() })
+    Events.on('scanTabOpened', 'scanTab', () => { this.startScanning() })
     this.fetchSettings();
   }
 
   componentWillUnmount() {
+    this.props.navigation.removeListener('didFocus', this._onBlur);
+    this.props.navigation.removeListener('didBlur', this._onFocus);
     Events.rm('fetch', 'scanTab');
+    Events.rm('pickersTabOpened', 'scanTab');
+    Events.rm('settingsTabOpened', 'scanTab');
+    Events.rm('scanTabOpened', 'scanTab');
   }
+
+  _onFocus = () => {
+    this.setState({isFocused: true}, () => { this.setState(this.state)});
+    this.startScanning()
+  };
+
+  _onBlur = () => {
+    this.stopScanning();
+    this.setState({isFocused: false});
+  };
 
   render() {
     return (
       <View
         style={{ flex: 1 }}>
+        <StatusBar style={{ backgroundColor: 'white' }}/>
         <BarcodePicker
           style={{ flex: 1 }}
           onScan={ (session) => { this.onScan(session) }}
@@ -181,6 +211,27 @@ export default class ScanScreen extends Component {
   resumeScanning() {
     this.setState({ buttonDisabled: true });
     this.scanner.resumeScanning();
+  }
+
+  pauseScanning() {
+    this.setState({ buttonDisabled: false });
+    this.scanner.pauseScanning();
+  }
+
+  stopScanning() {
+    this.setState({ buttonDisabled: false });
+    if (this.scanner) {
+      this.scanner.stopScanning();
+      this.scanner = null
+    }
+  }
+
+  startScanning() {
+    this.forceUpdate()
+    this.setState({ buttonDisabled: true });
+    if (this.scanner) {
+      this.scanner.startScanning()
+    }
   }
 
   onScan(session) {
