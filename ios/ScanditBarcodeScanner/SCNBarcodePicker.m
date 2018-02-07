@@ -119,7 +119,8 @@ static inline NSDictionary *dictionaryFromTrackedCodes(NSDictionary<NSNumber *, 
         [self.picker applyScanSettings:scanSettings completionHandler:^{
             __strong typeof(weakSelf)strongSelf = weakSelf;
             if (strongSelf.onSettingsApplied != nil) {
-                strongSelf.onSettingsApplied(@{});
+                NSDictionary *emptyDictionary = [[NSDictionary alloc] init];
+                strongSelf.onSettingsApplied(emptyDictionary);
             }
         }];
     }
