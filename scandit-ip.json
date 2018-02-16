@@ -1,0 +1,11 @@
+{
+    "name": "SDK React Native",
+    "owner": ["moritz@scandit.com"],
+    "distribution": "SOURCE",
+    "packages": [
+        { "type": "npm", "path": "package.json", "distribution": "SOURCE" }
+    ],
+    "ignored_packages": [],
+    "overrides": [],
+    "whitelist": []
+}
