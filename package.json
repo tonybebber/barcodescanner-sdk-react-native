@@ -1,6 +1,6 @@
 {
   "name": "react-native-scandit",
-  "version": "5.6.2",
+  "version": "5.6.3",
   "nativePackage": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
