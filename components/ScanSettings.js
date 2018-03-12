@@ -22,8 +22,8 @@ export class ScanSettings {
 }
 
 ScanSettings.RecognitionMode = {
-	TEXT: 1,
-	CODE: 2
+	TEXT: "text",
+	CODE: "code"
 }
 
 ScanSettings.CameraFacing = {
