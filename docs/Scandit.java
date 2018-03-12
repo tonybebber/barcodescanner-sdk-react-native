@@ -766,7 +766,7 @@ public class Scandit {
     *
     * By default, the barcode recognition engine searches the whole image for barcodes. Use this method to define the area in which barcodes are to be searched.
     * <p>
-    * Rectangle coordinates run from 0 to 1. The coordinates are relative to the camera preview.
+    * Rectangle coordinates run from 0 to 1. The coordinates are relative to the whole camera preview (even if the BarcodePicker view is cropped).
     * Invoking this method with invalid rectangles, e.g. rectangles whose top, left, right, or bottom attributes are outside the allowed range of 0.0-1.0, or rectangles with negative width/height will have no effect.
     */
     public Rect activeScanningAreaPortrait;
@@ -776,7 +776,7 @@ public class Scandit {
     *
     * By default, the barcode recognition engine searches the whole image for barcodes. Use this method to define the area in which barcodes are to be searched.
     * <p>
-    * Rectangle coordinates run from 0 to 1. The coordinates are relative to the camera preview.
+    * Rectangle coordinates run from 0 to 1. The coordinates are relative to the whole camera preview (even if the BarcodePicker view is cropped).
     * Invoking this method with invalid rectangles, e.g. rectangles whose top, left, right, or bottom attributes are outside the allowed range of 0.0-1.0, or rectangles with negative width/height will have no effect.
     */
     public Rect activeScanningAreaLandscape;
