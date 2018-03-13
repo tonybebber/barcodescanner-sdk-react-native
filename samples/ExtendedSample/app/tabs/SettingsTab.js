@@ -383,6 +383,7 @@ export default class SettingsTab extends Component {
                 var height = this.state.scanSettings.activeScanningArea.height;
                 this.state.scanSettings.activeScanningAreaCenterY = value;
                 value = Number((value - (height / 2)).toFixed(2));
+                this.state.scanSettings.scanningHotSpot = {"x": 0.5, "y": value};
                 this.state.scanSettings.activeScanningArea.y = value;
                 this.setState(this.state);
             }}/>
