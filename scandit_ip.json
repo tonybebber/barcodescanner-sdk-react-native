@@ -4,8 +4,8 @@
     "distribution": "BINARY",
     "packages": [
         { "type": "npm", "path": "package.json", "distribution": "SOURCE" },
-        { "type": "npm", "path": "samples/SimpleSample/package.json", "distribution": "SOURCE" },
-        { "type": "npm", "path": "samples/ExtendedSample/package.json", "distribution": "SOURCE" },
+        { "type": "npm", "path": "samples/SimpleSample/package.json", "distribution": "SOURCE", "clone": true },
+        { "type": "npm", "path": "samples/ExtendedSample/package.json", "distribution": "SOURCE", "clone": true },
         { "type": "gradle", "path": "android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar" },
         { "type": "gradle", "path": "samples/SimpleSample/android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" },
         { "type": "gradle", "path": "samples/ExtendedSample/android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" }
