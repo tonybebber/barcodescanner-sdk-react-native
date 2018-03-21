@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong, nullable) NSDictionary *scanSettings;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onScan;
+@property (nonatomic, copy, nullable) RCTBubblingEventBlock onProcessFrame;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onRecognizeNewCodes;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onTextRecognized;
 @property (nonatomic, copy, nullable) RCTBubblingEventBlock onSettingsApplied;

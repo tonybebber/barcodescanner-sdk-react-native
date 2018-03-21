@@ -19,6 +19,7 @@ var iface = {
 	  scanSettings: PropTypes.object,
 	  onScan: PropTypes.func,
 		onRecognizeNewCodes: PropTypes.func,
+		onProcessFrame: PropTypes.func,
 	  onSettingsApplied: PropTypes.func,
 	  onTextRecognized: PropTypes.func,
 	  ...View.propTypes
@@ -33,6 +34,7 @@ export class BarcodePicker extends React.Component {
 		super(props);
 		this.onScan = this.onScan.bind(this);
 		this.onRecognizeNewCodes = this.onRecognizeNewCodes.bind(this);
+		this.onProcessFrame = this.onProcessFrame.bind(this);
 		this.onSettingsApplied = this.onSettingsApplied.bind(this);
 		this.onTextRecognized = this.onTextRecognized.bind(this);
 	}
@@ -49,7 +51,7 @@ export class BarcodePicker extends React.Component {
 		this.props.onScan(session);
 		this.dispatcher.finishOnScanCallback(SerializationHelper.serializeScanSession(session));
 	}
-	
+
 	onRecognizeNewCodes(event: Event) {
 		if (!this.props.onRecognizeNewCodes) {
 			return;
@@ -57,6 +59,14 @@ export class BarcodePicker extends React.Component {
 		var session = SerializationHelper.deserializeMatrixScanSession(event.nativeEvent);
 		this.props.onRecognizeNewCodes(session);
 		this.dispatcher.finishOnRecognizeNewCodes(SerializationHelper.serializeScanSession(session));
+	}
+
+	onProcessFrame(event: Event) {
+		if (!this.props.onProcessFrame) {
+			return;
+		}
+		var frame = SerializationHelper.deserializeFrame(event.nativeEvent);
+		this.props.onProcessFrame(frame);
 	}
 
 	onSettingsApplied(event: Event) {
@@ -78,6 +88,7 @@ export class BarcodePicker extends React.Component {
 		    {...this.props}
 				onScan = {this.onScan}
 				onRecognizeNewCodes = {this.onRecognizeNewCodes}
+				onProcessFrame = {this.onProcessFrame}
 		    onSettingsApplied = {this.onSettingsApplied}
 		    onTextRecognized = {this.onTextRecognized}
 				ref = {(scan) => {this.reference = scan}} />;
@@ -110,7 +121,7 @@ export class BarcodePicker extends React.Component {
 	setVibrateEnabled(isEnabled) {
 		this.dispatcher.setVibrateEnabled(isEnabled);
 	}
-	
+
 	setTorchEnabled(isEnabled) {
 		this.dispatcher.setTorchEnabled(isEnabled);
 	}
@@ -122,11 +133,11 @@ export class BarcodePicker extends React.Component {
 	setTextRecognitionSwitchVisible(isVisible) {
 		this.dispatcher.setTextRecognitionSwitchVisible(isVisible);
 	}
-	
+
 	setViewfinderDimension(x, y, width, height) {
 		this.dispatcher.setViewfinderDimension(x, y, width, height);
 	}
-	
+
 	setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height) {
 		this.dispatcher.setTorchButtonMarginsAndSize(leftMargin, topMargin, width, height);
 	}
@@ -134,7 +145,7 @@ export class BarcodePicker extends React.Component {
 	setCameraSwitchMarginsAndSize(leftMargin, topMargin, width, height) {
 		this.dispatcher.setCameraSwitchMarginsAndSize(leftMargin, topMargin, width, height);
 	}
-	
+
 	setViewfinderColor(color) {
 		this.dispatcher.setViewfinderColor(processColor(color));
 	}
