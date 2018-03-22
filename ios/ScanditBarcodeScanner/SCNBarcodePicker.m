@@ -274,7 +274,7 @@ static inline NSString *base64StringFromFrame(CMSampleBufferRef *frame) {
               session:(nonnull SBSScanSession *)session {
 
     // Call `onBarcodeFrameAvailable` only when new codes have been recognized.
-    if (session.newlyRecognizedCodes.count > 0) {
+    if (self.shouldPassBarcodeFrame && session.newlyRecognizedCodes.count > 0) {
         NSDictionary *processedFrameDictionary = dictionaryFromBase64FrameString(base64StringFromFrame(&frame));
         self.onBarcodeFrameAvailable(processedFrameDictionary);
     }

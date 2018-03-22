@@ -30,6 +30,7 @@ RCT_EXPORT_MODULE(BarcodePicker)
 }
 
 RCT_EXPORT_VIEW_PROPERTY(scanSettings, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(shouldPassBarcodeFrame, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(onScan, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRecognizeNewCodes, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onBarcodeFrameAvailable, RCTBubblingEventBlock)

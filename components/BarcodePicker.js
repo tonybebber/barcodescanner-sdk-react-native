@@ -17,6 +17,7 @@ var iface = {
   name: 'BarcodePicker',
   propTypes: {
 	  scanSettings: PropTypes.object,
+		shouldPassBarcodeFrame: PropTypes.bool,
 	  onScan: PropTypes.func,
 		onRecognizeNewCodes: PropTypes.func,
 		onBarcodeFrameAvailable: PropTypes.func,
