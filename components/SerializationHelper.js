@@ -1,6 +1,6 @@
 import { ScanSession } from './ScanSession';
 import { MatrixScanSession } from './MatrixScanSession';
-import { ProcessedFrame } from './ProcessedFrame';
+import { BarcodeFrame } from './BarcodeFrame';
 
 export class SerializationHelper {
 
@@ -19,7 +19,7 @@ export class SerializationHelper {
   }
 
   static deserializeFrame(frame) {
-    return new ProcessedFrame(frame);
+    return new BarcodeFrame(frame);
   }
 
 }
