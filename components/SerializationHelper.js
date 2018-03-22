@@ -1,5 +1,6 @@
 import { ScanSession } from './ScanSession';
 import { MatrixScanSession } from './MatrixScanSession';
+import { ProcessedFrame } from './ProcessedFrame';
 
 export class SerializationHelper {
 

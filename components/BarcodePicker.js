@@ -19,7 +19,7 @@ var iface = {
 	  scanSettings: PropTypes.object,
 	  onScan: PropTypes.func,
 		onRecognizeNewCodes: PropTypes.func,
-		onProcessFrame: PropTypes.func,
+		onBarcodeFrameAvailable: PropTypes.func,
 	  onSettingsApplied: PropTypes.func,
 	  onTextRecognized: PropTypes.func,
 	  ...View.propTypes
@@ -34,7 +34,7 @@ export class BarcodePicker extends React.Component {
 		super(props);
 		this.onScan = this.onScan.bind(this);
 		this.onRecognizeNewCodes = this.onRecognizeNewCodes.bind(this);
-		this.onProcessFrame = this.onProcessFrame.bind(this);
+		this.onBarcodeFrameAvailable = this.onBarcodeFrameAvailable.bind(this);
 		this.onSettingsApplied = this.onSettingsApplied.bind(this);
 		this.onTextRecognized = this.onTextRecognized.bind(this);
 	}
@@ -61,12 +61,12 @@ export class BarcodePicker extends React.Component {
 		this.dispatcher.finishOnRecognizeNewCodes(SerializationHelper.serializeScanSession(session));
 	}
 
-	onProcessFrame(event: Event) {
-		if (!this.props.onProcessFrame) {
+	onBarcodeFrameAvailable(event: Event) {
+		if (!this.props.onBarcodeFrameAvailable) {
 			return;
 		}
 		var frame = SerializationHelper.deserializeFrame(event.nativeEvent);
-		this.props.onProcessFrame(frame);
+		this.props.onBarcodeFrameAvailable(frame);
 	}
 
 	onSettingsApplied(event: Event) {
@@ -88,7 +88,7 @@ export class BarcodePicker extends React.Component {
 		    {...this.props}
 				onScan = {this.onScan}
 				onRecognizeNewCodes = {this.onRecognizeNewCodes}
-				onProcessFrame = {this.onProcessFrame}
+				onBarcodeFrameAvailable = {this.onBarcodeFrameAvailable}
 		    onSettingsApplied = {this.onSettingsApplied}
 		    onTextRecognized = {this.onTextRecognized}
 				ref = {(scan) => {this.reference = scan}} />;

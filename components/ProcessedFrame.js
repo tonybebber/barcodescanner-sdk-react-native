@@ -1,6 +1,6 @@
 export class ProcessedFrame {
 
-  constuctor(frame) {
+  constructor(frame) {
     this.base64FrameString = frame.base64FrameString;
   }
 
