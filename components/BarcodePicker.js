@@ -16,14 +16,14 @@ import { ScanOverlay } from './ScanOverlay';
 var iface = {
   name: 'BarcodePicker',
   propTypes: {
-	  scanSettings: PropTypes.object,
+		scanSettings: PropTypes.object,
 		shouldPassBarcodeFrame: PropTypes.bool,
-	  onScan: PropTypes.func,
+		onScan: PropTypes.func,
 		onRecognizeNewCodes: PropTypes.func,
 		onBarcodeFrameAvailable: PropTypes.func,
-	  onSettingsApplied: PropTypes.func,
-	  onTextRecognized: PropTypes.func,
-	  ...View.propTypes
+		onSettingsApplied: PropTypes.func,
+		onTextRecognized: PropTypes.func,
+		...View.propTypes
   }
 };
 
