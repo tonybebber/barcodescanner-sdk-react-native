@@ -1,6 +1,6 @@
 {
 	"name": "ExtendedSample",
-	"version": "5.6.0-beta",
+	"version": "5.8.0-beta",
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
@@ -8,15 +8,15 @@
 	},
 	"dependencies": {
 		"react": "16.2.0",
-		"react-native": "0.54",
+		"react-native": "0.54.1",
 		"react-native-iphone-x-helper": "^1.0.2",
 		"react-native-scandit": "file:../../",
 		"react-native-simple-events": "1.0.1",
-		"react-navigation": "github:react-community/react-navigation#master",
+		"react-navigation": "1.5.8",
 		"react-navigation-is-focused-hoc": "^1.1.1"
 	},
 	"devDependencies": {
 		"babel-preset-react-native": "4.0.0",
-		"react-test-renderer": "16.0.0-alpha.12"
+		"react-test-renderer": "16.2.0"
 	}
 }
