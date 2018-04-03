@@ -1,14 +1,14 @@
 {
   "name": "react-native-scandit",
-  "version": "5.8.0SNAPSHOT",
+  "version": "5.8.0-beta",
   "nativePackage": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "16.0.0-alpha.12",
-    "react-native": "0.47.0",
+    "react": ">16.0.0",
+    "react-native": ">0.47.0",
     "prop-types": ">15.5"
   },
   "rnpm": {
