@@ -1112,6 +1112,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.MatrixScanSample;
 				PRODUCT_NAME = MatrixScanSample;
 				VERSIONING_SYSTEM = "apple-generic";
 				HEADER_SEARCH_PATHS = (
@@ -1133,12 +1134,9 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.scandit.MatrixScanSample;
 				PRODUCT_NAME = MatrixScanSample;
 				VERSIONING_SYSTEM = "apple-generic";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
-				);
 			};
 			name = Release;
 		};
