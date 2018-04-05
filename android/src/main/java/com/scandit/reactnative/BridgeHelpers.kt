@@ -90,25 +90,25 @@ fun convertGuiStyle(jsValue: String?): Int = when (jsValue) {
     "default" -> ScanOverlay.GUI_STYLE_DEFAULT
     "laser" -> ScanOverlay.GUI_STYLE_LASER
     "none" -> ScanOverlay.GUI_STYLE_NONE
-    "matrix" -> ScanOverlay.GUI_STYLE_MATRIX_SCAN
+    "matrixScan" -> ScanOverlay.GUI_STYLE_MATRIX_SCAN
     "locationsOnly" -> ScanOverlay.GUI_STYLE_LOCATIONS_ONLY
-    else -> throw IllegalArgumentException("GUI style has to be one of: default, laser, none, matrix, " +
-            "locations_only")
+    else -> throw IllegalArgumentException("GUI style has to be one of: default, laser, none, matrixScan, " +
+            "locationsOnly")
 }
 
 fun convertCameraSwitchVisibility(jsValue: String?): Int = when (jsValue) {
     "always" -> ScanOverlay.CAMERA_SWITCH_ALWAYS
     "onTablet" -> ScanOverlay.CAMERA_SWITCH_ON_TABLET
     "never" -> ScanOverlay.CAMERA_SWITCH_NEVER
-    else -> throw IllegalArgumentException("Camera switch visibility has to be one of: always, tablet, never")
+    else -> throw IllegalArgumentException("Camera switch visibility has to be one of: always, onTablet, never")
 }
 
 fun convertMatrixScanState(jsValue: String?): Int = when (jsValue) {
     "stateLocalized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_LOCALIZED
     "stateRecognized" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_RECOGNIZED
     "stateRejected" -> ScanOverlay.MATRIX_SCAN_HIGHLIGHTING_STATE_REJECTED
-    else -> throw IllegalArgumentException("Matrix scan state has to be one of: state_localized, state_recognized, " +
-            "state_rejected")
+    else -> throw IllegalArgumentException("Matrix scan state has to be one of: stateLocalized, stateRecognized, " +
+            "stateRejected")
 }
 
 fun quadrilateralToMap(quadrilateral: Quadrilateral?): WritableMap {
