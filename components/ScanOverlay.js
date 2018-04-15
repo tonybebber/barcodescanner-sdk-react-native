@@ -12,8 +12,8 @@ ScanOverlay.GuiStyle = {
   DEFAULT: 'default',
   LASER: 'laser',
   NONE: 'none',
-  MATRIXSCAN: 'matrix',
-  MATRIX_SCAN: 'matrix',
+  MATRIXSCAN: 'matrixScan',
+  MATRIX_SCAN: 'matrixScan',
   LOCATIONSONLY: 'locationsOnly',
   LOCATIONS_ONLY: 'locationsOnly'
 }

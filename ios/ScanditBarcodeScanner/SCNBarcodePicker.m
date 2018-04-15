@@ -246,6 +246,9 @@ static inline NSString *base64StringFromFrame(CMSampleBufferRef *frame) {
 #pragma mark - SBSScanDelegate
 
 - (void)barcodePicker:(SBSBarcodePicker *)picker didScan:(SBSScanSession *)session {
+    if (_matrixScanEnabled) {
+        return;
+    }
     if (self.onScan) {
         self.onScan(dictionaryFromScanSession(session));
     }

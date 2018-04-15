@@ -26,6 +26,9 @@ update_versions() {
   the_file=samples/ExtendedSample/package.json
   sed -i.bak "s_\"version\":\(.*\)_\"version\": \"${VERSION}\",_" $the_file
   rm ${the_file}.bak
+  the_file=samples/MatrixScanSample/package.json
+  sed -i.bak "s_\"version\":\(.*\)_\"version\": \"${VERSION}\",_" $the_file
+  rm ${the_file}.bak
 }
 
 update_versions
