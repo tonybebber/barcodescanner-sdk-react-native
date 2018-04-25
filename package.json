@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scandit",
+  "name": "scandit-react-native",
   "version": "5.7.2",
   "nativePackage": true,
   "scripts": {
