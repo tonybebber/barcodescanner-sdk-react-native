@@ -2,9 +2,24 @@
   "name": "scandit-react-native",
   "version": "5.7.2",
   "nativePackage": true,
+  "description": "Scandit Barcode Scanner SDK for react native",
+  "author": "Scandit <info@scandit.com>",
+  "homepage": "https://scandit.com",
+  "license": "The source code of the React Native plug-in code published here is released under the Apache 2.0 license: http://www.apache.org/licenses/LICENSE-2.0.\nThe plugin code relies on the Scandit Barcode Scanner SDK that is available under a commercial license from www.scandit.com.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "scandit",
+    "barcode",
+    "scan",
+    "scanning",
+    "code",
+    "react",
+    "native",
+    "react-native",
+    "sdk"
+  ],
   "dependencies": {},
   "peerDependencies": {
     "react": "16.0.0-alpha.12",
