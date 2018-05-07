@@ -1,16 +1,16 @@
 {
     "name": "SDK React Native",
     "owner": ["moritz@scandit.com"],
-    "distribution": "BINARY",
+    "distribution": "SOURCE",
     "packages": [
-        { "type": "npm", "path": "package.json", "distribution": "SOURCE" },
-        { "type": "npm", "path": "samples/SimpleSample/package.json", "distribution": "SOURCE", "clone": true },
-        { "type": "npm", "path": "samples/ExtendedSample/package.json", "distribution": "SOURCE", "clone": true },
-        { "type": "npm", "path": "samples/MatrixScanSample/package.json", "distribution": "SOURCE", "clone": true },
-        { "type": "gradle", "path": "android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar" },
-        { "type": "gradle", "path": "samples/SimpleSample/android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" },
-        { "type": "gradle", "path": "samples/ExtendedSample/android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" },
-        { "type": "gradle", "path": "samples/MatrixScanSample/android/gradlew", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" }
+        { "type": "npm", "path": "package.json", "distribution": "NONE" },
+        { "type": "npm", "path": "samples/SimpleSample/package.json", "distribution": "NONE", "clone": true },
+        { "type": "npm", "path": "samples/ExtendedSample/package.json", "distribution": "NONE", "clone": true },
+        { "type": "npm", "path": "samples/MatrixScanSample/package.json", "distribution": "NONE", "clone": true },
+        { "type": "gradle", "path": "android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar" },
+        { "type": "gradle", "path": "samples/SimpleSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" },
+        { "type": "gradle", "path": "samples/ExtendedSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" },
+        { "type": "gradle", "path": "samples/MatrixScanSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install && npm install react-native" }
     ],
     "overrides": [
         { "package": { "type": "npm", "name": "esutils", "version": "2.0.2" }, "license": { "id": "BSD-2-Clause" }, "reason": "License in LICENSE.BSD file" },
