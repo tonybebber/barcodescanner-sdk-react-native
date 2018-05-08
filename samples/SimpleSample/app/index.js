@@ -13,7 +13,7 @@ import {
   Barcode,
   SymbologySettings,
   ScanSettings
-} from 'react-native-scandit';
+} from 'scandit-react-native';
 
 ScanditModule.setAppKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
 

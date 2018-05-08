@@ -6,7 +6,7 @@ import {
 
 import {
   ScanditModule
-} from 'react-native-scandit';
+} from 'scandit-react-native';
 
 import ScanTab from './tabs/ScanTab';
 import SettingsTab from './tabs/SettingsTab';

@@ -20,7 +20,7 @@ import {
   SymbologySettings,
   ScanSettings,
   ScanOverlay
-} from 'react-native-scandit';
+} from 'scandit-react-native';
 
 import {
   TabNavigator
