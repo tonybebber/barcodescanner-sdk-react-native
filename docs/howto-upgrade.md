@@ -14,5 +14,5 @@ Whenever you update to the newest version you simply need to remove the already 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 > cd <directory of your project>
 > rm -rf node_modules/scandit-react-native/
-> npm install
+> yarn install
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

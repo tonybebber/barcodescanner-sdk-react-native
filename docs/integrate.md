@@ -14,13 +14,13 @@ Make sure to follow the 'Building Projects with Native Code' guide!
 Make sure `react-native-cli` is installed
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
-    npm install -g react-native-cli
+> yarn global add react-native-cli
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you do not have a React Native project yet, you should create a new one.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
-    react-native init helloworld
+> react-native init helloworld
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Add the plugin to your project
@@ -28,9 +28,9 @@ If you do not have a React Native project yet, you should create a new one.
 Use the React Native CLI to add the plugin to your already existing project.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
-    cd <directory of your project>
-    npm install scandit-react-native@https://github.com/Scandit/barcodescanner-sdk-react-native.git --save
-    react-native link scandit-react-native
+> cd <directory of your project>
+> yarn add scandit-react-native
+> react-native link scandit-react-native
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ### Add Android dependencies

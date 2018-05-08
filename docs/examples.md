@@ -8,7 +8,7 @@ For barcode scanner usage examples, you can either use the sample app included i
 Make sure `react-native-cli` is installed
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
-> npm install -g react-native-cli
+> yarn global add react-native-cli
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ## Install the plugin
@@ -17,8 +17,10 @@ Use the React Native CLI to download the plugin module for the sample.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~{.java}
 > cd <directory of the sample>
-> npm install
+> yarn install
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Note: Running `yarn install` for one of the samples will delete dependencies of the other samples. Therefore, every time you want to run a different sample you have to rerun `yarn install` on it.
 
 ### Add Android dependencies
 
