@@ -26,7 +26,7 @@ import {
   ScanSettings,
   Rect,
   ScanOverlay
-} from 'react-native-scandit';
+} from 'scandit-react-native';
 
 import Events from 'react-native-simple-events';
 import CustomClickableElement from '../components/CustomClickableElement';

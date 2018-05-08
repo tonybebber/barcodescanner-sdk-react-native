@@ -10,7 +10,7 @@
     "dependencies": {
         "react": "16.2.0",
         "react-native": "0.54.1",
-        "react-native-scandit": "file:../../"
+        "scandit-react-native": "file:../../"
     },
     "devDependencies": {
         "babel-preset-react-native": "4.0.0",

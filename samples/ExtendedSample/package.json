@@ -11,7 +11,7 @@
 		"react": "16.2.0",
 		"react-native": "0.54.1",
 		"react-native-iphone-x-helper": "^1.0.2",
-		"react-native-scandit": "file:../../",
+		"scandit-react-native": "file:../../",
 		"react-native-simple-events": "1.0.1",
 		"react-navigation": "1.5.8",
 		"react-navigation-is-focused-hoc": "^1.1.1"
