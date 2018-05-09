@@ -291,7 +291,7 @@
 		A2972D5B1FEA82D60042FBA7 /* ScanditBarcodeScanner.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScanditBarcodeScanner.framework; path = ScanditSDK/ScanditBarcodeScanner.framework; sourceTree = "<group>"; };
 		A2972D5D1FEA82DC0042FBA7 /* ScanditBarcodeScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ScanditBarcodeScanner.bundle; path = ScanditSDK/ScanditBarcodeScanner.framework/Resources/ScanditBarcodeScanner.bundle; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		B9444BFCCDDE4C7FA10B3F45 /* RCTScanditBarcodeScanner.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTScanditBarcodeScanner.xcodeproj; path = "../node_modules/react-native-scandit/ios/RCTScanditBarcodeScanner.xcodeproj"; sourceTree = "<group>"; };
+		B9444BFCCDDE4C7FA10B3F45 /* RCTScanditBarcodeScanner.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTScanditBarcodeScanner.xcodeproj; path = "../node_modules/scandit-react-native/ios/RCTScanditBarcodeScanner.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1074,7 +1074,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
+					"$(SRCROOT)/../node_modules/scandit-react-native/ios/ScanditBarcodeScanner/**",
 				);
 				INFOPLIST_FILE = ExtendedSampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1099,7 +1099,7 @@
 				COPY_PHASE_STRIP = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
+					"$(SRCROOT)/../node_modules/scandit-react-native/ios/ScanditBarcodeScanner/**",
 				);
 				INFOPLIST_FILE = ExtendedSampleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1126,7 +1126,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/ScanditSDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
+					"$(SRCROOT)/../node_modules/scandit-react-native/ios/ScanditBarcodeScanner/**",
 				);
 				INFOPLIST_FILE = ExtendedSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1148,7 +1148,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/ScanditSDK";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
+					"$(SRCROOT)/../node_modules/scandit-react-native/ios/ScanditBarcodeScanner/**",
 				);
 				INFOPLIST_FILE = ExtendedSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1176,7 +1176,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
+					"$(SRCROOT)/../node_modules/scandit-react-native/ios/ScanditBarcodeScanner/**",
 				);
 				INFOPLIST_FILE = "ExtendedSample-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1210,7 +1210,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(SRCROOT)/../node_modules/react-native-scandit/ios/ScanditBarcodeScanner/**",
+					"$(SRCROOT)/../node_modules/scandit-react-native/ios/ScanditBarcodeScanner/**",
 				);
 				INFOPLIST_FILE = "ExtendedSample-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
