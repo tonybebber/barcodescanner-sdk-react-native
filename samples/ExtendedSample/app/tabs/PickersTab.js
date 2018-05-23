@@ -98,18 +98,18 @@ export default class PickersTab extends Component {
       this.scanner.applySettings(this.scanSpecs.scanSettings);
       this.scanner.setGuiStyle(this.scanSpecs.overlaySettings.guiStyle);
       this.scanner.setViewfinderDimension(
-        this.scanSpecs.overlaySettings.viewfinderSize.width,
-        this.scanSpecs.overlaySettings.viewfinderSize.height,
-        this.scanSpecs.overlaySettings.viewfinderSize.landscapeWidth,
-        this.scanSpecs.overlaySettings.viewfinderSize.landscapeHeight);
+      this.scanSpecs.overlaySettings.viewfinderSize.width,
+      this.scanSpecs.overlaySettings.viewfinderSize.height,
+      this.scanSpecs.overlaySettings.viewfinderSize.landscapeWidth,
+      this.scanSpecs.overlaySettings.viewfinderSize.landscapeHeight);
       this.scanner.setBeepEnabled(this.scanSpecs.overlaySettings.beep);
       this.scanner.setVibrateEnabled(this.scanSpecs.overlaySettings.vibrate);
       this.scanner.setTorchEnabled(this.scanSpecs.overlaySettings.torchVisible);
       this.scanner.setTorchButtonMarginsAndSize(this.scanSpecs.overlaySettings.torchOffset.left,
-        this.scanSpecs.overlaySettings.torchOffset.top, 40, 40);
+      this.scanSpecs.overlaySettings.torchOffset.top, 40, 40);
       this.scanner.setCameraSwitchVisibility(this.scanSpecs.overlaySettings.cameraSwitchVisibility);
       this.scanner.setCameraSwitchMarginsAndSize(this.scanSpecs.overlaySettings.cameraSwitchOffset.right,
-        this.scanSpecs.overlaySettings.cameraSwitchOffset.top, 40, 40);
+      this.scanSpecs.overlaySettings.cameraSwitchOffset.top, 40, 40);
     }
   }
 
