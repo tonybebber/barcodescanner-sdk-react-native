@@ -8,9 +8,9 @@
         { "type": "npm", "path": "samples/ExtendedSample/package.json", "distribution": "NONE", "clone": true },
         { "type": "npm", "path": "samples/MatrixScanSample/package.json", "distribution": "NONE", "clone": true },
         { "type": "gradle", "path": "android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar" },
-        { "type": "gradle", "path": "samples/SimpleSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" },
-        { "type": "gradle", "path": "samples/ExtendedSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" },
-        { "type": "gradle", "path": "samples/MatrixScanSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" }
+        { "type": "gradle", "path": "samples/SimpleSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install -g yarn && yarn install && yarn add react-native" },
+        { "type": "gradle", "path": "samples/ExtendedSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install -g yarn && yarn install && yarn add react-native" },
+        { "type": "gradle", "path": "samples/MatrixScanSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && npm install -g yarn && yarn install && yarn add react-native" }
     ],
     "overrides": [
         { "package": { "type": "npm", "name": "esutils", "version": "2.0.2" }, "license": { "id": "BSD-2-Clause" }, "reason": "License in LICENSE.BSD file" },
@@ -21,6 +21,7 @@
         { "package": { "type": "npm", "name": "metro" }, "license": { "id": "BSD-3-Clause" }, "reason": "LICENSE file" },
         { "package": { "type": "npm", "name": "metro-core" }, "license": { "id": "BSD-3-Clause" }, "reason": "LICENSE file" },
         { "package": { "type": "npm", "name": "metro-source-map" }, "license": { "id": "BSD-3-Clause" }, "reason": "LICENSE file" },
+        { "package": { "type": "npm", "name": "scandit-react-native" }, "license": { "id": "Scandit"}, "reason": "Our package" },
         { "package": { "type": "gradle", "name": ":ScanditBarcodeScanner" }, "license": { "id": "Scandit"}, "reason": "You have to download & add our package" },
         { "package": { "type": "gradle", "name": "com.android.support:*", "version": "23.0.1" }, "license": { "id": "Apache-2.0" }, "reason": "Apache in this case refers to Apache-2.0" }
     ]
