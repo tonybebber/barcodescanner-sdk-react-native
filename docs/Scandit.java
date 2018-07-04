@@ -361,7 +361,7 @@ public class Scandit {
     /**
     * Set the matrix scanning highlighting color
     *
-    * @param state the state for which you want to change the color, see {@link Scandit.ScanOverlay.MatrixScanState ScanOverlay.MatrixScanState}
+    * @param state the state for which you want to change the color, see {\link ScanOverlay.MatrixScanState Scandit.ScanOverlay.MatrixScanState}
     * @param color the color you want to set, this parameter can be a hex string or a color literal such as 'red' or 'yellow'
     *
     */
@@ -395,11 +395,77 @@ public class Scandit {
     public void setVibrateEnabled(boolean enabled);
     ///@}
 
+    /** @name Torch Configuration
+     *  Enable and customize appearance of the torch icon.
+     */
+    ///@{
+
+    /**
+     * Enables or disables the torch toggle button for all devices/cameras that support a torch.
+     *
+     * By default it is enabled. The torch icon is never shown when the camera does not have a
+     * torch (most tablets, front cameras, etc).
+     *
+     * \since 5.7.0
+     *
+     * \param enabled Whether the torch button should be shown.
+     */
+    public void setTorchEnabled(boolean enabled);
+
+    /**
+     * \brief Sets the position at which the button to enable the torch is drawn.
+     *
+     * By default the margins are 15 and width and height are 40.
+     *
+     * \since 5.7.0
+     *
+     * \param leftMargin Left margin in points.
+     * \param topMargin Top margin in points.
+     * \param width Width in points.
+     * \param height Height in points.
+     */
+    public void setTorchButtonMarginsAndSize(int leftMargin, int topMargin, int width, int height);
+    ///@}
+
+    /** @name Camera Switch Configuration
+     *  Enable camera switch and set icons
+     */
+    ///@{
+
+    /**
+     * Sets when the camera switch button is visible for devices that have more than one camera.
+     *
+     * By default it is {\link ScanOverlay.CameraSwitchVisibility.NEVER Scandit.ScanOverlay.CameraSwitchVisibility.NEVER}.
+     *
+     * \since 5.7.0
+     *
+     * \param visibility The visibility of the camera switch button
+     *                   ({\link ScanOverlay.CameraSwitchVisibility.NEVER Scandit.ScanOverlay.CameraSwitchVisibility.NEVER},
+     *                   {\link ScanOverlay.CameraSwitchVisibility.ON_TABLET Scandit.ScanOverlay.CameraSwitchVisibility.ON_TABLET},
+     *                   {\link ScanOverlay.CameraSwitchVisibility.ALWAYS Scandit.ScanOverlay.CameraSwitchVisibility.ALWAYS})
+     */
+    public void setCameraSwitchVisibility(CameraSwitchVisibility visibility);
+
+    /**
+     * \brief Sets the position at which the button to switch the camera is drawn.
+     *
+     * By default the margins are 15 and width and height are 40.
+     *
+     * \since 5.7.0
+     *
+     * \param rightMargin Right margin in dp.
+     * \param topMargin Top margin in dp.
+     * \param width Width in dp.
+     * \param height Height in dp.
+     */
+    public void setCameraSwitchButtonMarginsAndSize(int rightMargin, int topMargin, int width, int height);
+    ///@{
+
+
     /** @name Viewfinder Configuration
     *  Customize the viewfinder where the barcode location is highlighted.
     */
     ///@{
-
     /**
     * Sets the size of the viewfinder relative to the size of the BarcodePicker's size.
     *
@@ -413,8 +479,7 @@ public class Scandit {
     * @param landscapeWidth Width of the viewfinder rectangle in landscape orientation.
     * @param landscapeHeight Height of the viewfinder rectangle in landscape orientation.
     */
-    public void setViewfinderDimension(
-    number width, number height, number landscapeWidth, number landscapeHeight);
+    public void setViewfinderDimension(number width, number height, number landscapeWidth, number landscapeHeight);
 
     /**
     * Sets the color of the viewfinder before a bar code has been recognized
@@ -530,6 +595,9 @@ public class Scandit {
       ALWAYS
     }
 
+    /**
+     * @brief Matrix scan code states.
+     */
     public enum MatrixScanState {
 
       /**
