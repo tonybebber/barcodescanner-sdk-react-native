@@ -34,6 +34,7 @@ export default class ScanScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isPickerVisible: true,
       buttonDisabled: true,
       text: 'Scan a code'
     }
@@ -183,11 +184,16 @@ export default class ScanScreen extends Component {
       <View
         style={{ flex: 1 }}>
         <StatusBar style={{ backgroundColor: 'white' }}/>
-        <BarcodePicker
-          style={{ flex: 1 }}
-          onScan={ (session) => { this.onScan(session) }}
-          scanSettings= { new ScanSettings() }
-          ref={(scan) => { this.scanner = scan }}/>
+        <View
+          style={{ flex: 1 }}>
+          {this.state.isPickerVisible && (
+            <BarcodePicker
+              style={{ flex: 1 }}
+              onScan={ (session) => { this.onScan(session) }}
+              scanSettings= { new ScanSettings() }
+              ref={(scan) => { this.scanner = scan }}/>
+          )}
+        </View>
         <Text
           style={{
             flex: 1,
@@ -220,7 +226,10 @@ export default class ScanScreen extends Component {
   }
 
   stopScanning() {
-    this.setState({ buttonDisabled: false });
+    this.setState({
+      isPickerVisible: false,
+      buttonDisabled: false
+    });
     if (this.scanner) {
       this.scanner.stopScanning();
       this.scanner = null
@@ -228,8 +237,10 @@ export default class ScanScreen extends Component {
   }
 
   startScanning() {
-    this.forceUpdate()
-    this.setState({ buttonDisabled: true });
+    this.setState({
+      isPickerVisible: true,
+      buttonDisabled: true
+    });
     if (this.scanner) {
       this.scanner.startScanning()
     }
