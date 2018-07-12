@@ -32,7 +32,7 @@
     }
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Scandit/barcodescanner-sdk-react-native"
+    "type": "git",
+    "url": "https://github.com/Scandit/barcodescanner-sdk-react-native"
   }
 }

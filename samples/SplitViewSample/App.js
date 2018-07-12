@@ -8,10 +8,10 @@
 
 import React, {Component} from 'react';
 import {
-  Platform, 
-  StyleSheet, 
-  Text, 
-  View, 
+  Platform,
+  StyleSheet,
+  Text,
+  View,
   PermissionsAndroid,
   Button,
   AppState,
@@ -46,7 +46,7 @@ export default class App extends Component<Props> {
       tapVisible: false
     };
   }
-  
+
   async requestCameraPermission() {
     try {
       const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
@@ -58,7 +58,7 @@ export default class App extends Component<Props> {
       }
     } catch (err) {}
   }
-  
+
   componentWillMount() {
     this.settings = new ScanSettings();
     this.settings.setSymbologyEnabled(Barcode.Symbology.EAN13, true);
@@ -68,7 +68,7 @@ export default class App extends Component<Props> {
     this.settings.setSymbologyEnabled(Barcode.Symbology.CODE128, true);
     this.settings.codeDuplicateFilter = 1000;
   }
-  
+
   componentWillUnmount() {
     AppState.removeEventListener('change', this.handleAppStateChange);
   }
@@ -83,7 +83,7 @@ export default class App extends Component<Props> {
     this.scanner.setGuiStyle(ScanOverlay.GuiStyle.LASER);
     AppState.addEventListener('change', this.handleAppStateChange);
   }
-  
+
   onScan(session) {
     this.state.codes.push({
       key: session.newlyRecognizedCodes[0].data
@@ -91,11 +91,11 @@ export default class App extends Component<Props> {
     this.setState(this.state);
     this.setTimer();
   }
-  
+
   onClearPress() {
     this.setState({codes: new Array()});
   }
-  
+
   tapPress() {
     this.scanner.startScanning();
     this.setTimer();
@@ -103,7 +103,7 @@ export default class App extends Component<Props> {
       tapVisible: false
     });
   }
-  
+
   setTimer() {
     if (this.timerId) {
       clearTimeout(this.timerId);
@@ -115,7 +115,7 @@ export default class App extends Component<Props> {
       });
     }, 5000);
   }
-  
+
   handleAppStateChange = (nextAppState) => {
     if (nextAppState === 'background' || nextAppState === 'inactive') {
       if (this.timerId) {
@@ -123,7 +123,7 @@ export default class App extends Component<Props> {
       }
     }
   }
-  
+
   render() {
     return (
       <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
@@ -135,7 +135,7 @@ export default class App extends Component<Props> {
             style={{ width: '100%', height: '100%' }}/>
           {this.state.tapVisible && (
             <View style={styles.overlay}>
-              <TouchableWithoutFeedback 
+              <TouchableWithoutFeedback
                 style={{ width: '100%', height: '100%' }}
                 onPress={() => {this.tapPress()}}>
                 <View style={{ width: '100%', height: '100%'}}>
@@ -153,7 +153,7 @@ export default class App extends Component<Props> {
             renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}/>
         </View>
         <View style={{ flex: 10, justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center' }}>
-          <Button 
+          <Button
             onPress={() => this.onClearPress()}
             title="CLEAR"/>
         </View>
