@@ -23,6 +23,7 @@ import {
   ScanditModule,
   ScanSession,
   Barcode,
+  Rect,
   SymbologySettings,
   ScanSettings,
   ScanOverlay
@@ -66,6 +67,8 @@ export default class App extends Component<Props> {
     this.settings.setSymbologyEnabled(Barcode.Symbology.UPCA, true);
     this.settings.setSymbologyEnabled(Barcode.Symbology.UPCE, true);
     this.settings.setSymbologyEnabled(Barcode.Symbology.CODE128, true);
+    this.settings.activeScanningAreaPortrait = new Rect(0, 0.48, 1, 0.04);
+    this.settings.activeScanningAreaLandscape = new Rect(0, 0.48, 1, 0.04);
     this.settings.codeDuplicateFilter = 1000;
   }
 
@@ -86,7 +89,7 @@ export default class App extends Component<Props> {
 
   onScan(session) {
     this.state.codes.push({
-      key: session.newlyRecognizedCodes[0].data
+      code: session.newlyRecognizedCodes[0].data
     });
     this.setState(this.state);
     this.setTimer();
@@ -150,7 +153,8 @@ export default class App extends Component<Props> {
         <View style={{ flex: 70 }}>
           <FlatList style={{ flex: 1 }}
             data={ this.state.codes }
-            renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}/>
+            renderItem={({item}) => <Text style={styles.item}>{item.code}</Text>}
+            keyExtractor={(item, index) => index.toString()}/>
         </View>
         <View style={{ flex: 10, justifyContent: 'space-around', flexDirection: 'row', alignItems: 'center' }}>
           <Button
