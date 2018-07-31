@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  AppState,
   StyleSheet,
   Text,
   findNodeHandle,
@@ -44,6 +45,19 @@ export default class SimpleSample extends Component {
 
   componentDidMount() {
     this.scanner.startScanning();
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+  
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+  
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState.match(/inactive|background/)) {
+      this.scanner.stopScanning();
+    } else {
+      this.scanner.startScanning();
+    }
   }
 
   render() {
