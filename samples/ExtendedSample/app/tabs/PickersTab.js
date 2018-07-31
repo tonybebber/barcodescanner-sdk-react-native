@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import {
   AppRegistry,
+  AppState,
   StyleSheet,
   Text,
   View,
@@ -179,6 +180,7 @@ export default class PickersTab extends Component {
   componentDidMount() {
     this.props.navigation.addListener('didFocus', this._onFocus);
     this.props.navigation.addListener('didBlur', this._onBlur);
+    AppState.addEventListener('change', this._handleAppStateChange);
   }
 
   componentWillMount() {
@@ -191,6 +193,7 @@ export default class PickersTab extends Component {
   componentWillUnmount() {
     this.props.navigation.removeListener('didFocus', this._onBlur);
     this.props.navigation.removeListener('didBlur', this._onFocus);
+    AppState.removeEventListener('change', this._handleAppStateChange);
     Events.rm('fetchForPickersTab', 'pickersTab');
     Events.rm('scanTabOpened', 'pickersTab');
     Events.rm('settingsTabOpened', 'pickersTab');
@@ -205,6 +208,15 @@ export default class PickersTab extends Component {
     this.stopScanning();
     this.setState({isFocused: false});
   };
+  
+  _handleAppStateChange = (nextAppState) => {
+    if (nextAppState.match(/inactive|background/)) {
+      this.stopScanning();
+    } else {
+      this.fetchSettings();
+      this.startScanning();
+    }
+  }
 
   render() {
     return (
@@ -328,22 +340,9 @@ export default class PickersTab extends Component {
     }
   }
 
-  resumeScanning() {
-    if (this.scanner) {
-      this.scanner.resumeScanning();
-    }
-  }
-
-  pauseScanning() {
-    if (this.scanner) {
-      this.scanner.pauseScanning();
-    }
-  }
-
   stopScanning() {
     if (this.scanner) {
       this.scanner.stopScanning();
-      this.scanner = null
     }
     this.hidePicker()
   }
