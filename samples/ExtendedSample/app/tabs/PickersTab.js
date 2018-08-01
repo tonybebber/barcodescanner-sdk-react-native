@@ -32,6 +32,7 @@ import {
 import Events from 'react-native-simple-events';
 import CustomClickableElement from '../components/CustomClickableElement';
 import StatusBar from '../components/StatusBar';
+import SplitView from '../components/SplitView';
 
 export default class PickersTab extends Component {
 
@@ -53,7 +54,8 @@ export default class PickersTab extends Component {
   state = {
     isScaledPickerVisible: false,
     isCroppedPickerVisible: false,
-    isFullscreenPickerVisible: false
+    isFullscreenPickerVisible: false,
+    isSplitViewVisible: false
   }
 
   showScaledPicker = () => {
@@ -73,12 +75,19 @@ export default class PickersTab extends Component {
       isFullscreenPickerVisible: true
     });
   }
+  
+  showSplitView = () => {
+    this.setState({
+      isSplitViewVisible: true
+    });
+  }
 
   hidePicker = () => {
     this.setState({
       isScaledPickerVisible: false,
       isCroppedPickerVisible: false,
-      isFullscreenPickerVisible: false
+      isFullscreenPickerVisible: false,
+      isSplitViewVisible: false
     });
   }
 
@@ -246,6 +255,10 @@ export default class PickersTab extends Component {
                 onPress={() => {this.showFullscreenPicker()}}
                 mainLabel="Fullscreen Picker"
               />
+              <CustomClickableElement
+                onPress={() => {this.showSplitView()}}
+                mainLabel="Split View"
+              />
             </ScrollView>
               {this.state.isScaledPickerVisible && (
                 <View style={{width: '100%',
@@ -322,6 +335,27 @@ export default class PickersTab extends Component {
                             this.applySettings()
                             this.scanner.startScanning()
                           }
+                        }}/>
+                    </TouchableWithoutFeedback>
+                  </View>
+                </View>
+              )}
+              {this.state.isSplitViewVisible && (
+                <View style={{width: '100%',
+                height: '100%',
+                position: 'absolute',
+                alignItems: 'stretch',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                  <View style={{width: '100%',
+                  height: '100%',
+                  alignItems: 'stretch',
+                  justifyContent: 'center' }}>
+                    <TouchableWithoutFeedback onPress={() => {this.hidePicker()}} >
+                      <SplitView
+                        style={{ width: '100%', height: '100%' }}
+                        ref={(scan) => {
+                          this.scanner = scan
                         }}/>
                     </TouchableWithoutFeedback>
                   </View>
