@@ -29,35 +29,13 @@ import {
   ScanOverlay
 } from 'scandit-react-native';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
-
-ScanditModule.setAppKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
-
-type Props = {};
-export default class App extends Component<Props> {
+export default class SplitView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       codes: new Array(),
       tapVisible: false
     };
-  }
-
-  async requestCameraPermission() {
-    try {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA)
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        this.scanner.startScanning();
-        this.setTimer();
-      } else {
-        this.requestCameraPermission();
-      }
-    } catch (err) {}
   }
 
   componentWillMount() {
@@ -72,19 +50,14 @@ export default class App extends Component<Props> {
     this.settings.codeDuplicateFilter = 1000;
   }
 
-  componentWillUnmount() {
-    AppState.removeEventListener('change', this.handleAppStateChange);
-  }
-
   componentDidMount() {
-    if (Platform.OS === 'android') {
-      this.requestCameraPermission();
-    } else {
-      this.scanner.startScanning();
-      this.setTimer();
-    }
+    this.mounted = true;
     this.scanner.setGuiStyle(ScanOverlay.GuiStyle.LASER);
-    AppState.addEventListener('change', this.handleAppStateChange);
+    this.startScanning();
+  }
+  
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   onScan(session) {
@@ -100,8 +73,7 @@ export default class App extends Component<Props> {
   }
 
   tapPress() {
-    this.scanner.startScanning();
-    this.setTimer();
+    this.startScanning();
     this.setState({
       tapVisible: false
     });
@@ -112,24 +84,31 @@ export default class App extends Component<Props> {
       clearTimeout(this.timerId);
     }
     this.timerId = setTimeout(() => {
-      this.scanner.stopScanning();
-      this.setState({
-        tapVisible: true
-      });
+      this.stopScanning();
+      if (this.mounted) {
+        this.setState({
+          tapVisible: true
+        });
+      }
     }, 5000);
   }
-
-  handleAppStateChange = (nextAppState) => {
-    if (nextAppState === 'background' || nextAppState === 'inactive') {
-      if (this.timerId) {
-        clearTimeout(this.timerId);
-      }
+  
+  stopScanning() {
+    if (this.scanner) {
+      this.scanner.stopScanning();
+    }
+  }
+  
+  startScanning() {
+    if (this.scanner) {
+      this.setTimer();
+      this.scanner.startScanning();
     }
   }
 
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
+      <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center', backgroundColor: 'white' }}>
         <View style={{ flex: 20 }}>
           <BarcodePicker
             onScan={(session) => { this.onScan(session) }}

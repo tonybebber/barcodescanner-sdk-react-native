@@ -10,8 +10,7 @@
         { "type": "gradle", "path": "android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar" },
         { "type": "gradle", "path": "samples/SimpleSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" },
         { "type": "gradle", "path": "samples/ExtendedSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" },
-        { "type": "gradle", "path": "samples/MatrixScanSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" },
-        { "type": "gradle", "path": "samples/SplitViewSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" }
+        { "type": "gradle", "path": "samples/MatrixScanSample/android/gradlew", "distribution": "NONE", "pre": "mkdir -p libs && touch libs/ScanditBarcodeScanner.aar && cd .. && yarn install && yarn add react-native" }
     ],
     "overrides": [
         { "package": { "type": "npm", "name": "esutils", "version": "2.0.2" }, "license": { "id": "BSD-2-Clause" }, "reason": "License in LICENSE.BSD file" },
