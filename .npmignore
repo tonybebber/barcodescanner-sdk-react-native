@@ -1,5 +1,8 @@
 # NPM specific
+.gitattributes
 scandit_ip.json
+docs/
+generate-docs.sh
 
 # OSX
 #
