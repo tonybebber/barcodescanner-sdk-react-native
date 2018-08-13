@@ -2,8 +2,8 @@
   "name": "scandit-react-native",
   "version": "5.9.0SNAPSHOT",
   "nativePackage": true,
-  "description": "Scandit Barcode Scanner SDK for react native",
-  "author": "Scandit <info@scandit.com>",
+  "description": "Scandit Barcode Scanner SDK for React Native",
+  "author": "Scandit <support@scandit.com>",
   "homepage": "https://scandit.com",
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
