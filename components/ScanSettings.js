@@ -16,22 +16,21 @@ export class ScanSettings {
       symbologySettings = new SymbologySettings();
       this.symbologies[symbology] = symbologySettings;
     }
-  	symbologySettings.enabled = enabled;
+    symbologySettings.enabled = enabled;
   }
-
 }
 
 ScanSettings.RecognitionMode = {
-	TEXT: "text",
-	CODE: "code"
+  TEXT: "text",
+  CODE: "code"
 }
 
 ScanSettings.CameraFacing = {
-	BACK: "back",
-	FRONT: "front"
+  BACK: "back",
+  FRONT: "front"
 }
 
 ScanSettings.WorkingRange = {
-	STANDARD: "standard",
-	LONG: "long"
+  STANDARD: "standard",
+  LONG: "long"
 }
