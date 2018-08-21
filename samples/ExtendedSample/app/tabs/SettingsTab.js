@@ -1,33 +1,24 @@
 import React, { Component } from 'react';
 
 import {
-  AppRegistry,
-  StyleSheet,
   Text,
   View,
-  Button,
   ActivityIndicator,
   AsyncStorage,
   ScrollView,
-  Switch,
-  Slider,
   Picker,
   Image
 } from 'react-native';
 
 import {
   Barcode,
+  Rect,
   SymbologySettings,
-  ScanSettings,
-  ScanOverlay
-} from 'scandit-react-native';
+  ScanOverlay} from 'scandit-react-native';
 
-import {
-  TabNavigator
-} from 'react-navigation';
 
 import Events from 'react-native-simple-events';
-import LabeledSwitch from '../components/LabeledSwitch'
+import LabeledSwitch, {LabeledSwitchWithFunctionValue} from '../components/LabeledSwitch'
 import LabeledSlider from '../components/LabeledSlider'
 import StatusBar from '../components/StatusBar'
 
