@@ -261,6 +261,35 @@ export default class SettingsTab extends Component {
                 this.setState(this.state);
               }}
             />
+            <LabeledSwitchWithFunctionValue
+            label='DPM Data Matrix'
+            disabled={!this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled}
+            value={() => {
+              const scanArea = new Rect(0, 0, 0.33, 0.33);
+              const isRestrictedAreaPortrait = this.state.scanSettings.activeScanningAreaPortrait.x === scanArea.x && this.state.scanSettings.activeScanningAreaPortrait.y === scanArea.y && this.state.scanSettings.activeScanningAreaPortrait.width === scanArea.width && this.state.scanSettings.activeScanningAreaPortrait.height === scanArea.height;
+              const isRestrictedAreaLandscape = this.state.scanSettings.activeScanningAreaLandscape.x === scanArea.x && this.state.scanSettings.activeScanningAreaLandscape.y === scanArea.y && this.state.scanSettings.activeScanningAreaLandscape.width === scanArea.width && this.state.scanSettings.activeScanningAreaLandscape.height === scanArea.height;
+              const isRestrictedScanningAreaEnabled = this.state.scanSettings.restrictedAreaScanningEnabled;
+              const containsDPMExtension = this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].extensions.indexOf(SymbologySettings.Extension.DIRECT_PART_MARKING_MODE) > -1;
+              const isDataMatrixSymbologyEnabled = this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled;
+              const value = isRestrictedAreaPortrait && isRestrictedAreaLandscape && isRestrictedScanningAreaEnabled && containsDPMExtension && isDataMatrixSymbologyEnabled;
+              return value;
+            }}
+            listener={(value) => {
+              const scanArea = value ? new Rect(0, 0, 0.33, 0.33) : new Rect(0, 0, 1, 1);
+              if (value) {
+                this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].extensions.push(SymbologySettings.Extension.DIRECT_PART_MARKING_MODE);
+              } else {
+                const index = this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].extensions.indexOf(SymbologySettings.Extension.DIRECT_PART_MARKING_MODE);
+                if (index > -1) {
+                  this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].extensions.splice(index, 1);
+                }
+              }
+              this.state.scanSettings.activeScanningAreaPortrait = scanArea;
+              this.state.scanSettings.activeScanningAreaLandscape = scanArea;
+              this.state.scanSettings.restrictedAreaScanningEnabled = value;
+              this.setState(this.state);
+            }}
+            />
             <LabeledSwitch
               label='PDF417'
               value={this.state.scanSettings.symbologies[Barcode.Symbology.PDF417].enabled}
