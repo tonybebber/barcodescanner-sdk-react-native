@@ -23,5 +23,6 @@ SymbologySettings.Extension = {
     RELAXED_SHARP_QUIET_ZONE_CHECK: "relaxed_sharp_quiet_zone_check",
     RETURN_AS_UPCA: "return_as_upca",
     REMOVE_LEADING_UPCA_ZERO: "remove_leading_upca_zero",
-    STRIP_LEADING_FNC1: "strip_leading_fnc1"
+    STRIP_LEADING_FNC1: "strip_leading_fnc1",
+    DIRECT_PART_MARKING_MODE: "direct_part_marking_mode"
 }
