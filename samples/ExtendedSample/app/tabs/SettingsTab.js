@@ -256,6 +256,9 @@ export default class SettingsTab extends Component {
             label='DPM Data Matrix'
             disabled={!this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].enabled}
             value={() => {
+              if (!this.state.scanSettings.activeScanningAreaPortrait || !this.state.scanSettings.activeScanningAreaLandscape) {
+                return false;
+              }
               const scanArea = new Rect(0, 0, 0.33, 0.33);
               const isRestrictedAreaPortrait = this.state.scanSettings.activeScanningAreaPortrait.x === scanArea.x && this.state.scanSettings.activeScanningAreaPortrait.y === scanArea.y && this.state.scanSettings.activeScanningAreaPortrait.width === scanArea.width && this.state.scanSettings.activeScanningAreaPortrait.height === scanArea.height;
               const isRestrictedAreaLandscape = this.state.scanSettings.activeScanningAreaLandscape.x === scanArea.x && this.state.scanSettings.activeScanningAreaLandscape.y === scanArea.y && this.state.scanSettings.activeScanningAreaLandscape.width === scanArea.width && this.state.scanSettings.activeScanningAreaLandscape.height === scanArea.height;
@@ -268,6 +271,8 @@ export default class SettingsTab extends Component {
             listener={(value) => {
               const scanArea = value ? new Rect(0, 0, 0.33, 0.33) : new Rect(0, 0, 1, 1);
               if (value) {
+                // Enabling the direct_part_marking_mode extension comes at the cost of increased frame processing times. 
+                // It is recommended to restrict the scanning area to a smaller part of the image for best performance.
                 this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].extensions.push(SymbologySettings.Extension.DIRECT_PART_MARKING_MODE);
               } else {
                 const index = this.state.scanSettings.symbologies[Barcode.Symbology.DATA_MATRIX].extensions.indexOf(SymbologySettings.Extension.DIRECT_PART_MARKING_MODE);
