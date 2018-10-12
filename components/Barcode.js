@@ -40,5 +40,6 @@ Barcode.Symbology = {
   RM4SCC: "rm4scc",
   DOTCODE: "dotcode",
   MICROQR: "microQR",
-  CODE32: "code32"
+  CODE32: "code32",
+  LAPA4SC: "lapa4sc"
 }
