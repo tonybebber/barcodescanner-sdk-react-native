@@ -358,6 +358,14 @@ export default class SettingsTab extends Component {
                 this.setState(this.state);
               }}
             />
+            <LabeledSwitch
+              label='Posti LAPA (Lajittelupalvelu) 4 State Code'
+              value={this.state.scanSettings.symbologies[Barcode.Symbology.LAPA4SC].enabled}
+              listener={(value) => {
+                this.state.scanSettings.symbologies[Barcode.Symbology.LAPA4SC].enabled = value;
+                this.setState(this.state);
+              }}
+            />
             <Text style={{fontWeight: 'bold',
               margin: 10}}>
               Scanning Area
