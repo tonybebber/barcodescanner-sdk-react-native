@@ -228,9 +228,14 @@ public class Scandit {
       RM4SCC,
 
       /**
-       * @brief Code 32 barcode symbology. Only available in Professional and Enterprise Packages.
-       */
-      CODE32
+      * @brief Code 32 barcode symbology. Only available in Professional and Enterprise Packages.
+      */
+      CODE32,
+
+      /**
+      * @brief LAPA 4 State Code. Only available in Professional and Enterprise Packages.
+      */
+      LAPA4SC
     }
 
     /**
