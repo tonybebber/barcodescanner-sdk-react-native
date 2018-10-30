@@ -47,8 +47,12 @@ export default class SimpleSample extends Component {
        a look at http://docs.scandit.com/stable/c_api/symbologies.html. */
   }
 
+  isAndroidMarshmallowOrNewer() {
+    return Platform.OS === 'android' && Platform.Version >= 23;
+  }
+
   async hasCameraPermission() {
-    if (Platform.OS === 'android') {
+    if (this.isAndroidMarshmallowOrNewer()) {
       const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
       return granted;
     } else {
@@ -57,7 +61,7 @@ export default class SimpleSample extends Component {
   }
 
   async requestCameraPermission() {
-    if (Platform.OS === 'android') {
+    if (this.isAndroidMarshmallowOrNewer()) {
       try {
         const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
