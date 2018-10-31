@@ -24,7 +24,6 @@ ScanditModule.setAppKey('-- ENTER YOUR SCANDIT LICENSE KEY HERE --');
 export default class SimpleSample extends Component {
 
   componentWillMount() {
-    console.log("WTF componentWillMount");
     this.settings = new ScanSettings();
     this.settings.setSymbologyEnabled(Barcode.Symbology.EAN13, true);
     this.settings.setSymbologyEnabled(Barcode.Symbology.EAN8, true);
