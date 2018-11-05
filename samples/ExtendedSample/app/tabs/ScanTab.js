@@ -9,7 +9,10 @@ import {
   View,
   Button,
   AsyncStorage,
-  Image
+  Image,
+  Platform,
+  PermissionsAndroid,
+  BackHandler
 } from 'react-native';
 
 import {
@@ -77,11 +80,15 @@ export default class ScanScreen extends Component {
       this.scanner.setBeepEnabled(this.scanSpecs.overlaySettings.beep);
       this.scanner.setVibrateEnabled(this.scanSpecs.overlaySettings.vibrate);
       this.scanner.setTorchEnabled(this.scanSpecs.overlaySettings.torchVisible);
-      this.scanner.setTorchButtonMarginsAndSize(this.scanSpecs.overlaySettings.torchOffset.left,
+      this.scanner.setTorchButtonMarginsAndSize(
+        this.scanSpecs.overlaySettings.torchOffset.left,
         this.scanSpecs.overlaySettings.torchOffset.top, 40, 40);
       this.scanner.setCameraSwitchVisibility(this.scanSpecs.overlaySettings.cameraSwitchVisibility);
-      this.scanner.setCameraSwitchMarginsAndSize(this.scanSpecs.overlaySettings.cameraSwitchOffset.right,
-        this.scanSpecs.overlaySettings.cameraSwitchOffset.top, 40, 40);
+      this.scanner.setCameraSwitchMarginsAndSize(
+        this.scanSpecs.overlaySettings.cameraSwitchOffset.right,
+        this.scanSpecs.overlaySettings.cameraSwitchOffset.top,
+        40,
+        40);
     }
   }
 
@@ -149,11 +156,57 @@ export default class ScanScreen extends Component {
     }
   }
 
-  componentDidMount() {
+  isAndroidMarshmallowOrNewer() {
+    return Platform.OS === 'android' && Platform.Version >= 23;
+  }
+
+  async hasCameraPermission() {
+    if (this.isAndroidMarshmallowOrNewer()) {
+      const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.CAMERA);
+      return granted;
+    } else {
+      return true;
+    }
+  }
+
+  async requestCameraPermission() {
+    if (this.isAndroidMarshmallowOrNewer()) {
+      try {
+        const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          console.log("Android Camera Permission has been granted.");
+          this.cameraPermissionGranted();
+        } else {
+          console.log("Android Camera Permission has been denied - the app will shut itself down.");
+          this.cameraPermissionDenied();
+        }
+      } catch (err) {
+        console.warn(err);
+      }
+    } else {
+      this.cameraPermissionGranted();
+    }
+  }
+
+  // This method should only be called if the Platform.OS is android.
+  cameraPermissionDenied() {
+    BackHandler.exitApp();
+  }
+
+  cameraPermissionGranted() {
     this.props.navigation.addListener('didFocus', this._onFocus);
     this.props.navigation.addListener('didBlur', this._onBlur);
     AppState.addEventListener('change', this._handleAppStateChange);
     this.scanner.startScanning();
+  }
+
+  async componentDidMount() {
+    const hasPermission = await this.hasCameraPermission();
+    if (hasPermission) {
+      this.cameraPermissionGranted();
+    } else {
+      await this.requestCameraPermission();
+    }
   }
 
   componentWillMount() {
@@ -165,8 +218,8 @@ export default class ScanScreen extends Component {
   }
 
   componentWillUnmount() {
-    this.props.navigation.removeListener('didFocus', this._onBlur);
-    this.props.navigation.removeListener('didBlur', this._onFocus);
+    this.props.navigation.removeListener('didFocus', this._onFocus);
+    this.props.navigation.removeListener('didBlur', this._onBlur);
     AppState.removeEventListener('change', this._handleAppStateChange);
     Events.rm('fetch', 'scanTab');
     Events.rm('pickersTabOpened', 'scanTab');
@@ -217,8 +270,7 @@ export default class ScanScreen extends Component {
           { this.state.text }
         </Text>
         <View
-          style={{
-            margin: 10 }}>
+          style={{ margin: 10 }}>
           <Button
             onPress={ () => { this.resumeScanning() }}
             title='Continue scanning'
@@ -263,5 +315,4 @@ export default class ScanScreen extends Component {
       this.state.text += '\n(' + barcode.symbology + ') ' + barcode.data);
     this.setState(this.state);
   }
-
 }
