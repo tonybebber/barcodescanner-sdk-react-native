@@ -18,6 +18,7 @@ Overview         			{#react-native-guides}
 
 #### Basic scanning settings
 
+* \subpage react-native-restrict-scanning-area
 * \subpage react-native-active-symbols-counts
 
 #### Version/edition upgrades
