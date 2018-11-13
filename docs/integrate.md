@@ -1,4 +1,4 @@
-Integrate the Scandit Barcode Scanner plugin into your app     {#react-native-integrate}
+Integrate the Scandit SDK into your app     {#react-native-integrate}
 ===================================
 
 To integrate the Scandit Barcode Scanner into your React Native app, follow the simple steps below.
