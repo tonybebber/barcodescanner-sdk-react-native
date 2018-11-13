@@ -1,7 +1,10 @@
-Example code     {#react-native-examples}
+Run the samples    {#react-native-examples}
 ===================================
 
-For barcode scanner usage examples, you can either use the sample app included in the plugin archive, or paste one of the samples below into your index.js file.
+The Scandit Barcode Scanner SDK (downloadable from https://github.com/Scandit/barcodescanner-sdk-react-native/) comes with three demos:
+* SimpleSample: shows how to use the barcode scanner in a simple react-native project.
+* ExtendedSample: allows the user to configure the barcode scanner as well as the UI from the application itself.
+* MatrixScanSample: shows how to use MatrixScan.
 
 ## Build the sample apps
 
