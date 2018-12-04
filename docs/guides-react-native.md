@@ -11,15 +11,16 @@ Overview         			{#react-native-guides}
 
 ## Getting Started
 
-* \subpage react-native-integrate
 * \subpage react-native-examples
+* \subpage react-native-integrate
 
-## Guides
+## How-to guides
 
-### Configuration and presentation
+#### Basic scanning settings
 
+* \subpage react-native-restrict-scanning-area
 * \subpage react-native-active-symbols-counts
 
-### Version/edition upgrades
+#### Version/edition upgrades
 
 * \subpage react-native-howto-upgrade

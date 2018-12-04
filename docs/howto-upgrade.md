@@ -1,5 +1,5 @@
 
-How to upgrade the Scandit Barcode Scanner SDK {#react-native-howto-upgrade}
+Upgrade the Scandit Barcode Scanner SDK {#react-native-howto-upgrade}
 ===================================
 
 
