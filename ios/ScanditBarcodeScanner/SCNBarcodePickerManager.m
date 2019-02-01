@@ -34,7 +34,7 @@ RCT_EXPORT_VIEW_PROPERTY(shouldPassBarcodeFrame, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(onScan, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onRecognizeNewCodes, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onBarcodeFrameAvailable, RCTBubblingEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onTextRecognized, RCTBubblingEventBlock)
+// RCT_EXPORT_VIEW_PROPERTY(onTextRecognized, RCTBubblingEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onSettingsApplied, RCTBubblingEventBlock)
 
 RCT_EXPORT_METHOD(startScanning:(nonnull NSNumber *)reactTag) {
